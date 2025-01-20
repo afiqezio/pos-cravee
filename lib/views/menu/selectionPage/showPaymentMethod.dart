@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:possystem/utils/appTexts.dart';
 
 void showPaymentMethod(BuildContext context, WidgetRef ref) {
   showModalBottomSheet(
@@ -39,14 +40,11 @@ void showPaymentMethod(BuildContext context, WidgetRef ref) {
                           Navigator.pop(context);
                         },
                       ),
-                      const Expanded(
+                      Expanded(
                         child: Text(
                           "Payment Method",
                           // textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: AppTexts.medium(size: 18),
                         ),
                       ),
                       const SizedBox(width: 48), // To balance the row visually
@@ -69,10 +67,10 @@ void showPaymentMethod(BuildContext context, WidgetRef ref) {
                           context.go(
                               '/menu/productpicker/process/membership/confirmationCart/processQr');
                         },
-                        child: const Text(
+                        child: Text(
                           "DuitNow QR",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.w700),
+                          style:
+                              AppTexts.regular(size: 16, color: Colors.white),
                         ),
                       ),
                       const SizedBox(height: 12),
@@ -89,10 +87,10 @@ void showPaymentMethod(BuildContext context, WidgetRef ref) {
                           context.go(
                               '/menu/productpicker/process/membership/confirmationCart/processCard');
                         },
-                        child: const Text(
+                        child: Text(
                           "Credit Card",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.w700),
+                          style:
+                              AppTexts.regular(size: 16, color: Colors.white),
                         ),
                       ),
                       const SizedBox(height: 12),
@@ -111,10 +109,10 @@ void showPaymentMethod(BuildContext context, WidgetRef ref) {
                           context.go(
                               '/menu/productpicker/process/membership/confirmationCart/processCash');
                         },
-                        child: const Text(
+                        child: Text(
                           "Cash",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.w700),
+                          style:
+                              AppTexts.regular(size: 16, color: Colors.white),
                         ),
                       ),
                     ],

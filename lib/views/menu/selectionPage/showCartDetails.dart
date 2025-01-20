@@ -175,10 +175,7 @@ void showCartDetails(
                               // AddOn List
                               Text(
                                 'Add on',
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: AppTexts.medium(size: 18),
                               ),
                               const SizedBox(height: 8),
                               SizedBox(
@@ -232,8 +229,8 @@ void showCartDetails(
                                                 // AddOn Name
                                                 Text(
                                                   addOnItem.name,
-                                                  style: const TextStyle(
-                                                      fontSize: 18),
+                                                  style: AppTexts.regular(
+                                                      size: 18),
                                                 ),
                                               ],
                                             );
@@ -250,18 +247,15 @@ void showCartDetails(
                               // Notes Section
                               Text(
                                 'Notes',
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: AppTexts.medium(size: 18),
                               ),
                               const SizedBox(height: 8),
                               TextField(
                                 controller: _controller,
                                 decoration: InputDecoration(
                                   labelText: 'Write a message',
-                                  labelStyle:
-                                      TextStyle(color: AppColors.greyText),
+                                  labelStyle: AppTexts.regular(
+                                      size: 18, color: AppColors.greyText),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: AppColors.secondary,

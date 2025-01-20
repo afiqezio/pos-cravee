@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:possystem/providers/cartProvider.dart';
 import 'package:possystem/models/addOn.dart';
 import 'package:possystem/utils/appColors.dart';
+import 'package:possystem/utils/appTexts.dart';
 import 'package:possystem/utils/widget/customCircle.dart';
 import '../../../models/product.dart';
 
@@ -77,10 +78,7 @@ void showProductDetails(BuildContext context, WidgetRef ref, Product product) {
                                   Expanded(
                                     child: Text(
                                       product.name,
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                      style: AppTexts.medium(size: 18),
                                       textAlign: TextAlign.left,
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 3,
@@ -89,11 +87,8 @@ void showProductDetails(BuildContext context, WidgetRef ref, Product product) {
                                   const SizedBox(width: 8),
                                   Text(
                                     'RM ${product.price.toStringAsFixed(2)}',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.secondary,
-                                    ),
+                                    style: AppTexts.medium(
+                                        size: 18, color: AppColors.secondary),
                                     textAlign: TextAlign.right,
                                   ),
                                 ],
@@ -134,7 +129,7 @@ void showProductDetails(BuildContext context, WidgetRef ref, Product product) {
                                       ),
                                       Text(
                                         '$quantity',
-                                        style: const TextStyle(fontSize: 16),
+                                        style: AppTexts.regular(size: 18),
                                       ),
                                       Container(
                                         width: 40,
@@ -176,10 +171,7 @@ void showProductDetails(BuildContext context, WidgetRef ref, Product product) {
                               // AddOn List
                               Text(
                                 'Add on',
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: AppTexts.medium(size: 18),
                               ),
                               const SizedBox(height: 8),
                               SizedBox(
@@ -229,8 +221,8 @@ void showProductDetails(BuildContext context, WidgetRef ref, Product product) {
                                                 ),
                                                 Text(
                                                   addOnItem.name,
-                                                  style: const TextStyle(
-                                                      fontSize: 18),
+                                                  style: AppTexts.regular(
+                                                      size: 18),
                                                 ),
                                               ],
                                             );
@@ -247,17 +239,14 @@ void showProductDetails(BuildContext context, WidgetRef ref, Product product) {
                               // Notes Section
                               Text(
                                 'Notes',
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: AppTexts.medium(size: 18),
                               ),
                               const SizedBox(height: 8),
                               TextField(
                                 decoration: InputDecoration(
                                   labelText: 'Write a message',
-                                  labelStyle:
-                                      TextStyle(color: AppColors.greyText),
+                                  labelStyle: AppTexts.regular(
+                                      size: 18, color: AppColors.greyText),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: AppColors.secondary,
@@ -295,12 +284,9 @@ void showProductDetails(BuildContext context, WidgetRef ref, Product product) {
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: const Text(
+                      child: Text(
                         'Add to Cart',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
+                        style: AppTexts.regular(size: 18, color: Colors.white),
                       ),
                     ),
                   ],

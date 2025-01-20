@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:possystem/providers/cartProvider.dart';
 import 'package:possystem/utils/appColors.dart';
+import 'package:possystem/utils/appTexts.dart';
 
 class ReceiptSection extends ConsumerWidget {
   final String orderDate =
@@ -19,6 +20,7 @@ class ReceiptSection extends ConsumerWidget {
             padding: const EdgeInsets.all(12.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 2,
               children: [
                 // Logo Section
                 Center(
@@ -31,57 +33,55 @@ class ReceiptSection extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Order Number',
-                        style:
-                            TextStyle(fontSize: 13, color: AppColors.greyText)),
+                        style: AppTexts.regular(
+                            size: 12, color: AppColors.greyText)),
                     Text('#0009010',
-                        style:
-                            TextStyle(fontSize: 13, color: AppColors.greyText)),
+                        style: AppTexts.regular(
+                            size: 12, color: AppColors.greyText)),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Date',
-                        style:
-                            TextStyle(fontSize: 13, color: AppColors.greyText)),
+                        style: AppTexts.regular(
+                            size: 12, color: AppColors.greyText)),
                     Text(orderDate,
-                        style:
-                            TextStyle(fontSize: 13, color: AppColors.greyText)),
+                        style: AppTexts.regular(
+                            size: 12, color: AppColors.greyText)),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Address',
-                        style:
-                            TextStyle(fontSize: 13, color: AppColors.greyText)),
+                        style: AppTexts.regular(
+                            size: 12, color: AppColors.greyText)),
                     Text('41, Jalan Putih, Puchong',
-                        style:
-                            TextStyle(fontSize: 13, color: AppColors.greyText)),
+                        style: AppTexts.regular(
+                            size: 12, color: AppColors.greyText)),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Email',
-                        style:
-                            TextStyle(fontSize: 13, color: AppColors.greyText)),
+                        style: AppTexts.regular(
+                            size: 12, color: AppColors.greyText)),
                     Text('fahmi.mikail@gmail.com',
-                        style:
-                            TextStyle(fontSize: 13, color: AppColors.greyText)),
+                        style: AppTexts.regular(
+                            size: 12, color: AppColors.greyText)),
                   ],
                 ),
                 const SizedBox(height: 10),
                 const Divider(
                   thickness: 0.7,
-                  color: Colors.black,
+                  color: AppColors.greyDarkText,
                 ),
 
                 // Invoice Section
                 Center(
-                  child: Text('Invoice',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  child: Text('Invoice', style: AppTexts.semiBold(size: 16)),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -92,8 +92,8 @@ class ReceiptSection extends ConsumerWidget {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             'Item',
-                            style: TextStyle(
-                                fontSize: 14, color: AppColors.greyText),
+                            style: AppTexts.regular(
+                                size: 14, color: AppColors.greyText),
                           ),
                         )),
                     Expanded(
@@ -101,8 +101,8 @@ class ReceiptSection extends ConsumerWidget {
                         child: Center(
                           child: Text(
                             'Qty',
-                            style: TextStyle(
-                                fontSize: 14, color: AppColors.greyText),
+                            style: AppTexts.regular(
+                                size: 14, color: AppColors.greyText),
                           ),
                         )),
                     Expanded(
@@ -111,8 +111,8 @@ class ReceiptSection extends ConsumerWidget {
                           alignment: Alignment.centerRight,
                           child: Text(
                             'Price',
-                            style: TextStyle(
-                                fontSize: 14, color: AppColors.greyText),
+                            style: AppTexts.regular(
+                                size: 14, color: AppColors.greyText),
                           ),
                         )),
                   ],
@@ -143,7 +143,8 @@ class ReceiptSection extends ConsumerWidget {
                                             .map((addOn) => addOn.name)
                                             .join(', ')
                                         : 'No Add-Ons',
-                                    style: TextStyle(color: Colors.grey),
+                                    style: AppTexts.regular(
+                                        size: 14, color: Colors.grey),
                                   ),
                                 ],
                               ),
@@ -160,7 +161,8 @@ class ReceiptSection extends ConsumerWidget {
                                 alignment: Alignment.centerRight,
                                 child: Text(
                                   'RM ${(product.price * cartItem.quantity).toStringAsFixed(2)}',
-                                  style: TextStyle(color: AppColors.secondary),
+                                  style: AppTexts.regular(
+                                      size: 14, color: AppColors.secondary),
                                 ),
                               ),
                             ),
@@ -196,40 +198,33 @@ class ReceiptSection extends ConsumerWidget {
                               children: [
                                 Text(
                                   'Total Sales',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14),
+                                  style: AppTexts.medium(
+                                      size: 14, color: Colors.black),
                                 ),
                                 Text(
                                   'Voucher',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14),
+                                  style: AppTexts.medium(
+                                      size: 14, color: Colors.black),
                                 ),
                                 Text(
                                   'Redeem Points',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14),
+                                  style: AppTexts.medium(
+                                      size: 14, color: Colors.black),
                                 ),
                                 Text(
                                   'Tax',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14),
+                                  style: AppTexts.medium(
+                                      size: 14, color: Colors.black),
                                 ),
                                 Text(
                                   'Subtotal',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14),
+                                  style: AppTexts.medium(
+                                      size: 14, color: Colors.black),
                                 ),
                                 Text(
                                   'Grand Total',
-                                  style: TextStyle(
-                                      color: AppColors.secondary,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14),
+                                  style: AppTexts.medium(
+                                      size: 14, color: AppColors.secondary),
                                 ),
                               ],
                             ),
@@ -244,23 +239,24 @@ class ReceiptSection extends ConsumerWidget {
                               children: [
                                 Text(
                                     'RM${ref.watch(cartSalesProvider).totalSales.toStringAsFixed(2)}',
-                                    style: TextStyle(fontSize: 14)),
+                                    style: AppTexts.regular(size: 14)),
                                 Text(
                                     '-RM${ref.watch(cartSalesProvider).voucher.toStringAsFixed(2)}',
-                                    style: TextStyle(fontSize: 14)),
-                                Text('-RM0.00', style: TextStyle(fontSize: 14)),
+                                    style: AppTexts.regular(size: 14)),
+                                Text('-RM0.00',
+                                    style: AppTexts.regular(size: 14)),
                                 Text(
                                     'RM${ref.watch(cartSalesProvider).tax.toStringAsFixed(2)}',
-                                    style: TextStyle(fontSize: 14)),
+                                    style: AppTexts.regular(size: 14)),
                                 Text(
                                     'RM${ref.watch(cartSalesProvider).subtotal.toStringAsFixed(2)}',
-                                    style: TextStyle(fontSize: 14)),
+                                    style: AppTexts.regular(size: 14)),
                                 Text(
                                   'RM${ref.watch(cartSalesProvider).subtotal.toStringAsFixed(2)}',
-                                  style: TextStyle(
+                                  style: AppTexts.medium(
+                                      size: 14,
                                       color: AppColors.secondary,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14),
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
@@ -274,7 +270,7 @@ class ReceiptSection extends ConsumerWidget {
                 const SizedBox(height: 10),
                 const Divider(
                   thickness: 0.7,
-                  color: Colors.black,
+                  color: AppColors.greyDarkText,
                 ),
                 Column(
                   spacing: 6,
@@ -284,11 +280,11 @@ class ReceiptSection extends ConsumerWidget {
                       children: [
                         Text(
                           'Collected Points',
-                          style: TextStyle(color: Colors.black),
+                          style: AppTexts.regular(size: 14),
                         ),
                         Text(
                           '15 pts',
-                          style: TextStyle(color: Colors.black),
+                          style: AppTexts.regular(size: 14),
                         ),
                       ],
                     ),
@@ -297,15 +293,13 @@ class ReceiptSection extends ConsumerWidget {
                       children: [
                         Text(
                           'Total Points',
-                          style: TextStyle(
-                              color: AppColors.secondary,
-                              fontWeight: FontWeight.bold),
+                          style: AppTexts.medium(
+                              color: AppColors.secondary, size: 14),
                         ),
                         Text(
                           '1014 pts',
-                          style: TextStyle(
-                              color: AppColors.secondary,
-                              fontWeight: FontWeight.bold),
+                          style: AppTexts.medium(
+                              color: AppColors.secondary, size: 14),
                         ),
                       ],
                     )

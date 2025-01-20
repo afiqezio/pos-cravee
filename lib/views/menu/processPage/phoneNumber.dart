@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:possystem/providers/paymentProvider.dart';
 import 'package:possystem/utils/appColors.dart';
+import 'package:possystem/utils/appTexts.dart';
 
 class PhoneNumberSection extends ConsumerStatefulWidget {
   @override
@@ -40,9 +41,9 @@ class _PhoneNumberSectionState extends ConsumerState<PhoneNumberSection> {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50),
-            child: const Text(
+            child: Text(
               "Phone Number",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: AppTexts.regular(size: 16),
             ),
           ),
           const SizedBox(height: 16),
@@ -54,11 +55,10 @@ class _PhoneNumberSectionState extends ConsumerState<PhoneNumberSection> {
               children: List.generate(12, (index) {
                 if (index == 3) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    padding: const EdgeInsets.fromLTRB(4, 10, 4, 0),
                     child: Text(
                       "-",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: AppTexts.regular(size: 20),
                     ),
                   );
                 }
@@ -75,7 +75,7 @@ class _PhoneNumberSectionState extends ConsumerState<PhoneNumberSection> {
                       maxLength: 1,
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.number,
-                      style: const TextStyle(fontSize: 16),
+                      style: AppTexts.regular(size: 16),
                       decoration: InputDecoration(
                         counterText: "",
                         border: const OutlineInputBorder(),
@@ -102,12 +102,12 @@ class _PhoneNumberSectionState extends ConsumerState<PhoneNumberSection> {
           ),
           const SizedBox(height: 16),
           if (_showError)
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 50),
               child: Center(
                 child: Text(
                   "Oops! That phone number doesn’t seem right. Please double-check and try again.",
-                  style: TextStyle(color: Colors.red, fontSize: 14),
+                  style: AppTexts.regular(size: 16, color: Colors.red),
                 ),
               ),
             ),
@@ -154,11 +154,8 @@ class _PhoneNumberSectionState extends ConsumerState<PhoneNumberSection> {
                         child: Center(
                           child: Text(
                             "Continue",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                            ),
+                            style:
+                                AppTexts.regular(size: 16, color: Colors.white),
                           ),
                         ),
                       ),

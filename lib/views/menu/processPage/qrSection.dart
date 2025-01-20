@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:possystem/utils/appColors.dart';
+import 'package:possystem/utils/appTexts.dart';
 
 class QrSection extends ConsumerStatefulWidget {
   @override
@@ -29,22 +30,14 @@ class _QrSectionState extends ConsumerState<QrSection> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       "Change",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
+                      style: AppTexts.medium(size: 16, color: Colors.white),
                     ),
                     Text(
                       // 'RM${ref.watch(paymentChangeProvider).toStringAsFixed(2)}',
                       'RM0.00',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
+                      style: AppTexts.regular(size: 16, color: Colors.white),
                     ),
                   ],
                 ),
@@ -61,13 +54,9 @@ class _QrSectionState extends ConsumerState<QrSection> {
                   height: 240,
                 ),
                 const SizedBox(height: 8),
-                const Text(
+                Text(
                   'Pretzly Sdn. Bhd',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                  ),
+                  style: AppTexts.regular(size: 16),
                 ),
               ],
             ),

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:possystem/providers/cartProvider.dart';
 import 'package:possystem/providers/paymentProvider.dart';
 import 'package:possystem/utils/appColors.dart';
+import 'package:possystem/utils/appTexts.dart';
 import 'package:possystem/utils/widget/customCircle.dart';
 import 'package:possystem/utils/widget/customMainContainer.dart';
 import 'package:possystem/views/menu/receiptPage/receiptSection.dart';
@@ -45,18 +46,15 @@ class ReceiptPageMain extends ConsumerWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                               'Payment Successful',
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w700),
+                              style: AppTexts.medium(size: 16),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                               'RM${ref.watch(cartSalesProvider).subtotal.toStringAsFixed(2)}',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColors.secondary),
+                              style: AppTexts.medium(
+                                  size: 16, color: AppColors.secondary),
                             ),
                           ),
                         ],
@@ -76,13 +74,10 @@ class ReceiptPageMain extends ConsumerWidget {
                           elevation: 0,
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
-                            child: const Text(
+                            child: Text(
                               "Print Full Receipt",
-                              style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
-                              ),
+                              style: AppTexts.medium(
+                                  size: 17, color: Colors.white),
                             ),
                           ),
                         ),
@@ -97,7 +92,8 @@ class ReceiptPageMain extends ConsumerWidget {
                               child: TextField(
                                 decoration: InputDecoration(
                                   hintText: 'Please input Your Email Address',
-                                  hintStyle: TextStyle(color: Colors.grey),
+                                  hintStyle: AppTexts.regular(
+                                      size: 17, color: Colors.grey),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(0),
                                     borderSide: BorderSide.none,
@@ -119,7 +115,8 @@ class ReceiptPageMain extends ConsumerWidget {
                                     horizontal: 16,
                                   ),
                                 ),
-                                style: TextStyle(color: AppColors.background),
+                                style: AppTexts.regular(
+                                    size: 17, color: AppColors.background),
                               ),
                             ),
                             Container(
@@ -166,13 +163,10 @@ class ReceiptPageMain extends ConsumerWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: Center(
-                                child: const Text(
+                                child: Text(
                                   "New Order",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white,
-                                  ),
+                                  style: AppTexts.medium(
+                                      size: 16, color: Colors.white),
                                 ),
                               ),
                             ),

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:possystem/providers/cartProvider.dart';
 import 'package:possystem/providers/paymentProvider.dart';
 import 'package:possystem/utils/appColors.dart';
+import 'package:possystem/utils/appTexts.dart';
 import 'package:possystem/utils/widget/customBackButton.dart';
 import 'package:possystem/utils/widget/customCircle.dart';
 import 'package:possystem/utils/widget/customMainContainer.dart';
@@ -49,10 +50,10 @@ class ProcessPageMain extends ConsumerWidget {
                                 context.go(
                                     '/menu/productpicker/process/membership/confirmationCart');
                               },
-                              child: const Text(
+                              child: Text(
                                 "Skip",
-                                style: TextStyle(
-                                    color: AppColors.secondary, fontSize: 16),
+                                style: AppTexts.regular(
+                                    size: 16, color: AppColors.secondary),
                               ),
                             )
                           : type == 'qr'
@@ -61,11 +62,10 @@ class ProcessPageMain extends ConsumerWidget {
                                     context.go(
                                         '/menu/productpicker/process/membership/confirmationCart/processQr/processSuccessful');
                                   },
-                                  child: const Text(
+                                  child: Text(
                                     "Continue",
-                                    style: TextStyle(
-                                        color: AppColors.secondary,
-                                        fontSize: 16),
+                                    style: AppTexts.regular(
+                                        size: 16, color: AppColors.secondary),
                                   ),
                                 )
                               : SizedBox.shrink(),
@@ -107,21 +107,15 @@ class ProcessPageMain extends ConsumerWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const Text(
+                                Text(
                                   "Grand Total : ",
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white,
-                                  ),
+                                  style: AppTexts.regular(
+                                      size: 16, color: Colors.white),
                                 ),
                                 Text(
                                   'RM${ref.watch(cartSalesProvider).subtotal.toStringAsFixed(2)}',
-                                  style: const TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
+                                  style: AppTexts.regular(
+                                      size: 16, color: Colors.white),
                                 ),
                               ],
                             ),
@@ -161,8 +155,8 @@ class ProcessPageMain extends ConsumerWidget {
       children: [
         Text(
           label,
-          style: TextStyle(
-            fontSize: 15,
+          style: AppTexts.regular(
+            size: 15,
             color: isCompleted ? AppColors.secondary : Colors.black,
           ),
         ),
@@ -173,9 +167,9 @@ class ProcessPageMain extends ConsumerWidget {
           borderColor: AppColors.secondary,
           borderThickness: 1.0,
           child: Text(number,
-              style: TextStyle(
+              style: AppTexts.regular(
+                size: 16,
                 color: isCompleted ? Colors.white : Colors.black,
-                fontSize: 16,
               )),
         ),
       ],

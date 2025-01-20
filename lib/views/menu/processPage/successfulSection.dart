@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:possystem/utils/appColors.dart';
+import 'package:possystem/utils/appTexts.dart';
 
 class SuccessfulSection extends ConsumerStatefulWidget {
   @override
@@ -34,13 +35,9 @@ class _SuccessfulSectionState extends ConsumerState<SuccessfulSection> {
             ),
             Padding(
               padding: const EdgeInsets.all(28.0),
-              child: const Text(
+              child: Text(
                 'Successful Payment',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
+                style: AppTexts.semiBold(size: 24),
               ),
             ),
           ],

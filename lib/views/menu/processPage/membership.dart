@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:possystem/providers/paymentProvider.dart';
+import 'package:possystem/utils/appTexts.dart';
 
 class MembershipSection extends ConsumerWidget {
   const MembershipSection({Key? key}) : super(key: key);
@@ -32,8 +33,7 @@ class MembershipSection extends ConsumerWidget {
                         const EdgeInsets.symmetric(horizontal: 24, vertical: 2),
                     child: Text(
                       "Barcode",
-                      style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold),
+                      style: AppTexts.regular(size: 16),
                     ),
                   ),
                   Padding(
@@ -71,8 +71,7 @@ class MembershipSection extends ConsumerWidget {
                         const EdgeInsets.symmetric(horizontal: 24, vertical: 2),
                     child: Text(
                       "Number Phone",
-                      style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold),
+                      style: AppTexts.regular(size: 16),
                     ),
                   ),
                   Padding(

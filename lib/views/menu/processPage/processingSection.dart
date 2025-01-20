@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:possystem/utils/appTexts.dart';
 import 'package:possystem/utils/widget/customLoading.dart';
 import 'dart:async';
 
@@ -29,13 +30,9 @@ class _ProcessingSectionState extends ConsumerState<ProcessingSection> {
             CustomLoading(),
             Padding(
               padding: const EdgeInsets.all(28.0),
-              child: const Text(
+              child: Text(
                 'Processing Payment',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
+                style: AppTexts.bold(size: 24),
               ),
             ),
           ],

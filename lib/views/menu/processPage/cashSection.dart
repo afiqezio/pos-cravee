@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:possystem/providers/paymentProvider.dart';
 import 'package:possystem/utils/appColors.dart';
+import 'package:possystem/utils/appTexts.dart';
 
 class CashSection extends ConsumerStatefulWidget {
   @override
@@ -38,21 +39,15 @@ class _CashSectionState extends ConsumerState<CashSection> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                          Text(
                             "Cash",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
+                            style:
+                                AppTexts.medium(size: 16, color: Colors.black),
                           ),
                           Text(
                             'RM${ref.watch(cashProvider).toStringAsFixed(2)}',
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black,
-                            ),
+                            style:
+                                AppTexts.regular(size: 16, color: Colors.black),
                           ),
                         ],
                       ),
@@ -74,21 +69,13 @@ class _CashSectionState extends ConsumerState<CashSection> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       "Change",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
+                      style: AppTexts.medium(size: 16, color: Colors.white),
                     ),
                     Text(
                       'RM${ref.watch(paymentChangeProvider).toStringAsFixed(2)}',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
+                      style: AppTexts.regular(size: 16, color: Colors.white),
                     ),
                   ],
                 ),
@@ -173,10 +160,8 @@ class _CashSectionState extends ConsumerState<CashSection> {
                   },
                   child: Text(
                     '.',
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: isDot ? Colors.white : Colors.black,
-                        fontWeight: FontWeight.w700),
+                    style: AppTexts.bold(
+                        size: 16, color: isDot ? Colors.white : Colors.black),
                   ),
                 ),
               ),
@@ -233,10 +218,7 @@ class _CashSectionState extends ConsumerState<CashSection> {
                     },
                     child: Text(
                       'Done',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500),
+                      style: AppTexts.regular(size: 16, color: Colors.white),
                     ),
                   ),
                 )),
@@ -346,8 +328,7 @@ class _CashSectionState extends ConsumerState<CashSection> {
         },
         child: Text(
           digit.toString(),
-          style: TextStyle(
-              fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
+          style: AppTexts.regular(size: 16, color: Colors.black),
         ),
       ),
     );
@@ -376,8 +357,7 @@ class _CashSectionState extends ConsumerState<CashSection> {
         },
         child: Text(
           '+${number.toString()}',
-          style: TextStyle(
-              fontSize: 16, color: Colors.white, fontWeight: FontWeight.w500),
+          style: AppTexts.regular(size: 16, color: Colors.white),
         ),
       ),
     );
