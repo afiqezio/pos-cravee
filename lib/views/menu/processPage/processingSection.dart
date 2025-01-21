@@ -32,7 +32,7 @@ class _ProcessingSectionState extends ConsumerState<ProcessingSection> {
               padding: const EdgeInsets.all(28.0),
               child: Text(
                 'Processing Payment',
-                style: AppTexts.bold(size: 24),
+                style: AppTexts.semiBold(size: 24),
               ),
             ),
           ],

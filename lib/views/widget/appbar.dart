@@ -31,27 +31,33 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           const SizedBox(width: 16),
           // Profile Section
-          Row(
-            children: [
-              CircleAvatar(
-                radius: 20,
-                backgroundImage: AssetImage('assets/images/person.png'),
-              ),
-              const SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          Container(
+            color: Color(0xFFECE9FE),
+            child: Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Row(
                 children: [
-                  Text(
-                    'Afiq Subri',
-                    style: AppTexts.medium(size: 16),
+                  CircleAvatar(
+                    radius: 20,
+                    backgroundImage: AssetImage('assets/images/person.png'),
                   ),
-                  Text(
-                    'Cashier',
-                    style: AppTexts.regular(size: 14),
+                  const SizedBox(width: 12),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Afiq Subri',
+                        style: AppTexts.medium(size: 16),
+                      ),
+                      Text(
+                        'Cashier',
+                        style: AppTexts.regular(size: 14),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
+            ),
           ),
           const SizedBox(width: 16),
         ],

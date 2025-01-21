@@ -17,8 +17,8 @@ class EntryPageMain extends ConsumerWidget {
     final allCategory = Category(
       id: "0",
       name: "All",
-      // imageUrl: "assets/images/menu/all_menu.png",
-      imageUrl: "assets/images/data/pretzel.png",
+      imageUrl: "assets/images/data/all_menu.png",
+      // imageUrl: "assets/images/data/pretzel.png",
       description: 'All Menu',
     );
 
@@ -30,41 +30,42 @@ class EntryPageMain extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 40),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 60.0),
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount:
-                      getCrossAxisCount(MediaQuery.of(context).size.width),
-                  childAspectRatio: 0.9,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                ),
-                itemCount: displayCategories.length,
-                itemBuilder: (context, index) {
-                  final category = displayCategories[index];
-                  return SizedBox(
-                    width: 220,
-                    child: GestureDetector(
-                      onTap: () {
-                        ref
-                            .read(categorySelectionProvider.notifier)
-                            .toggleCategory(category.id.toString());
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final gridChildAspectRatio =
+                    getChildAspectRation(constraints.maxWidth);
+                final crossAxisCount = getCrossAxisCount(constraints.maxWidth);
 
-                        ref.read(categoryTitleProvider.notifier).state =
-                            category.description;
-                        context.go('/menu/productpicker');
-                      },
-                      child: Card(
-                        elevation: 1,
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: SizedBox(
-                          height: 250,
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 60.0, vertical: 30.0),
+                  child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: crossAxisCount,
+                      childAspectRatio: gridChildAspectRatio,
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 16,
+                    ),
+                    itemCount: displayCategories.length,
+                    itemBuilder: (context, index) {
+                      final category = displayCategories[index];
+                      return GestureDetector(
+                        onTap: () {
+                          ref
+                              .read(categorySelectionProvider.notifier)
+                              .toggleCategory(category.id.toString());
+
+                          ref.read(categoryTitleProvider.notifier).state =
+                              category.description;
+                          context.go('/menu/productpicker');
+                        },
+                        child: Card(
+                          elevation: 1,
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -77,12 +78,14 @@ class EntryPageMain extends ConsumerWidget {
                                       category.name,
                                       style: AppTexts.semiBold(size: 16),
                                     ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      '${ref.watch(categoryProductCountProvider(category.id))} Item',
-                                      style: AppTexts.regular(
-                                          size: 16,
-                                          color: AppColors.greyDarkText),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 4.0),
+                                      child: Text(
+                                        '${ref.watch(categoryProductCountProvider(category.id))} Item',
+                                        style: AppTexts.regular(
+                                            size: 16,
+                                            color: AppColors.greyDarkText),
+                                      ),
                                     )
                                   ],
                                 ),
@@ -94,26 +97,36 @@ class EntryPageMain extends ConsumerWidget {
                                     color: AppColors.primary,
                                     borderRadius: BorderRadius.circular(8),
                                     image: DecorationImage(
-                                        image: AssetImage(category.imageUrl),
-                                        fit: BoxFit.cover,
-                                        alignment: Alignment.topCenter),
+                                      image: AssetImage(category.imageUrl),
+                                      alignment: Alignment.topCenter,
+                                      fit: BoxFit.fitWidth,
+                                    ),
                                   ),
-                                  clipBehavior: Clip
-                                      .antiAlias, // Ensures the image respects borderRadius
+                                  clipBehavior: Clip.antiAlias,
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      ),
-                    ),
-                  );
-                },
-              ),
+                      );
+                    },
+                  ),
+                );
+              },
             ),
           ),
         ],
       ),
     );
   }
+}
+
+class BottomHalfClipper extends CustomClipper<Rect> {
+  @override
+  Rect getClip(Size size) {
+    return Rect.fromLTWH(0, size.height / 2, size.width, size.height / 2);
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Rect> oldClipper) => false;
 }

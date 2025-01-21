@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:possystem/utils/appColors.dart';
 import 'package:possystem/utils/appTexts.dart';
+import 'package:possystem/utils/widget/customScaffold.dart';
 import 'package:possystem/views/setting/appearance/appearancePageMain.dart';
 import 'package:possystem/views/setting/notification/notificationPageMain.dart';
 import 'settingNav.dart';
@@ -26,45 +27,25 @@ class _SettingPageMainState extends State<SettingPageMain> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
+    return CustomScaffold(
+      title: 'Setting',
+      subtitle:
+          'Adjust business preferences, and integrate with third-party tools.',
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: 1,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Setting',
-                  style: AppTexts.medium(size: 20),
-                ),
-                Text(
-                  'Adjust business preferences, and integrate with third-party tools.',
-                  style:
-                      AppTexts.regular(size: 16, color: AppColors.greyDarkText),
-                ),
-              ],
+          // Navigation sidebar
+          SizedBox(
+            width: 250,
+            child: SettingNav(
+              currentIndex: _currentIndex,
+              onPageChange: _handlePageChange,
             ),
           ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: 1,
-            children: [
-              // Navigation sidebar
-              SizedBox(
-                width: 250,
-                child: SettingNav(
-                  currentIndex: _currentIndex,
-                  onPageChange: _handlePageChange,
-                ),
-              ),
-              // Content area
-              Expanded(
-                child: _pages[_currentIndex],
-              ),
-            ],
+          // Content area
+          Expanded(
+            child: _pages[_currentIndex],
           ),
         ],
       ),

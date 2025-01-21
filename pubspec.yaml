@@ -70,8 +70,6 @@ flutter:
     - assets/svg/pretzley_logo.svg
     - assets/svg/pretzley_text.svg
     - assets/svg/pretzley.svg
-    - assets/images/person.png
-    - assets/images/login/login-1.png
     - assets/svg/widget/back.svg
     - assets/svg/widget/forward.svg
     - assets/svg/menu/trending.svg
@@ -87,9 +85,13 @@ flutter:
     - assets/svg/sidebar/transactions.svg
     - assets/svg/sidebar/settings.svg
     - assets/svg/sidebar/logout.svg
+    - assets/images/person.png
+    - assets/images/login/login-1.png
     - assets/images/data/pretzel.png
     - assets/images/data/pretzel-ori.png
-    - assets/images/menu/all_menu.png
+    - assets/images/data/minidogs.png
+    - assets/images/data/combos.png
+    - assets/images/data/all_menu.png
     - assets/images/process/pretzley_qr.png
     - assets/images/membership/membershipBg.png
     - assets/images/membership/voucherBg.png

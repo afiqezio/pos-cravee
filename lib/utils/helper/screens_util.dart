@@ -17,10 +17,10 @@ double getChildAspectRation(double screenWidth) {
     return 1.4; // For smaller screens
     // } else if (screenWidth <= 570) {
     //   return 1.2; // For small screens
-    // } else if (screenWidth <= 720) {
-    //   return 3; // For medium screens
+  } else if (screenWidth <= 720) {
+    return 0.8; // For medium screens
   } else {
-    return 0.78; // For large screens
+    return 0.9; // For large screens
   }
 }
 

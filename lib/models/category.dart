@@ -25,12 +25,12 @@ final List<Category> categories = [
       id: '2',
       name: 'Mini Dogs',
       // quantity: 2,
-      imageUrl: 'assets/images/data/pretzel.png',
+      imageUrl: 'assets/images/data/minidogs.png',
       description: 'Mini Dog Bites'),
   Category(
       id: '3',
       name: 'Combos',
       // quantity: 2,
-      imageUrl: 'assets/images/data/pretzel.png',
+      imageUrl: 'assets/images/data/combos.png',
       description: 'Combos Pretzel Bites'),
 ];

@@ -77,7 +77,7 @@ class _CategorySectionState extends ConsumerState<CategorySection> {
                                 ? null
                                 : DecorationImage(
                                     image: AssetImage(category.imageUrl),
-                                    fit: BoxFit.fitWidth,
+                                    fit: BoxFit.fitHeight,
                                   ),
                           ),
                           child: category.imageUrl.endsWith('.svg')
