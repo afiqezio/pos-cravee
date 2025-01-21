@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:possystem/views/dashboard/dashboard.dart';
+import 'package:possystem/views/dashboard/dashboardPageMain.dart';
 import 'package:possystem/views/logout/logout.dart';
 import 'package:possystem/views/menu/entryPage/entryPageMain.dart';
 import 'package:possystem/views/menu/membershipPage/membershipPageMain.dart';
@@ -22,7 +22,7 @@ final GoRouter appRouter = GoRouter(
           path: '/dashboard',
           pageBuilder: (context, state) {
             return _buildPageTransition(
-              DashboardPage(),
+              DashboardPageMain(),
             );
           },
         ),
@@ -165,7 +165,7 @@ final GoRouter appRouter = GoRouter(
           path: '/transactions',
           pageBuilder: (context, state) {
             return _buildPageTransition(
-              DashboardPage(),
+              DashboardPageMain(),
             );
           },
         ),
@@ -173,7 +173,7 @@ final GoRouter appRouter = GoRouter(
           path: '/product',
           pageBuilder: (context, state) {
             return _buildPageTransition(
-              DashboardPage(),
+              DashboardPageMain(),
             );
           },
         ),
@@ -181,7 +181,7 @@ final GoRouter appRouter = GoRouter(
           path: '/report',
           pageBuilder: (context, state) {
             return _buildPageTransition(
-              DashboardPage(),
+              DashboardPageMain(),
             );
           },
         ),

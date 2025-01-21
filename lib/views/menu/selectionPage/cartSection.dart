@@ -16,24 +16,54 @@ class CartSection extends ConsumerStatefulWidget {
   const CartSection({super.key, required this.isConfirmation});
 
   @override
-  ConsumerState<CartSection> createState() => _ProductListSectionState();
+  ConsumerState<CartSection> createState() => _CartSectionState();
 }
 
-class _ProductListSectionState extends ConsumerState<CartSection> {
+class _CartSectionState extends ConsumerState<CartSection>
+    with SingleTickerProviderStateMixin {
   late bool _isConfirmation;
+  bool _isMenuPressed = false;
+  late AnimationController _controller;
+  late Animation<Offset> _slideAnimation;
+
   @override
   void initState() {
     super.initState();
     _isConfirmation = widget.isConfirmation;
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(1.0, 0.0), // Start off-screen to the right
+      end: Offset.zero, // End at the original position
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    ));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _toggleMenu() {
+    setState(() {
+      _isMenuPressed = !_isMenuPressed;
+      if (_isMenuPressed) {
+        _controller.forward(); // Slide in
+      } else {
+        _controller.reverse(); // Slide out
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final cart = ref.watch(cartProvider);
-    // final double totalSales = cart.entries.fold(0.0,
-    //     (total, entry) => total + (entry.key.price * entry.value.quantity));
-    // final double totalTax = totalSales * 0.07;
-    // final subtotal = totalSales * 1.07;
 
     return Expanded(
       flex: 2,
@@ -66,272 +96,32 @@ class _ProductListSectionState extends ConsumerState<CartSection> {
                           ),
                         ],
                       ),
-                      SvgPicture.asset(
-                        'assets/svg/menu/menu.svg',
-                        fit: BoxFit.fitWidth,
-                        color: Colors.black,
-                        width: 20,
+                      GestureDetector(
+                        onTap: _toggleMenu,
+                        child: Container(
+                          // color: Colors.red,
+                          padding: const EdgeInsets.fromLTRB(12, 12, 8, 8),
+                          child: SvgPicture.asset(
+                            'assets/svg/menu/menu.svg',
+                            fit: BoxFit.fitWidth,
+                            color: Colors.black,
+                            width: 20,
+                          ),
+                        ),
                       ),
                     ],
                   )),
               const Divider(thickness: 0.9, height: 0.5),
               Expanded(
-                child: cart.isNotEmpty
-                    ? ListView.builder(
-                        itemCount: cart.length,
-                        itemBuilder: (context, index) {
-                          final entry = cart.entries.toList()[index];
-                          final product = entry.key;
-                          final cartItem = entry.value;
-                          return ClipRect(
-                            child: Slidable(
-                              key: Key(product.id.toString()),
-                              endActionPane: ActionPane(
-                                motion: const ScrollMotion(),
-                                children: [
-                                  CustomSlidable(
-                                    onPressed: (context) {
-                                      showCartDetails(
-                                          context, ref, product, cartItem);
-                                    },
-                                    backgroundColor: Color(0xFFEAECF5),
-                                    foregroundColor: Colors.black,
-                                    icon: Icons.edit_outlined,
-                                  ),
-                                  CustomSlidable(
-                                    onPressed: (context) {
-                                      clearProduct(ref, product);
-                                    },
-                                    backgroundColor: AppColors.red,
-                                    foregroundColor: Colors.white,
-                                    icon: Icons.delete_outlined,
-                                  ),
-                                ],
-                              ),
-                              child: Column(
-                                children: [
-                                  const SizedBox(height: 10),
-                                  Padding(
-                                    padding: const EdgeInsets.all(12.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        // Product Image
-                                        Expanded(
-                                          flex: 2,
-                                          child: Center(
-                                            child: Container(
-                                              width: 60,
-                                              height: 60,
-                                              margin: const EdgeInsets.only(
-                                                  right: 12.0, top: 14.0),
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                                image: DecorationImage(
-                                                  image: AssetImage(
-                                                      product.imageUrl),
-                                                  fit: BoxFit.fitHeight,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        // Product Details
-                                        Expanded(
-                                          flex: 5,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                product.name,
-                                                style:
-                                                    AppTexts.regular(size: 16),
-                                              ),
-                                              const SizedBox(height: 10),
-                                              Text(
-                                                cartItem.addOns != null &&
-                                                        cartItem
-                                                            .addOns!.isNotEmpty
-                                                    ? cartItem.addOns!
-                                                        .map((addOn) =>
-                                                            addOn.name)
-                                                        .join(', ')
-                                                    : 'No Add-Ons',
-                                                style: AppTexts.regular(
-                                                  size: 16,
-                                                  color: AppColors.greyText,
-                                                ),
-                                              ),
-                                              const SizedBox(height: 10),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  // Minus Button
-                                                  TextButton(
-                                                    onPressed: () =>
-                                                        removeProduct(
-                                                            ref, product, 1),
-                                                    style: TextButton.styleFrom(
-                                                      backgroundColor:
-                                                          Color(0xFFF3F3F9),
-                                                      shape:
-                                                          const RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  10),
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                                  10),
-                                                        ),
-                                                      ),
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                          vertical: 8.0,
-                                                          horizontal: 8.0),
-                                                      minimumSize:
-                                                          const Size(30, 40),
-                                                    ),
-                                                    child: FittedBox(
-                                                      fit: BoxFit.contain,
-                                                      child: Text(
-                                                        '-',
-                                                        style: AppTexts.regular(
-                                                            size: 16),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  // Quantity Display
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 8.0),
-                                                    child: FittedBox(
-                                                      fit: BoxFit.contain,
-                                                      child: Text(
-                                                        '${cartItem.quantity}',
-                                                        style: AppTexts.regular(
-                                                            size: 16),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  // Plus Button
-                                                  TextButton(
-                                                    onPressed: () => addProduct(
-                                                        ref,
-                                                        product,
-                                                        1,
-                                                        null,
-                                                        null),
-                                                    style: TextButton.styleFrom(
-                                                      backgroundColor:
-                                                          Color(0xFFF3F3F9),
-                                                      shape:
-                                                          const RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  10),
-                                                          bottomRight:
-                                                              Radius.circular(
-                                                                  10),
-                                                        ),
-                                                      ),
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                          vertical: 8.0,
-                                                          horizontal: 8.0),
-                                                      minimumSize:
-                                                          const Size(30, 40),
-                                                    ),
-                                                    child: FittedBox(
-                                                      fit: BoxFit.contain,
-                                                      child: Text(
-                                                        '+',
-                                                        style: AppTexts.regular(
-                                                            size: 16),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(height: 16),
-                                            ],
-                                          ),
-                                        ),
-                                        // Product Price
-                                        Expanded(
-                                          flex: 3,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: [
-                                              AutoSizeText(
-                                                'RM${(product.price * cartItem.quantity).toStringAsFixed(2)}',
-                                                maxLines: 1,
-                                                style: AppTexts.medium(
-                                                    size: 16,
-                                                    color: AppColors.secondary),
-                                              ),
-                                              // Calculate tax
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  AutoSizeText(
-                                                    maxLines: 1,
-                                                    '+',
-                                                    style: AppTexts.regular(
-                                                        size: 16,
-                                                        color:
-                                                            AppColors.greyText),
-                                                  ),
-                                                  AutoSizeText(
-                                                    maxLines: 1,
-                                                    'RM${((product.price * cartItem.quantity) * 0.07).toStringAsFixed(2)}',
-                                                    style: AppTexts.regular(
-                                                        size: 16,
-                                                        color:
-                                                            AppColors.greyText),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const Divider(
-                                    thickness: 0.4,
-                                    height: 0,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      )
-                    : Center(
-                        child: Text(
-                          'No Item Selected',
-                          style: AppTexts.regular(
-                              size: 16, color: AppColors.greyDarkText),
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  child: !_isMenuPressed
+                      ? _cartValidation(context, ref)
+                      : SlideTransition(
+                          position: _slideAnimation,
+                          child: _cartUtilities(context, ref),
                         ),
-                      ),
+                ),
               ),
               // Display totals
               Padding(
@@ -454,22 +244,8 @@ class _ProductListSectionState extends ConsumerState<CartSection> {
                             ? null
                             : () {
                                 if (!_isConfirmation) {
-                                  // ref.read(cartSalesProvider.notifier).state =
-                                  //     SalesDetails(
-                                  //   totalSales: totalSales,
-                                  // );
                                   context.go('/menu/productpicker/process');
                                 } else {
-                                  // ref.read(cartSalesProvider.notifier).state =
-                                  //     SalesDetails(
-                                  //   totalSales: totalSales,
-                                  // );
-                                  // ref
-                                  //     .read(cartSubtotalProvider.notifier)
-                                  //     .state = subtotal;
-                                  // ref
-                                  //     .read(cartTotalSalesProvider.notifier)
-                                  //     .state = totalSales;
                                   showPaymentMethod(context, ref);
                                 }
                               },
@@ -498,4 +274,288 @@ class _ProductListSectionState extends ConsumerState<CartSection> {
       ),
     );
   }
+}
+
+// Widget build
+
+Widget _cartUtilities(BuildContext context, WidgetRef ref) {
+  // final cart = ref.watch(cartProvider);
+  return Column(
+    children: [
+      Container(
+        color: AppColors.violet100,
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.receipt_long_outlined, color: Colors.black, size: 20),
+              const SizedBox(width: 10),
+              Text('Bill', style: AppTexts.regular(size: 16)),
+            ],
+          ),
+        ),
+      ),
+      Container(
+        color: AppColors.orangeDark100,
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.price_change_outlined, color: Colors.black, size: 20),
+              const SizedBox(width: 10),
+              Text('Pricelist', style: AppTexts.regular(size: 16)),
+            ],
+          ),
+        ),
+      ),
+      Container(
+        color: AppColors.indigo100,
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.attach_money_outlined, color: Colors.black, size: 20),
+              const SizedBox(width: 10),
+              Text('Tax', style: AppTexts.regular(size: 16)),
+            ],
+          ),
+        ),
+      ),
+      Container(
+        color: AppColors.error100,
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.clear_outlined, color: Colors.black, size: 20),
+              const SizedBox(width: 10),
+              Text('Clear Order', style: AppTexts.regular(size: 16)),
+            ],
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+Widget _cartValidation(BuildContext context, WidgetRef ref) {
+  final cart = ref.watch(cartProvider);
+  return cart.isNotEmpty
+      ? _buildCartItem(context, ref)
+      : Center(
+          child: Text(
+            'No Item Selected',
+            style: AppTexts.regular(size: 16, color: AppColors.greyDark),
+          ),
+        );
+}
+
+Widget _buildCartItem(BuildContext context, WidgetRef ref) {
+  final cart = ref.watch(cartProvider);
+  return ListView.builder(
+    itemCount: cart.length,
+    itemBuilder: (context, index) {
+      final entry = cart.entries.toList()[index];
+      final product = entry.key;
+      final cartItem = entry.value;
+      return ClipRect(
+        child: Slidable(
+          key: Key(product.id.toString()),
+          endActionPane: ActionPane(
+            motion: const ScrollMotion(),
+            children: [
+              CustomSlidable(
+                onPressed: (context) {
+                  showCartDetails(context, ref, product, cartItem);
+                },
+                backgroundColor: Color(0xFFEAECF5),
+                foregroundColor: Colors.black,
+                icon: Icons.edit_outlined,
+              ),
+              CustomSlidable(
+                onPressed: (context) {
+                  clearProduct(ref, product);
+                },
+                backgroundColor: AppColors.red,
+                foregroundColor: Colors.white,
+                icon: Icons.delete_outlined,
+              ),
+            ],
+          ),
+          child: Column(
+            children: [
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Product Image
+                    Expanded(
+                      flex: 2,
+                      child: Center(
+                        child: Container(
+                          width: 60,
+                          height: 60,
+                          margin: const EdgeInsets.only(right: 12.0, top: 14.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            image: DecorationImage(
+                              image: AssetImage(product.imageUrl),
+                              fit: BoxFit.fitHeight,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    // Product Details
+                    Expanded(
+                      flex: 5,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            product.name,
+                            style: AppTexts.regular(size: 16),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            cartItem.addOns != null &&
+                                    cartItem.addOns!.isNotEmpty
+                                ? cartItem.addOns!
+                                    .map((addOn) => addOn.name)
+                                    .join(', ')
+                                : 'No Add-Ons',
+                            style: AppTexts.regular(
+                              size: 16,
+                              color: AppColors.greyText,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              // Minus Button
+                              TextButton(
+                                onPressed: () => removeProduct(ref, product, 1),
+                                style: TextButton.styleFrom(
+                                  backgroundColor: Color(0xFFF3F3F9),
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      bottomLeft: Radius.circular(10),
+                                    ),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 8.0, horizontal: 8.0),
+                                  minimumSize: const Size(30, 40),
+                                ),
+                                child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: Text(
+                                    '-',
+                                    style: AppTexts.regular(size: 16),
+                                  ),
+                                ),
+                              ),
+                              // Quantity Display
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: Text(
+                                    '${cartItem.quantity}',
+                                    style: AppTexts.regular(size: 16),
+                                  ),
+                                ),
+                              ),
+                              // Plus Button
+                              TextButton(
+                                onPressed: () =>
+                                    addProduct(ref, product, 1, null, null),
+                                style: TextButton.styleFrom(
+                                  backgroundColor: Color(0xFFF3F3F9),
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(10),
+                                      bottomRight: Radius.circular(10),
+                                    ),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 8.0, horizontal: 8.0),
+                                  minimumSize: const Size(30, 40),
+                                ),
+                                child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: Text(
+                                    '+',
+                                    style: AppTexts.regular(size: 16),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                        ],
+                      ),
+                    ),
+                    // Product Price
+                    Expanded(
+                      flex: 3,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          AutoSizeText(
+                            'RM${(product.price * cartItem.quantity).toStringAsFixed(2)}',
+                            maxLines: 1,
+                            style: AppTexts.medium(
+                                size: 16, color: AppColors.secondary),
+                          ),
+                          // Calculate tax
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              AutoSizeText(
+                                maxLines: 1,
+                                '+',
+                                style: AppTexts.regular(
+                                    size: 16, color: AppColors.greyText),
+                              ),
+                              AutoSizeText(
+                                maxLines: 1,
+                                'RM${((product.price * cartItem.quantity) * 0.07).toStringAsFixed(2)}',
+                                style: AppTexts.regular(
+                                    size: 16, color: AppColors.greyText),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Divider(
+                thickness: 0.4,
+                height: 0,
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
 }

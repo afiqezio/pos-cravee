@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:possystem/utils/appColors.dart';
-import 'package:possystem/utils/appTexts.dart';
 import 'package:possystem/utils/widget/customScaffold.dart';
 import 'package:possystem/views/setting/appearance/appearancePageMain.dart';
 import 'package:possystem/views/setting/notification/notificationPageMain.dart';

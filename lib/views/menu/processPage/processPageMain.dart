@@ -15,7 +15,7 @@ import 'package:possystem/views/menu/processPage/processingSection.dart';
 import 'package:possystem/views/menu/processPage/qrSection.dart';
 import 'successfulSection.dart';
 
-class ProcessPageMain extends ConsumerWidget {
+class ProcessPageMain extends ConsumerStatefulWidget {
   final bool isMembership;
   final bool isPayment;
   final bool isSuccesful;
@@ -30,7 +30,21 @@ class ProcessPageMain extends ConsumerWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ProcessPageMainState createState() => ProcessPageMainState();
+}
+
+class ProcessPageMainState extends ConsumerState<ProcessPageMain> {
+  @override
+  void initState() {
+    super.initState();
+    // Set isPhoneFlagProvider to false after the widget tree is built
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(isPhoneFlagProvider.notifier).state = false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF2F2F7),
       body: CustomMainContainer(
@@ -39,12 +53,12 @@ class ProcessPageMain extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Row for Back and Skip buttons
-            type != 'success' && type != 'processing'
+            widget.type != 'success' && widget.type != 'processing'
                 ? Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomBackButton(),
-                      !isPayment
+                      !widget.isPayment
                           ? TextButton(
                               onPressed: () {
                                 context.go(
@@ -56,7 +70,7 @@ class ProcessPageMain extends ConsumerWidget {
                                     size: 16, color: AppColors.secondary),
                               ),
                             )
-                          : type == 'qr'
+                          : widget.type == 'qr'
                               ? TextButton(
                                   onPressed: () {
                                     context.go(
@@ -80,17 +94,17 @@ class ProcessPageMain extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  _buildProgressCircle("1", "Membership", isMembership),
+                  _buildProgressCircle("1", "Membership", widget.isMembership),
                   _buildProgressDivider(),
-                  _buildProgressCircle("2", "Payment", isPayment),
+                  _buildProgressCircle("2", "Payment", widget.isPayment),
                   _buildProgressDivider(),
-                  _buildProgressCircle("3", "Successful", isSuccesful),
+                  _buildProgressCircle("3", "Successful", widget.isSuccesful),
                 ],
               ),
             ),
             const SizedBox(height: 10),
             // Card for Grand Total
-            type != 'success' && type != 'processing'
+            widget.type != 'success' && widget.type != 'processing'
                 ? Center(
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
@@ -126,20 +140,20 @@ class ProcessPageMain extends ConsumerWidget {
                   )
                 : SizedBox.shrink(),
             const SizedBox(height: 10),
-            if (isMembership) ...[
+            if (widget.isMembership) ...[
               ref.watch(isPhoneFlagProvider)
                   ? PhoneNumberSection()
                   : MembershipSection(),
-            ] else if (isPayment) ...[
-              if (type == 'cash') ...[
+            ] else if (widget.isPayment) ...[
+              if (widget.type == 'cash') ...[
                 CashSection()
-              ] else if (type == 'qr') ...[
+              ] else if (widget.type == 'qr') ...[
                 QrSection()
               ]
-            ] else if (isSuccesful) ...[
-              if (type == 'success') ...[
+            ] else if (widget.isSuccesful) ...[
+              if (widget.type == 'success') ...[
                 SuccessfulSection()
-              ] else if (type == 'processing') ...[
+              ] else if (widget.type == 'processing') ...[
                 ProcessingSection()
               ]
             ],

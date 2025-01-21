@@ -76,7 +76,7 @@ class ReceiptSection extends ConsumerWidget {
                 const SizedBox(height: 10),
                 const Divider(
                   thickness: 0.7,
-                  color: AppColors.greyDarkText,
+                  color: AppColors.greyDark,
                 ),
 
                 // Invoice Section
@@ -270,7 +270,7 @@ class ReceiptSection extends ConsumerWidget {
                 const SizedBox(height: 10),
                 const Divider(
                   thickness: 0.7,
-                  color: AppColors.greyDarkText,
+                  color: AppColors.greyDark,
                 ),
                 Column(
                   spacing: 6,

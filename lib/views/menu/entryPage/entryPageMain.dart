@@ -84,7 +84,7 @@ class EntryPageMain extends ConsumerWidget {
                                         '${ref.watch(categoryProductCountProvider(category.id))} Item',
                                         style: AppTexts.regular(
                                             size: 16,
-                                            color: AppColors.greyDarkText),
+                                            color: AppColors.greyDark),
                                       ),
                                     )
                                   ],
