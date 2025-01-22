@@ -4,8 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:possystem/utils/appColors.dart';
-import 'package:possystem/utils/appTexts.dart';
+import 'package:possystem/utils/appHelper.dart';
 import 'package:possystem/utils/widget/customSlider.dart';
 import 'package:possystem/views/menu/selectionPage/showCartDetails.dart';
 import 'package:possystem/views/menu/selectionPage/showPaymentMethod.dart';
@@ -65,211 +64,207 @@ class _CartSectionState extends ConsumerState<CartSection>
   Widget build(BuildContext context) {
     final cart = ref.watch(cartProvider);
 
-    return Expanded(
-      flex: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Container(
-          color: Colors.white,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            'assets/svg/menu/cart.svg',
-                            fit: BoxFit.fitWidth,
-                            color: Colors.black,
-                            width: 20,
-                          ),
-                          const SizedBox(width: 12),
-                          Text(
-                            'Cart',
-                            style: AppTexts.medium(size: 16),
-                          ),
-                        ],
-                      ),
-                      GestureDetector(
-                        onTap: _toggleMenu,
-                        child: Container(
-                          // color: Colors.red,
-                          padding: const EdgeInsets.fromLTRB(12, 12, 8, 8),
-                          child: SvgPicture.asset(
-                            'assets/svg/menu/menu.svg',
-                            fit: BoxFit.fitWidth,
-                            color: Colors.black,
-                            width: 20,
-                          ),
-                        ),
-                      ),
-                    ],
-                  )),
-              const Divider(thickness: 0.9, height: 0.5),
-              Expanded(
-                child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
-                  child: !_isMenuPressed
-                      ? _cartValidation(context, ref)
-                      : SlideTransition(
-                          position: _slideAnimation,
-                          child: _cartUtilities(context, ref),
-                        ),
-                ),
-              ),
-              // Display totals
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+                padding: EdgeInsets.all(12.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            'Total Sales',
-                            style: AppTexts.medium(size: 18),
-                          ),
+                        SvgPicture.asset(
+                          'assets/svg/menu/cart.svg',
+                          fit: BoxFit.fitWidth,
+                          color: Colors.black,
+                          width: 20,
                         ),
-                        FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            'RM ${(ref.watch(cartSalesProvider).totalSales).toStringAsFixed(2)}',
-                            style: AppTexts.regular(size: 18),
-                          ),
+                        const SizedBox(width: 12),
+                        Text(
+                          'Cart',
+                          style: AppTexts.medium(size: 16),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Discount',
-                            style: AppTexts.medium(
-                                size: 18, color: AppColors.greyText)),
-                        Text(
-                            '-RM${ref.watch(cartSalesProvider).discount.toStringAsFixed(2)}',
-                            style: AppTexts.regular(size: 18)),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Voucher',
-                            style: AppTexts.medium(
-                                size: 18, color: AppColors.greyText)),
-                        Text(
-                            '-RM${ref.watch(cartSalesProvider).voucher.toStringAsFixed(2)}',
-                            style: AppTexts.regular(size: 18)),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Tax 7%',
-                            style: AppTexts.medium(
-                                size: 18, color: AppColors.greyText)),
-                        Text(
-                            'RM ${(ref.watch(cartSalesProvider).tax).toStringAsFixed(2)}',
-                            style: AppTexts.regular(size: 18)),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Subtotal', style: AppTexts.medium(size: 18)),
-                        Text(
-                            'RM ${(ref.watch(cartSalesProvider).subtotal).toStringAsFixed(2)}',
-                            style: AppTexts.regular(size: 18)),
-                      ],
-                    ),
-                    const Divider(thickness: 0.9),
-                    const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Total', style: AppTexts.medium(size: 18)),
-                        Text(
-                            'RM ${(ref.watch(cartSalesProvider).subtotal).toStringAsFixed(2)}',
-                            style: AppTexts.medium(
-                                size: 18, color: AppColors.secondary)),
-                      ],
+                    GestureDetector(
+                      onTap: _toggleMenu,
+                      child: Container(
+                        // color: Colors.red,
+                        padding: const EdgeInsets.fromLTRB(12, 12, 8, 8),
+                        child: SvgPicture.asset(
+                          'assets/svg/menu/menu.svg',
+                          fit: BoxFit.fitWidth,
+                          color: Colors.black,
+                          width: 20,
+                        ),
+                      ),
                     ),
                   ],
-                ),
+                )),
+            const Divider(thickness: 0.9, height: 0.5),
+            Expanded(
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 300),
+                child: !_isMenuPressed
+                    ? _cartValidation(context, ref)
+                    : SlideTransition(
+                        position: _slideAnimation,
+                        child: _cartUtilities(context, ref),
+                      ),
               ),
-              // Clear Basket Button
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+            ),
+            // Display totals
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    flex: 5,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 8.0),
-                      child: ElevatedButton(
-                        onPressed: () => clearCart(ref),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          padding: const EdgeInsets.symmetric(vertical: 12.0),
-                        ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
                         child: Text(
-                          'Clear Basket',
+                          'Total Sales',
+                          style: AppTexts.medium(size: 18),
+                        ),
+                      ),
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          'RM ${(ref.watch(cartSalesProvider).totalSales).toStringAsFixed(2)}',
                           style: AppTexts.regular(size: 18),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                  Expanded(
-                    flex: 4,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 8.0),
-                      child: ElevatedButton(
-                        onPressed: cart.isEmpty
-                            ? null
-                            : () {
-                                if (!_isConfirmation) {
-                                  context.go('/menu/productpicker/process');
-                                } else {
-                                  showPaymentMethod(context, ref);
-                                }
-                              },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: cart.isEmpty
-                              ? Color(0xFFB8C1CC)
-                              : AppColors.secondary,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          padding: const EdgeInsets.symmetric(vertical: 12.0),
-                        ),
-                        child: Text(
-                          'Pay',
-                          style:
-                              AppTexts.regular(size: 18, color: Colors.white),
-                        ),
-                      ),
-                    ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Discount',
+                          style: AppTexts.medium(
+                              size: 18, color: AppColors.greyText)),
+                      Text(
+                          '-RM${ref.watch(cartSalesProvider).discount.toStringAsFixed(2)}',
+                          style: AppTexts.regular(size: 18)),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Voucher',
+                          style: AppTexts.medium(
+                              size: 18, color: AppColors.greyText)),
+                      Text(
+                          '-RM${ref.watch(cartSalesProvider).voucher.toStringAsFixed(2)}',
+                          style: AppTexts.regular(size: 18)),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Tax 7%',
+                          style: AppTexts.medium(
+                              size: 18, color: AppColors.greyText)),
+                      Text(
+                          'RM ${(ref.watch(cartSalesProvider).tax).toStringAsFixed(2)}',
+                          style: AppTexts.regular(size: 18)),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Subtotal', style: AppTexts.medium(size: 18)),
+                      Text(
+                          'RM ${(ref.watch(cartSalesProvider).subtotal).toStringAsFixed(2)}',
+                          style: AppTexts.regular(size: 18)),
+                    ],
+                  ),
+                  const Divider(thickness: 0.9),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Total', style: AppTexts.medium(size: 18)),
+                      Text(
+                          'RM ${(ref.watch(cartSalesProvider).subtotal).toStringAsFixed(2)}',
+                          style: AppTexts.medium(
+                              size: 18, color: AppColors.secondary)),
+                    ],
                   ),
                 ],
               ),
-            ],
-          ),
+            ),
+            // Clear Basket Button
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  flex: 5,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 8.0),
+                    child: ElevatedButton(
+                      onPressed: () => clearCart(ref),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      ),
+                      child: Text(
+                        'Clear Basket',
+                        style: AppTexts.regular(size: 18),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 4,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 8.0),
+                    child: ElevatedButton(
+                      onPressed: cart.isEmpty
+                          ? null
+                          : () {
+                              if (!_isConfirmation) {
+                                context.go('/menu/productpicker/process');
+                              } else {
+                                showPaymentMethod(context, ref);
+                              }
+                            },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: cart.isEmpty
+                            ? Color(0xFFB8C1CC)
+                            : AppColors.secondary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      ),
+                      child: Text(
+                        'Pay',
+                        style: AppTexts.regular(size: 18, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:possystem/utils/appColors.dart';
-import 'package:possystem/utils/appTexts.dart';
+import 'package:possystem/utils/appHelper.dart';
 import 'package:possystem/utils/helper/screens_util.dart';
 import 'package:possystem/views/menu/selectionPage/showProductDetails.dart';
 import '../../../providers/cartProvider.dart';
@@ -30,7 +29,7 @@ class _ProductListSectionState extends ConsumerState<ProductListSection> {
           // Dynamically calculate the number of columns
           // final crossAxisCount = (constraints.maxWidth / 150).floor();
           final gridChildAspectRatio =
-              getChildAspectRation(constraints.maxWidth);
+              getChildAspectRatio(constraints.maxWidth);
           final crossAxisCount = getCrossAxisCount(constraints.maxWidth);
 
           return GridView.builder(

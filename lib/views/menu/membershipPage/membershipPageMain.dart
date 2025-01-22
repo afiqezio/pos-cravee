@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:possystem/models/voucher.dart';
-import 'package:possystem/utils/appColors.dart';
+import 'package:possystem/utils/appHelper.dart';
 import 'package:possystem/utils/widget/customBackButton.dart';
 import 'package:possystem/utils/widget/customMainContainer.dart';
 import 'package:possystem/views/menu/membershipPage/voucherCard.dart';

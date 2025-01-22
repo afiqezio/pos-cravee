@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:possystem/providers/paymentProvider.dart';
-import 'package:possystem/utils/appColors.dart';
-import 'package:possystem/utils/appTexts.dart';
+import 'package:possystem/utils/appHelper.dart';
 
 class CashSection extends ConsumerStatefulWidget {
   @override

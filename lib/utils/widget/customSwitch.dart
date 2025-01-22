@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:possystem/utils/appColors.dart';
+import 'package:possystem/utils/appHelper.dart';
 
 class CustomSwitch extends StatelessWidget {
   final Color? activeColor;

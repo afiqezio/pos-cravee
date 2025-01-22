@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:possystem/providers/cartProvider.dart';
-import 'package:possystem/utils/appColors.dart';
-import 'package:possystem/utils/appTexts.dart';
+import 'package:possystem/utils/appHelper.dart';
 import '../../../models/category.dart';
 import '../../../providers/menuChoose.dart';
 
@@ -27,7 +26,6 @@ class _CategorySectionState extends ConsumerState<CategorySection> {
       // quantity: 1,
       description: 'All Menu',
     );
-
     // Prepend "All" to the categories list
     final displayCategories = [allCategory, ...categories];
 
@@ -61,8 +59,8 @@ class _CategorySectionState extends ConsumerState<CategorySection> {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      vertical: 6.0,
-                      horizontal: 16.0,
+                      vertical: 4.0,
+                      horizontal: 14.0,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

@@ -12,15 +12,15 @@ int getCrossAxisCount(double screenWidth) {
   }
 }
 
-double getChildAspectRation(double screenWidth) {
+double getChildAspectRatio(double screenWidth) {
   if (screenWidth <= 420) {
-    return 1.4; // For smaller screens
+    return 1.2; // For smaller screens
     // } else if (screenWidth <= 570) {
     //   return 1.2; // For small screens
-  } else if (screenWidth <= 720) {
-    return 0.8; // For medium screens
+    // } else if (screenWidth <= 720) {
+    //   return 0.8; // For medium screens
   } else {
-    return 0.9; // For large screens
+    return 0.8; // For large screens
   }
 }
 

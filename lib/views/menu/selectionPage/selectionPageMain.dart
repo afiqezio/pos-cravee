@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:possystem/providers/cartProvider.dart';
-import 'package:possystem/utils/appTexts.dart';
+import 'package:possystem/utils/appHelper.dart';
 import '../../../providers/menuChoose.dart';
 import 'cartSection.dart';
 import 'productListSection.dart';
@@ -20,6 +20,8 @@ class _ProductPickerPageState extends ConsumerState<SelectionPageMain> {
   late bool _isConfirmation = widget.isConfirmation;
   @override
   Widget build(BuildContext context) {
+    final int expandedProductFlex =
+        MediaQuery.of(context).size.width > 840 ? 3 : 2;
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (bool didPop, Object? result) async {
@@ -37,7 +39,7 @@ class _ProductPickerPageState extends ConsumerState<SelectionPageMain> {
           children: [
             // Product Section
             Expanded(
-              flex: 3,
+              flex: expandedProductFlex,
               child: Container(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -62,7 +64,10 @@ class _ProductPickerPageState extends ConsumerState<SelectionPageMain> {
               ),
             ),
             // Cart Section
-            CartSection(isConfirmation: _isConfirmation)
+            Expanded(
+              flex: 2,
+              child: CartSection(isConfirmation: _isConfirmation),
+            )
           ],
         ),
       ),

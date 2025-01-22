@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:possystem/utils/appTexts.dart';
+import 'package:possystem/utils/appHelper.dart';
 import 'package:possystem/utils/widget/customSwitch.dart';
 
 class ThemeSection extends StatelessWidget {

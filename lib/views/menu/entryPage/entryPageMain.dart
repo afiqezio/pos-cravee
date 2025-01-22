@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:possystem/providers/cartProvider.dart';
-import 'package:possystem/utils/appColors.dart';
-import 'package:possystem/utils/appTexts.dart';
+import 'package:possystem/utils/appHelper.dart';
 import 'package:possystem/utils/helper/screens_util.dart';
 import '../../../models/category.dart';
 import '../../../providers/menuChoose.dart';
@@ -34,7 +33,7 @@ class EntryPageMain extends ConsumerWidget {
             child: LayoutBuilder(
               builder: (context, constraints) {
                 final gridChildAspectRatio =
-                    getChildAspectRation(constraints.maxWidth);
+                    getChildAspectRatio(constraints.maxWidth);
                 final crossAxisCount = getCrossAxisCount(constraints.maxWidth);
 
                 return Padding(

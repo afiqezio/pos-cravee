@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-import 'package:possystem/utils/appColors.dart';
+import 'package:possystem/utils/appHelper.dart';
 
 class CustomLoading extends StatefulWidget {
   final double strokeWidth;

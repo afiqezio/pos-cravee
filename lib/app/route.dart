@@ -7,8 +7,10 @@ import 'package:possystem/views/menu/membershipPage/membershipPageMain.dart';
 import 'package:possystem/views/menu/processPage/processPageMain.dart';
 import 'package:possystem/views/menu/receiptPage/receiptPageMain.dart';
 import 'package:possystem/views/menu/selectionPage/selectionPageMain.dart';
+import 'package:possystem/views/plain.dart';
+import 'package:possystem/views/product/category/categoryPageMain.dart';
 import 'package:possystem/views/setting/settingPageMain.dart';
-import 'package:possystem/views/widget/sideAppBar.dart';
+import 'package:possystem/views/widget/sideAppBarTest.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/dashboard',
@@ -170,13 +172,22 @@ final GoRouter appRouter = GoRouter(
           },
         ),
         GoRoute(
-          path: '/product',
-          pageBuilder: (context, state) {
-            return _buildPageTransition(
-              DashboardPageMain(),
-            );
-          },
-        ),
+            path: '/product',
+            pageBuilder: (context, state) {
+              return _buildPageTransition(
+                PlainPage(),
+              );
+            },
+            routes: [
+              GoRoute(
+                path: 'category',
+                pageBuilder: (context, state) {
+                  return _buildPageTransition(
+                    CategoryPageMain(),
+                  );
+                },
+              ),
+            ]),
         GoRoute(
           path: '/report',
           pageBuilder: (context, state) {

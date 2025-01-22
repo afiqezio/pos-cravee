@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:possystem/models/voucher.dart';
 import 'package:possystem/providers/cartProvider.dart';
-import 'package:possystem/utils/appColors.dart';
+import 'package:possystem/utils/appHelper.dart';
 import 'package:possystem/utils/widget/customCircle.dart';
 
 class VoucherCard extends ConsumerWidget {

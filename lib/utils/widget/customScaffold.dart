@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:possystem/utils/appColors.dart';
-import 'package:possystem/utils/appTexts.dart';
+import 'package:possystem/utils/appHelper.dart';
 
 class CustomScaffold extends StatelessWidget {
   final String title;

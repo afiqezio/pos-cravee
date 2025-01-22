@@ -4,8 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:possystem/models/cart.dart';
 import 'package:possystem/providers/cartProvider.dart';
 import 'package:possystem/models/addOn.dart';
-import 'package:possystem/utils/appColors.dart';
-import 'package:possystem/utils/appTexts.dart';
+import 'package:possystem/utils/appHelper.dart';
 import 'package:possystem/utils/widget/customCircle.dart';
 import '../../../models/product.dart';
 

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:possystem/utils/appColors.dart';
-import 'package:possystem/utils/appTexts.dart';
+import 'package:possystem/utils/appHelper.dart';
 import 'package:possystem/views/widget/appbar.dart';
 
 class ScaffoldWithNavBar extends StatefulWidget {
@@ -68,13 +67,17 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    // final crossAxisCount = getCrossAxisCount(screenWidth);
+    // final gridChildAspectRatio = getChildAspectRatio(screenWidth);
+
     return Scaffold(
       body: Row(
         children: [
           // Sidebar
           AnimatedContainer(
             duration: Duration(milliseconds: 300),
-            width: _isCollapsed ? 80 : 200,
+            width: _isCollapsed ? screenWidth * 0.1 : screenWidth * 0.2,
             decoration: BoxDecoration(
               color: AppColors.primary,
             ),

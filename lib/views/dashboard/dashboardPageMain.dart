@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:possystem/utils/appColors.dart';
-import 'package:possystem/utils/appTexts.dart';
+import 'package:possystem/utils/appHelper.dart';
 import 'package:possystem/utils/widget/customScaffold.dart';
+import 'package:possystem/views/dashboard/summarySection.dart';
 
 class DashboardPageMain extends StatelessWidget {
   const DashboardPageMain({Key? key}) : super(key: key);
@@ -50,6 +50,8 @@ class DashboardPageMain extends StatelessWidget {
             ),
           ),
         ],
-        child: Container());
+        child: Row(children: [
+          SummarySection(),
+        ]));
   }
 }
