@@ -4,7 +4,7 @@ import 'package:possystem/providers/cartProvider.dart';
 import 'package:possystem/providers/paymentProvider.dart';
 import 'package:possystem/utils/appHelper.dart';
 import 'package:possystem/utils/widget/customScaffold.dart';
-import '../auth/loginPageMain.dart';
+import 'package:possystem/views/auth/login/login.dart';
 
 class LogoutPage extends ConsumerWidget {
   const LogoutPage({Key? key}) : super(key: key);

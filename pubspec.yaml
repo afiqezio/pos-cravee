@@ -38,6 +38,7 @@ dependencies:
   google_fonts: ^6.2.1
   intl: ^0.20.1
   auto_size_text: ^3.0.0
+  image: ^4.5.2
   # path_provider: ^2.1.5
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -70,6 +71,7 @@ flutter:
     - assets/svg/pretzley_logo.svg
     - assets/svg/pretzley_text.svg
     - assets/svg/pretzley.svg
+    - assets/svg/cravee/cravee_logo.svg
     - assets/svg/widget/back.svg
     - assets/svg/widget/forward.svg
     - assets/svg/menu/trending.svg

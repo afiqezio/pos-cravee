@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:possystem/providers/loginProvider.dart';
-import 'package:possystem/views/auth/loginSection.dart';
-import 'imageSlideSection.dart';
 
-class LoginPage extends ConsumerStatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+import 'imageSlideSection.dart';
+import 'passkeySection.dart';
+
+class PasskeyPage extends ConsumerStatefulWidget {
+  const PasskeyPage({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<LoginPage> createState() => _LoginPageState();
+  ConsumerState<PasskeyPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends ConsumerState<LoginPage> {
+class _LoginPageState extends ConsumerState<PasskeyPage> {
   @override
   void initState() {
     super.initState();
@@ -31,7 +32,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           // Left half - Image with SVG overlay
           Expanded(child: ImageSlideSection()),
           // Right half - PIN input
-          Expanded(child: LoginSection()),
+          Expanded(child: PasskeySection()),
         ],
       ),
     );

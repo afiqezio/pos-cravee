@@ -37,23 +37,23 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
       'text': 'Transactions',
       'route': '/transactions',
     },
-    {
-      'icon': 'assets/svg/sidebar/product.svg',
-      'text': 'Product',
-      'route': '/product',
-      'subItems': [
-        {
-          'icon': 'assets/svg/sidebar/product.svg',
-          'text': 'Category',
-          'route': '/product/category',
-        },
-        {
-          'icon': 'assets/svg/sidebar/product.svg',
-          'text': 'Remove Menu',
-          'route': '/product/category',
-        },
-      ],
-    },
+    // {
+    //   'icon': 'assets/svg/sidebar/product.svg',
+    //   'text': 'Product',
+    //   'route': '/product',
+    //   'subItems': [
+    //     {
+    //       'icon': 'assets/svg/sidebar/product.svg',
+    //       'text': 'Category',
+    //       'route': '/product/category',
+    //     },
+    //     {
+    //       'icon': 'assets/svg/sidebar/product.svg',
+    //       'text': 'Remove Menu',
+    //       'route': '/product/category',
+    //     },
+    //   ],
+    // },
     {
       'icon': 'assets/svg/sidebar/report.svg',
       'text': 'Report',
@@ -93,15 +93,15 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
+    // final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Row(
         children: [
           // Sidebar
           AnimatedContainer(
             duration: Duration(milliseconds: 300),
-            width: _isCollapsed ? screenWidth * 0.07 : screenWidth * 0.19,
-            // width: _isCollapsed ? 80 : 220,
+            // width: _isCollapsed ? screenWidth * 0.07 : screenWidth * 0.19,
+            width: _isCollapsed ? 80 : 230,
             decoration: BoxDecoration(
               color: AppColors.primary,
             ),
@@ -109,34 +109,41 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
               children: [
                 SizedBox(height: 16),
                 // Logo at the top of the sidebar
-                Padding(
-                  padding: _isCollapsed
-                      ? EdgeInsets.all(8.0)
-                      : EdgeInsets.symmetric(vertical: 2.0, horizontal: 40),
-                  child: Center(
-                    child: AnimatedSwitcher(
-                      duration: Duration(milliseconds: 250),
-                      transitionBuilder:
-                          (Widget child, Animation<double> animation) {
-                        return FadeTransition(
-                          opacity: animation,
-                          child: ScaleTransition(
-                            scale: animation,
-                            child: child,
+                GestureDetector(
+                  onTap: toggleSidebar,
+                  child: Padding(
+                    padding: _isCollapsed
+                        ? EdgeInsets.fromLTRB(6.0, 6, 6.0, 30)
+                        : EdgeInsets.fromLTRB(2.0, 8, 2.0, 30),
+                    child: Center(
+                      child: AnimatedSwitcher(
+                          duration: Duration(milliseconds: 250),
+                          transitionBuilder:
+                              (Widget child, Animation<double> animation) {
+                            return FadeTransition(
+                              opacity: animation,
+                              child: ScaleTransition(
+                                scale: animation,
+                                child: child,
+                              ),
+                            );
+                          },
+                          child: SvgPicture.asset(
+                            'assets/svg/pretzley_logo.svg',
+                            height: 70,
+                            key: ValueKey('collapsed_logo'),
+                          )
+                          // ? SvgPicture.asset(
+                          //     'assets/svg/pretzley_logo.svg',
+                          //     height: 70,
+                          //     key: ValueKey('collapsed_logo'),
+                          //   )
+                          // : SvgPicture.asset(
+                          //     'assets/svg/pretzley_text.svg',
+                          //     height: 100,
+                          //     key: ValueKey('expanded_logo'),
+                          //   ),
                           ),
-                        );
-                      },
-                      child: _isCollapsed
-                          ? SvgPicture.asset(
-                              'assets/svg/pretzley_logo.svg',
-                              height: 70,
-                              key: ValueKey('collapsed_logo'),
-                            )
-                          : SvgPicture.asset(
-                              'assets/svg/pretzley_text.svg',
-                              height: 100,
-                              key: ValueKey('expanded_logo'),
-                            ),
                     ),
                   ),
                 ),
@@ -178,15 +185,15 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
                     isFooterItem: true,
                   );
                 }).toList(),
-                Divider(color: Colors.white.withOpacity(0.5)),
-                IconButton(
-                    icon: Icon(
-                      _isCollapsed
-                          ? Icons.arrow_right_outlined
-                          : Icons.arrow_left_outlined,
-                      color: Colors.white,
-                    ),
-                    onPressed: toggleSidebar),
+                // Divider(color: Colors.white.withOpacity(0.5)),
+                // IconButton(
+                //     icon: Icon(
+                //       _isCollapsed
+                //           ? Icons.arrow_right_outlined
+                //           : Icons.arrow_left_outlined,
+                //       color: Colors.white,
+                //     ),
+                //     onPressed: toggleSidebar),
               ],
             ),
           ),
@@ -218,7 +225,7 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
     final selectedFooterIndex = selectedIndices['footerIndex'];
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       child: Column(
         children: [
           GestureDetector(
@@ -270,12 +277,12 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
                 borderRadius: BorderRadius.circular(8.0),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(12),
                 child: Row(
                   mainAxisAlignment: _isCollapsed
                       ? MainAxisAlignment.center
                       : MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
+                  // mainAxisSize: MainAxisSize.min,
                   children: [
                     SvgPicture.asset(icon, width: 22, color: Colors.white),
                     AnimatedContainer(

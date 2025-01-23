@@ -5,8 +5,8 @@ import 'package:possystem/app/app.dart';
 import 'package:possystem/providers/loginProvider.dart';
 import 'package:possystem/utils/appHelper.dart';
 
-class LoginSection extends ConsumerWidget {
-  const LoginSection({super.key});
+class PasskeySection extends ConsumerWidget {
+  const PasskeySection({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

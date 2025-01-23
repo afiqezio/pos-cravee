@@ -60,7 +60,7 @@ class EntryPageMain extends ConsumerWidget {
                           context.go('/menu/productpicker');
                         },
                         child: Card(
-                          elevation: 1,
+                          elevation: 0,
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -118,14 +118,4 @@ class EntryPageMain extends ConsumerWidget {
       ),
     );
   }
-}
-
-class BottomHalfClipper extends CustomClipper<Rect> {
-  @override
-  Rect getClip(Size size) {
-    return Rect.fromLTWH(0, size.height / 2, size.width, size.height / 2);
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Rect> oldClipper) => false;
 }
