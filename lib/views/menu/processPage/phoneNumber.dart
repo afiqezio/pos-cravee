@@ -106,7 +106,7 @@ class _PhoneNumberSectionState extends ConsumerState<PhoneNumberSection> {
               child: Center(
                 child: Text(
                   "Oops! That phone number doesn’t seem right. Please double-check and try again.",
-                  style: AppTexts.regular(size: 16, color: Colors.red),
+                  style: AppTexts.regular(size: 16, color: AppColors.red),
                 ),
               ),
             ),
@@ -153,8 +153,8 @@ class _PhoneNumberSectionState extends ConsumerState<PhoneNumberSection> {
                         child: Center(
                           child: Text(
                             "Continue",
-                            style:
-                                AppTexts.regular(size: 16, color: Colors.white),
+                            style: AppTexts.regular(
+                                size: 16, color: AppColors.secondaryText),
                           ),
                         ),
                       ),

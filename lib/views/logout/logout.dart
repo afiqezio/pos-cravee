@@ -23,7 +23,7 @@ class LogoutPage extends ConsumerWidget {
               },
               child: const Text(
                 'Cancel',
-                style: TextStyle(color: Colors.grey),
+                style: TextStyle(color: AppColors.greyText),
               ),
             ),
             TextButton(
@@ -42,7 +42,7 @@ class LogoutPage extends ConsumerWidget {
               child: const Text(
                 'Close Register',
                 style: TextStyle(
-                  color: Colors.red,
+                  color: AppColors.red,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -80,7 +80,7 @@ class LogoutPage extends ConsumerWidget {
                 'Discard',
                 style: TextStyle(
                   fontSize: 16,
-                  color: Colors.white,
+                  color: AppColors.secondaryText,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -103,7 +103,7 @@ class LogoutPage extends ConsumerWidget {
                 'Close Register',
                 style: TextStyle(
                   fontSize: 16,
-                  color: Colors.white,
+                  color: AppColors.secondaryText,
                   fontWeight: FontWeight.bold,
                 ),
               ),

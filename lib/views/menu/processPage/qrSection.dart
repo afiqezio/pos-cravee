@@ -31,12 +31,14 @@ class _QrSectionState extends ConsumerState<QrSection> {
                   children: [
                     Text(
                       "Change",
-                      style: AppTexts.medium(size: 16, color: Colors.white),
+                      style: AppTexts.medium(
+                          size: 16, color: AppColors.secondaryText),
                     ),
                     Text(
                       // 'RM${ref.watch(paymentChangeProvider).toStringAsFixed(2)}',
                       'RM0.00',
-                      style: AppTexts.regular(size: 16, color: Colors.white),
+                      style: AppTexts.regular(
+                          size: 16, color: AppColors.secondaryText),
                     ),
                   ],
                 ),

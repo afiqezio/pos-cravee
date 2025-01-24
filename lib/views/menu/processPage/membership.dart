@@ -21,7 +21,7 @@ class MembershipSection extends ConsumerWidget {
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 16),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.canvasPrimary,
                 border: Border.all(color: Color(0xFFCED4DA), width: 1),
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -59,7 +59,7 @@ class MembershipSection extends ConsumerWidget {
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 16),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.canvasPrimary,
                 border: Border.all(color: Color(0xFFCED4DA), width: 1),
                 borderRadius: BorderRadius.circular(10),
               ),

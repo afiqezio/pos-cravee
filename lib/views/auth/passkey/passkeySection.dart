@@ -29,7 +29,7 @@ class PasskeySection extends ConsumerWidget {
               style: AppTexts.medium(size: 20, color: AppColors.secondary)),
           SizedBox(height: 15),
           Text("Choose your account to start your shift",
-              style: AppTexts.regular(size: 18, color: Colors.white)),
+              style: AppTexts.regular(size: 18, color: AppColors.primaryText)),
           SizedBox(height: 15),
           CustomLoginDropdown(
             title: "Izzat Hidir",
@@ -71,7 +71,7 @@ class PasskeySection extends ConsumerWidget {
                   ),
                   color: isFilled
                       ? AppColors.secondary
-                      : const Color.fromRGBO(0, 0, 0, 0),
+                      : AppColors.canvasSecondary,
                 ),
               );
             }),
@@ -144,7 +144,7 @@ class PasskeySection extends ConsumerWidget {
                                 fontSize: 36,
                                 color: ref.watch(pinProvider) == ''
                                     ? AppColors.greyText
-                                    : Colors.white)),
+                                    : AppColors.secondaryText)),
                       ),
                     ),
                   ),
@@ -177,7 +177,7 @@ class PasskeySection extends ConsumerWidget {
                           size: 28,
                           color: ref.watch(pinProvider) == ''
                               ? AppColors.greyText
-                              : Colors.white,
+                              : AppColors.secondaryText,
                         ),
                       ),
                     ),
@@ -252,7 +252,7 @@ Widget _buildKeypadButton(
       },
       child: Text(
         digit,
-        style: TextStyle(fontSize: 36, color: Colors.white),
+        style: TextStyle(fontSize: 36, color: AppColors.secondaryText),
       ),
     ),
   );

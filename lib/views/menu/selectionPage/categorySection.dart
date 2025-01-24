@@ -54,7 +54,9 @@ class _CategorySectionState extends ConsumerState<CategorySection> {
                   margin:
                       const EdgeInsets.symmetric(vertical: 14, horizontal: 6),
                   decoration: BoxDecoration(
-                    color: isSelected ? AppColors.secondary : Colors.white,
+                    color: isSelected
+                        ? AppColors.secondary
+                        : AppColors.canvasPrimary,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Padding(
@@ -83,7 +85,7 @@ class _CategorySectionState extends ConsumerState<CategorySection> {
                                   category.imageUrl,
                                   fit: BoxFit.fitWidth,
                                   color: isSelected
-                                      ? Colors.white
+                                      ? AppColors.canvasPrimary
                                       : const Color(0xFFFAC515),
                                 )
                               : null,
@@ -95,7 +97,9 @@ class _CategorySectionState extends ConsumerState<CategorySection> {
                             category.name,
                             style: AppTexts.medium(
                               size: 16,
-                              color: isSelected ? Colors.white : Colors.black,
+                              color: isSelected
+                                  ? AppColors.canvasPrimary
+                                  : Colors.black,
                             ),
                           ),
                         ),

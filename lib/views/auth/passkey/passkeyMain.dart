@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:possystem/providers/loginProvider.dart';
+import 'package:possystem/utils/appHelper.dart';
 
 import 'imageSlideSection.dart';
 import 'passkeySection.dart';
@@ -26,7 +27,7 @@ class _LoginPageState extends ConsumerState<PasskeyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.canvasSecondary,
       body: Row(
         children: [
           // Left half - Image with SVG overlay

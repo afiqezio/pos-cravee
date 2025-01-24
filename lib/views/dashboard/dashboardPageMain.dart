@@ -18,7 +18,7 @@ class DashboardPageMain extends StatelessWidget {
             icon: Icons.calendar_month_outlined,
             iconColor: AppColors.greyDark,
             borderColor: AppColors.secondary,
-            backgroundColor: Colors.white,
+            backgroundColor: AppColors.canvasPrimary,
             textStyle: AppTexts.regular(size: 16, color: AppColors.greyDark),
             onTap: () {
               // print("Circle tapped");

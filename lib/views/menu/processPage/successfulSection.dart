@@ -29,7 +29,7 @@ class _SuccessfulSectionState extends ConsumerState<SuccessfulSection> {
               child: Center(
                   child: Icon(
                 Icons.check,
-                color: Colors.white,
+                color: AppColors.canvasPrimary,
               )),
             ),
             Padding(

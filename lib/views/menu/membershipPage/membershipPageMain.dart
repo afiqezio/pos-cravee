@@ -54,7 +54,7 @@ class MembershipPageMain extends ConsumerWidget {
                     alignment: Alignment.centerLeft,
                     child: Text('Voucher Code',
                         style: TextStyle(
-                            color: Colors.black,
+                            color: AppColors.primaryText,
                             fontSize: 16,
                             fontWeight: FontWeight.w600)),
                   ),
@@ -73,7 +73,7 @@ class MembershipPageMain extends ConsumerWidget {
                     alignment: Alignment.centerLeft,
                     child: Text('Voucher Code',
                         style: TextStyle(
-                            color: Colors.black,
+                            color: AppColors.primaryText,
                             fontSize: 16,
                             fontWeight: FontWeight.w600)),
                   ),
@@ -87,7 +87,7 @@ class MembershipPageMain extends ConsumerWidget {
                           child: TextField(
                             decoration: InputDecoration(
                               hintText: 'Please input your voucher code',
-                              hintStyle: TextStyle(color: Colors.grey),
+                              hintStyle: TextStyle(color: AppColors.greyText),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: BorderSide.none,
@@ -103,7 +103,7 @@ class MembershipPageMain extends ConsumerWidget {
                                     BorderSide(color: Colors.orange, width: 2),
                               ),
                               filled: true,
-                              fillColor: Colors.white,
+                              fillColor: AppColors.canvasPrimary,
                               contentPadding: const EdgeInsets.symmetric(
                                 vertical: 0,
                                 horizontal: 16,
@@ -130,7 +130,7 @@ class MembershipPageMain extends ConsumerWidget {
                                     style: const TextStyle(
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.w800,
-                                      color: Colors.white,
+                                      color: AppColors.secondaryText,
                                     ),
                                   ),
                                 ),

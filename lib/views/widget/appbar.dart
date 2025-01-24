@@ -7,7 +7,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.canvasPrimary,
       title: Padding(
         padding: const EdgeInsets.all(6.0),
         child: Row(
@@ -23,7 +23,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     borderSide: BorderSide.none,
                   ),
                   filled: true,
-                  fillColor: Color(0xFFF3F3F9),
+                  fillColor: AppColors.keypad,
                   contentPadding: const EdgeInsets.symmetric(
                     vertical: 0,
                     horizontal: 16,
@@ -34,7 +34,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             const SizedBox(width: 16),
             // Profile Section
             Container(
-              color: Color(0xFFECE9FE),
+              color: AppColors.violet100,
               child: Padding(
                 padding: const EdgeInsets.all(18.0),
                 child: Row(

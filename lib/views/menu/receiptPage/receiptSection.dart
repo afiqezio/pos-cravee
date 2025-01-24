@@ -12,7 +12,7 @@ class ReceiptSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      color: Colors.white,
+      color: AppColors.canvasPrimary,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
@@ -139,7 +139,7 @@ class ReceiptSection extends ConsumerWidget {
                                         .join(', ')
                                     : 'No Add-Ons',
                                 style: AppTexts.regular(
-                                    size: 14, color: Colors.grey),
+                                    size: 14, color: AppColors.inactive),
                               ),
                             ],
                           ),
@@ -192,27 +192,27 @@ class ReceiptSection extends ConsumerWidget {
                             Text(
                               'Total Sales',
                               style: AppTexts.medium(
-                                  size: 14, color: Colors.black),
+                                  size: 14, color: AppColors.primaryText),
                             ),
                             Text(
                               'Voucher',
                               style: AppTexts.medium(
-                                  size: 14, color: Colors.black),
+                                  size: 14, color: AppColors.primaryText),
                             ),
                             Text(
                               'Redeem Points',
                               style: AppTexts.medium(
-                                  size: 14, color: Colors.black),
+                                  size: 14, color: AppColors.primaryText),
                             ),
                             Text(
                               'Tax',
                               style: AppTexts.medium(
-                                  size: 14, color: Colors.black),
+                                  size: 14, color: AppColors.primaryText),
                             ),
                             Text(
                               'Subtotal',
                               style: AppTexts.medium(
-                                  size: 14, color: Colors.black),
+                                  size: 14, color: AppColors.primaryText),
                             ),
                             Text(
                               'Grand Total',

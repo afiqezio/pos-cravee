@@ -84,8 +84,8 @@ class _ImageSlideSectionState extends State<ImageSlideSection> {
                       itemBuilder: (context, index) {
                         return Text(
                           _texts[index],
-                          style:
-                              AppTexts.regular(size: 18, color: Colors.white),
+                          style: AppTexts.regular(
+                              size: 18, color: AppColors.secondaryText),
                           textAlign: TextAlign.center,
                         );
                       },

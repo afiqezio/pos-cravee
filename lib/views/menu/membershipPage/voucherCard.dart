@@ -40,7 +40,7 @@ class VoucherCard extends ConsumerWidget {
                   style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                      color: AppColors.secondaryText),
                 ),
               ),
               SizedBox(height: 8.0),
@@ -53,13 +53,13 @@ class VoucherCard extends ConsumerWidget {
                       style: TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.w600,
-                          color: Colors.white),
+                          color: AppColors.secondaryText),
                     ),
                   ),
                   CustomCircle(
                     size: 10,
-                    fillColor: Colors.white,
-                    borderColor: Colors.white,
+                    fillColor: AppColors.canvasPrimary,
+                    borderColor: AppColors.canvasPrimary,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -68,7 +68,7 @@ class VoucherCard extends ConsumerWidget {
                       style: TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.w600,
-                          color: Colors.white),
+                          color: AppColors.secondaryText),
                     ),
                   ),
                 ],
@@ -97,7 +97,7 @@ class VoucherCard extends ConsumerWidget {
                           style: const TextStyle(
                             fontSize: 16.0,
                             fontWeight: FontWeight.w800,
-                            color: Colors.white,
+                            color: AppColors.secondaryText,
                           ),
                         ),
                       ),

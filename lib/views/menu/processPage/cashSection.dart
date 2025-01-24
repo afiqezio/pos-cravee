@@ -24,7 +24,7 @@ class _CashSectionState extends ConsumerState<CashSection> {
                   width: MediaQuery.of(context).size.width * 0.5,
                   height: 60,
                   child: Card(
-                    color: Colors.white,
+                    color: AppColors.canvasPrimary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                       side: BorderSide(
@@ -40,13 +40,13 @@ class _CashSectionState extends ConsumerState<CashSection> {
                         children: [
                           Text(
                             "Cash",
-                            style:
-                                AppTexts.medium(size: 16, color: Colors.black),
+                            style: AppTexts.medium(
+                                size: 16, color: AppColors.primaryText),
                           ),
                           Text(
                             'RM${ref.watch(cashProvider).toStringAsFixed(2)}',
-                            style:
-                                AppTexts.regular(size: 16, color: Colors.black),
+                            style: AppTexts.regular(
+                                size: 16, color: AppColors.primaryText),
                           ),
                         ],
                       ),
@@ -70,11 +70,13 @@ class _CashSectionState extends ConsumerState<CashSection> {
                   children: [
                     Text(
                       "Change",
-                      style: AppTexts.medium(size: 16, color: Colors.white),
+                      style: AppTexts.medium(
+                          size: 16, color: AppColors.secondaryText),
                     ),
                     Text(
                       'RM${ref.watch(paymentChangeProvider).toStringAsFixed(2)}',
-                      style: AppTexts.regular(size: 16, color: Colors.white),
+                      style: AppTexts.regular(
+                          size: 16, color: AppColors.secondaryText),
                     ),
                   ],
                 ),

@@ -17,11 +17,11 @@ void showPaymentMethod(BuildContext context, WidgetRef ref) {
               width: MediaQuery.of(context).size.width * 0.8,
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.canvasPrimary,
                 borderRadius: BorderRadius.circular(6),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: AppColors.canvasSecondary.withOpacity(0.1),
                     blurRadius: 6,
                     offset: const Offset(0, 4),
                   ),
@@ -69,8 +69,8 @@ void showPaymentMethod(BuildContext context, WidgetRef ref) {
                         },
                         child: Text(
                           "DuitNow QR",
-                          style:
-                              AppTexts.regular(size: 16, color: Colors.white),
+                          style: AppTexts.regular(
+                              size: 16, color: AppColors.secondaryText),
                         ),
                       ),
                       const SizedBox(height: 12),
@@ -89,8 +89,8 @@ void showPaymentMethod(BuildContext context, WidgetRef ref) {
                         },
                         child: Text(
                           "Credit Card",
-                          style:
-                              AppTexts.regular(size: 16, color: Colors.white),
+                          style: AppTexts.regular(
+                              size: 16, color: AppColors.secondaryText),
                         ),
                       ),
                       const SizedBox(height: 12),
@@ -111,8 +111,8 @@ void showPaymentMethod(BuildContext context, WidgetRef ref) {
                         },
                         child: Text(
                           "Cash",
-                          style:
-                              AppTexts.regular(size: 16, color: Colors.white),
+                          style: AppTexts.regular(
+                              size: 16, color: AppColors.secondaryText),
                         ),
                       ),
                     ],

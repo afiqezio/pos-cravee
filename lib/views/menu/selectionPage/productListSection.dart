@@ -42,10 +42,7 @@ class _ProductListSectionState extends ConsumerState<ProductListSection> {
               final product = filteredProducts[index];
               return GestureDetector(
                 onTap: () => showProductDetails(context, ref, product),
-                child: Container(
-                  // color: Colors.red,
-                  child: _buildProductCard(context, product),
-                ),
+                child: _buildProductCard(context, product),
               );
             },
           );
@@ -73,7 +70,7 @@ class _ProductListSectionState extends ConsumerState<ProductListSection> {
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.canvasPrimary,
                   image: DecorationImage(
                     image: AssetImage(product.imageUrl),
                     fit: BoxFit.fitHeight,

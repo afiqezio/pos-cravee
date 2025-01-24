@@ -18,7 +18,7 @@ void showCartDetails(
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
-    backgroundColor: Colors.transparent,
+    backgroundColor: AppColors.transparent,
     builder: (BuildContext context) {
       int quantity = cartItem.quantity;
       return Stack(
@@ -27,7 +27,7 @@ void showCartDetails(
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
             child: Container(
-              color: Colors.transparent,
+              color: AppColors.transparent,
             ),
           ),
           // Centered Details
@@ -36,7 +36,7 @@ void showCartDetails(
               width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.all(18),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.canvasPrimary,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: SingleChildScrollView(
@@ -48,7 +48,7 @@ void showCartDetails(
                         Navigator.pop(context);
                       },
                       icon: const Icon(Icons.close, size: 26),
-                      color: Colors.black, // Icon color
+                      color: AppColors.canvasSecondary, // Icon color
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,7 +108,7 @@ void showCartDetails(
                                         width: 40,
                                         height: 40,
                                         decoration: BoxDecoration(
-                                          color: Colors.white,
+                                          color: AppColors.canvasPrimary,
                                           borderRadius:
                                               BorderRadius.circular(6),
                                           border: Border.all(
@@ -126,7 +126,7 @@ void showCartDetails(
                                           },
                                           icon: const Icon(
                                             Icons.remove,
-                                            color: Colors.black,
+                                            color: AppColors.canvasSecondary,
                                           ),
                                         ),
                                       ),
@@ -154,7 +154,7 @@ void showCartDetails(
                                           },
                                           icon: const Icon(
                                             Icons.add,
-                                            color: Colors.white,
+                                            color: AppColors.canvasPrimary,
                                           ),
                                         ),
                                       ),
@@ -209,7 +209,8 @@ void showCartDetails(
                                                     fillColor: selectedAddOns
                                                             .contains(addOnItem)
                                                         ? AppColors.secondary
-                                                        : Colors.white,
+                                                        : AppColors
+                                                            .canvasPrimary,
                                                     onChanged: (value) {
                                                       setState(() {
                                                         if (selectedAddOns
@@ -294,7 +295,8 @@ void showCartDetails(
                       ),
                       child: Text(
                         'Update',
-                        style: AppTexts.regular(size: 18, color: Colors.white),
+                        style: AppTexts.regular(
+                            size: 18, color: AppColors.secondaryText),
                       ),
                     ),
                   ],

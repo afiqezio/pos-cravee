@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:possystem/utils/appHelper.dart';
 
 class MembershipProfile extends StatelessWidget {
   const MembershipProfile({super.key});
@@ -53,7 +54,7 @@ class MembershipProfile extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 48,
                                 fontWeight: FontWeight.w600,
-                                color: Colors.white,
+                                color: AppColors.secondaryText,
                               ),
                             ),
                           ],
@@ -69,7 +70,7 @@ class MembershipProfile extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w900,
-                              color: Colors.white,
+                              color: AppColors.secondaryText,
                             ),
                           ),
                           const SizedBox(
@@ -88,7 +89,7 @@ class MembershipProfile extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                                  color: AppColors.secondaryText,
                                 ),
                               ),
                             ),
@@ -107,7 +108,7 @@ class MembershipProfile extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w400,
-                              color: Colors.white,
+                              color: AppColors.secondaryText,
                             ),
                           ),
                           // Progress Bar
@@ -128,7 +129,7 @@ class MembershipProfile extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w400,
-                                  color: Colors.white,
+                                  color: AppColors.secondaryText,
                                 ),
                               ),
                               // Percent
@@ -137,7 +138,7 @@ class MembershipProfile extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w400,
-                                  color: Colors.white,
+                                  color: AppColors.secondaryText,
                                 ),
                               ),
                             ],

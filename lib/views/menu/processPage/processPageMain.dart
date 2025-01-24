@@ -123,12 +123,12 @@ class ProcessPageMainState extends ConsumerState<ProcessPageMain> {
                                 Text(
                                   "Grand Total : ",
                                   style: AppTexts.regular(
-                                      size: 16, color: Colors.white),
+                                      size: 16, color: AppColors.secondaryText),
                                 ),
                                 Text(
                                   'RM${ref.watch(cartSalesProvider).subtotal.toStringAsFixed(2)}',
                                   style: AppTexts.regular(
-                                      size: 16, color: Colors.white),
+                                      size: 16, color: AppColors.secondaryText),
                                 ),
                               ],
                             ),
@@ -170,19 +170,22 @@ class ProcessPageMainState extends ConsumerState<ProcessPageMain> {
           label,
           style: AppTexts.regular(
             size: 15,
-            color: isCompleted ? AppColors.secondary : Colors.black,
+            color: isCompleted ? AppColors.secondary : AppColors.primaryText,
           ),
         ),
         const SizedBox(height: 12),
         CustomCircle(
           size: 40,
-          fillColor: isCompleted ? AppColors.secondary : Colors.white,
+          fillColor:
+              isCompleted ? AppColors.secondary : AppColors.canvasPrimary,
           borderColor: AppColors.secondary,
           borderThickness: 1.0,
           child: Text(number,
               style: AppTexts.regular(
                 size: 16,
-                color: isCompleted ? Colors.white : Colors.black,
+                color: isCompleted
+                    ? AppColors.secondaryText
+                    : AppColors.primaryText,
               )),
         ),
       ],

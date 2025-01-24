@@ -29,7 +29,7 @@ class PaymentDetailSection extends ConsumerWidget {
                       size: 60,
                       child: Icon(
                         Icons.check,
-                        color: Colors.white,
+                        color: AppColors.canvasPrimary,
                       ),
                     ),
                   ),
@@ -67,7 +67,8 @@ class PaymentDetailSection extends ConsumerWidget {
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
                       "Print Full Receipt",
-                      style: AppTexts.medium(size: 17, color: Colors.white),
+                      style: AppTexts.medium(
+                          size: 17, color: AppColors.secondaryText),
                     ),
                   ),
                 ),
@@ -82,8 +83,8 @@ class PaymentDetailSection extends ConsumerWidget {
                       child: TextField(
                         decoration: InputDecoration(
                           hintText: 'Please input Your Email Address',
-                          hintStyle:
-                              AppTexts.regular(size: 17, color: Colors.grey),
+                          hintStyle: AppTexts.regular(
+                              size: 17, color: AppColors.greyText),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(0),
                             borderSide: BorderSide.none,
@@ -94,11 +95,11 @@ class PaymentDetailSection extends ConsumerWidget {
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(0),
-                            borderSide:
-                                BorderSide(color: Colors.orange, width: 2),
+                            borderSide: BorderSide(
+                                color: AppColors.secondary, width: 2),
                           ),
                           filled: true,
-                          fillColor: Colors.white,
+                          fillColor: AppColors.canvasPrimary,
                           contentPadding: const EdgeInsets.symmetric(
                             vertical: 0,
                             horizontal: 16,
@@ -154,7 +155,8 @@ class PaymentDetailSection extends ConsumerWidget {
                       child: Center(
                         child: Text(
                           "New Order",
-                          style: AppTexts.medium(size: 16, color: Colors.white),
+                          style: AppTexts.medium(
+                              size: 16, color: AppColors.secondaryText),
                         ),
                       ),
                     ),

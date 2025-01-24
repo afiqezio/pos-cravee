@@ -7,6 +7,8 @@ class AppColors {
   static const Color secondary = Color(0xFFFF6C0E);
   static const Color background = Color(0xFFF2F2F7);
   static const Color transparent = Color(0x00000000);
+  static const Color canvasPrimary = Color(0xFFFFFFFF);
+  static const Color canvasSecondary = Color(0xFF000000);
 
   // Widget Colors
   static const Color inactive = Color(0xFFD9D9D9);
@@ -15,6 +17,8 @@ class AppColors {
 
   // Text Colors
   static const Color greyText = Color(0xFF9599AD);
+  static const Color primaryText = Color(0xFF000000);
+  static const Color secondaryText = Color(0xFFFFFFFF);
 
   // Custom Colors
   static const Color green = Color(0xFF16B364);

@@ -15,7 +15,7 @@ void showProductDetails(BuildContext context, WidgetRef ref, Product product) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
-    backgroundColor: Colors.transparent,
+    backgroundColor: AppColors.transparent,
     builder: (BuildContext context) {
       return Stack(
         children: [
@@ -23,7 +23,7 @@ void showProductDetails(BuildContext context, WidgetRef ref, Product product) {
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
             child: Container(
-              color: Colors.transparent,
+              color: AppColors.transparent,
             ),
           ),
           // Centered Details
@@ -32,7 +32,7 @@ void showProductDetails(BuildContext context, WidgetRef ref, Product product) {
               width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.all(18),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: AppColors.canvasPrimary,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: SingleChildScrollView(
@@ -44,7 +44,7 @@ void showProductDetails(BuildContext context, WidgetRef ref, Product product) {
                         Navigator.pop(context);
                       },
                       icon: const Icon(Icons.close, size: 22),
-                      color: Colors.black,
+                      color: AppColors.canvasSecondary,
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,7 +104,7 @@ void showProductDetails(BuildContext context, WidgetRef ref, Product product) {
                                         width: 40,
                                         height: 40,
                                         decoration: BoxDecoration(
-                                          color: Colors.white,
+                                          color: AppColors.canvasPrimary,
                                           borderRadius:
                                               BorderRadius.circular(6),
                                           border: Border.all(
@@ -122,7 +122,7 @@ void showProductDetails(BuildContext context, WidgetRef ref, Product product) {
                                           },
                                           icon: const Icon(
                                             Icons.remove,
-                                            color: Colors.black,
+                                            color: AppColors.canvasSecondary,
                                           ),
                                         ),
                                       ),
@@ -150,7 +150,7 @@ void showProductDetails(BuildContext context, WidgetRef ref, Product product) {
                                           },
                                           icon: const Icon(
                                             Icons.add,
-                                            color: Colors.white,
+                                            color: AppColors.canvasPrimary,
                                           ),
                                         ),
                                       ),
@@ -203,7 +203,8 @@ void showProductDetails(BuildContext context, WidgetRef ref, Product product) {
                                                     borderThickness: 1.5,
                                                     fillColor: isChecked
                                                         ? AppColors.secondary
-                                                        : Colors.white,
+                                                        : AppColors
+                                                            .canvasPrimary,
                                                     onChanged: (value) {
                                                       setState(() {
                                                         isChecked = !isChecked;
@@ -285,7 +286,8 @@ void showProductDetails(BuildContext context, WidgetRef ref, Product product) {
                       ),
                       child: Text(
                         'Add to Cart',
-                        style: AppTexts.regular(size: 18, color: Colors.white),
+                        style: AppTexts.regular(
+                            size: 18, color: AppColors.secondaryText),
                       ),
                     ),
                   ],

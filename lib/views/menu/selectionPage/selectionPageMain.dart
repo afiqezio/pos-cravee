@@ -34,7 +34,7 @@ class _ProductPickerPageState extends ConsumerState<SelectionPageMain> {
         }
       },
       child: Scaffold(
-        backgroundColor: const Color(0xFFF2F2F7),
+        backgroundColor: AppColors.background,
         body: Row(
           children: [
             // Product Section

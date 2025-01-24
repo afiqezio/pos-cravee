@@ -232,10 +232,16 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
             : _isCollapsed
                 ? (selectedHeaderIndex >= index * 100 &&
                     selectedHeaderIndex < (index + 1) * 100)
-                : false;
+                : _sublistExpanded[index] != null &&
+                        _sublistExpanded[index] == false
+                    ? (selectedHeaderIndex >= index * 100 &&
+                            selectedHeaderIndex < (index + 1) * 100)
+                        ? true
+                        : false
+                    : false;
 
     Color backgroundColor =
-        isSelected ? AppColors.secondary : Colors.transparent;
+        isSelected ? AppColors.secondary : AppColors.transparent;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
@@ -289,7 +295,8 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
                       ? MainAxisAlignment.center
                       : MainAxisAlignment.start,
                   children: [
-                    SvgPicture.asset(icon, width: 22, color: Colors.white),
+                    SvgPicture.asset(icon,
+                        width: 22, color: AppColors.canvasPrimary),
                     AnimatedContainer(
                       duration: Duration(milliseconds: 300),
                       width: _isCollapsed ? 0 : 12,
@@ -306,20 +313,18 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
                                 child: Text(
                                   text,
                                   style: AppTexts.regular(
-                                      size: 16, color: Colors.white),
+                                      size: 16, color: AppColors.secondaryText),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 ),
                               ),
                               if (subItems != null && subItems.isNotEmpty)
-                                Flexible(
-                                  child: Icon(
-                                    (_sublistExpanded[index] ?? false)
-                                        ? Icons.keyboard_arrow_down_outlined
-                                        : Icons.keyboard_arrow_right_outlined,
-                                    color: Colors.white,
-                                    size: 18,
-                                  ),
+                                Icon(
+                                  (_sublistExpanded[index] ?? false)
+                                      ? Icons.keyboard_arrow_down_outlined
+                                      : Icons.keyboard_arrow_right_outlined,
+                                  color: AppColors.canvasPrimary,
+                                  size: 18,
                                 ),
                             ],
                           ),

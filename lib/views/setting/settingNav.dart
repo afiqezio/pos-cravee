@@ -57,14 +57,18 @@ class _SettingNavState extends State<SettingNav> {
                       children: [
                         Icon(
                           item['icon'] as IconData,
-                          color: isSelected ? Colors.white : Colors.black,
+                          color: isSelected
+                              ? AppColors.canvasPrimary
+                              : AppColors.canvasSecondary,
                         ),
                         SizedBox(width: 8),
                         Text(
                           item['label'] as String,
                           style: AppTexts.regular(
                             size: 16,
-                            color: isSelected ? Colors.white : Colors.black,
+                            color: isSelected
+                                ? AppColors.canvasPrimary
+                                : AppColors.canvasSecondary,
                           ),
                         ),
                       ],

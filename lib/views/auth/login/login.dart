@@ -11,7 +11,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.canvasPrimary,
       body: Center(
         child: Padding(
           padding: EdgeInsets.all(screenWidth * 0.1),
@@ -23,7 +23,8 @@ class LoginPage extends StatelessWidget {
                   width: 80, height: 80),
               Center(
                 child: Text('Cravee POS',
-                    style: AppTexts.semiBold(size: 24, color: Colors.black)),
+                    style: AppTexts.semiBold(
+                        size: 24, color: AppColors.primaryText)),
               ),
               const SizedBox(height: 32),
               Padding(
@@ -72,7 +73,7 @@ class LoginPage extends StatelessWidget {
                           content: Text(
                               'Please fill in both email and password.',
                               style: AppTexts.medium(
-                                  size: 16, color: Colors.white)),
+                                  size: 16, color: AppColors.secondaryText)),
                           backgroundColor: AppColors.red,
                         ),
                       );
@@ -89,19 +90,12 @@ class LoginPage extends StatelessWidget {
                     padding: const EdgeInsets.all(12.0),
                     child: Text(
                       'Login',
-                      style: AppTexts.medium(size: 16, color: Colors.white),
+                      style: AppTexts.medium(
+                          size: 16, color: AppColors.secondaryText),
                     ),
                   ),
                 ),
               ),
-              // const SizedBox(height: 16),
-              // TextButton(
-              //   onPressed: () {
-              //     // Handle forgot password
-              //     debugPrint('Forgot Password pressed');
-              //   },
-              //   child: const Text('Forgot Password?'),
-              // ),
             ],
           ),
         ),

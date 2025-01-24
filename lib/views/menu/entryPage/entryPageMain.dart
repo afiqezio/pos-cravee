@@ -60,7 +60,7 @@ class EntryPageMain extends ConsumerWidget {
                         },
                         child: Card(
                           elevation: 0,
-                          color: Colors.white,
+                          color: AppColors.canvasPrimary,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
