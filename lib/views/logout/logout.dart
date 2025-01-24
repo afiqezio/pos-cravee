@@ -4,7 +4,7 @@ import 'package:possystem/providers/cartProvider.dart';
 import 'package:possystem/providers/paymentProvider.dart';
 import 'package:possystem/utils/appHelper.dart';
 import 'package:possystem/utils/widget/customScaffold.dart';
-import 'package:possystem/views/auth/login/login.dart';
+import 'package:possystem/views/auth/passkey/passkeyMain.dart';
 
 class LogoutPage extends ConsumerWidget {
   const LogoutPage({Key? key}) : super(key: key);
@@ -28,14 +28,15 @@ class LogoutPage extends ConsumerWidget {
             ),
             TextButton(
               onPressed: () {
+                // ref.read(sidebarProvider.notifier).resetSelection();
                 clearCart(ref);
                 clearCashProvider(ref);
                 Navigator.of(context).pop();
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
-                    builder: (context) => LoginPage(),
+                    builder: (context) => PasskeyPage(),
                   ),
-                  (route) => false, // Remove all previous routes
+                  (route) => false,
                 );
               },
               child: const Text(

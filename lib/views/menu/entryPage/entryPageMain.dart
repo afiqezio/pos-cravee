@@ -17,7 +17,6 @@ class EntryPageMain extends ConsumerWidget {
       id: "0",
       name: "All",
       imageUrl: "assets/images/data/all_menu.png",
-      // imageUrl: "assets/images/data/pretzel.png",
       description: 'All Menu',
     );
 
@@ -68,30 +67,36 @@ class EntryPageMain extends ConsumerWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.all(14.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      category.name,
-                                      style: AppTexts.semiBold(size: 16),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 4.0),
-                                      child: Text(
-                                        '${ref.watch(categoryProductCountProvider(category.id))} Item',
-                                        style: AppTexts.regular(
-                                            size: 16,
-                                            color: AppColors.greyDark),
+                              Expanded(
+                                flex: 2,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(14.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        category.name,
+                                        style: AppTexts.semiBold(size: 16),
                                       ),
-                                    )
-                                  ],
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 4.0),
+                                        child: Text(
+                                          '${ref.watch(categoryProductCountProvider(category.id))} Item',
+                                          style: AppTexts.regular(
+                                              size: 16,
+                                              color: AppColors.greyDark),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                               Expanded(
+                                flex: 3,
                                 child: Container(
-                                  margin: const EdgeInsets.all(10.0),
+                                  margin: const EdgeInsets.all(14.0),
                                   decoration: BoxDecoration(
                                     color: AppColors.primary,
                                     borderRadius: BorderRadius.circular(8),
@@ -100,6 +105,14 @@ class EntryPageMain extends ConsumerWidget {
                                       alignment: Alignment.topCenter,
                                       fit: BoxFit.fitWidth,
                                     ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        offset: Offset(0, 4),
+                                        blurRadius: 8,
+                                        spreadRadius: 1,
+                                      ),
+                                    ],
                                   ),
                                   clipBehavior: Clip.antiAlias,
                                 ),

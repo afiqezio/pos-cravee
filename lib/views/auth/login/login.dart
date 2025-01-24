@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:possystem/app/app.dart';
 import 'package:possystem/utils/appHelper.dart';
-import 'package:possystem/views/auth/passkey/passkeyMain.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
@@ -64,10 +64,25 @@ class LoginPage extends StatelessWidget {
                     // Handle login logic here
                     final email = _emailController.text;
                     final password = _passwordController.text;
+
+                    // Check if email and password are filled
+                    if (email.isEmpty || password.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                              'Please fill in both email and password.',
+                              style: AppTexts.medium(
+                                  size: 16, color: Colors.white)),
+                          backgroundColor: AppColors.red,
+                        ),
+                      );
+                      return;
+                    }
+
                     debugPrint('Email: $email, Password: $password');
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => PasskeyPage()),
+                      MaterialPageRoute(builder: (context) => AppPage()),
                     );
                   },
                   child: Padding(

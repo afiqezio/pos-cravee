@@ -131,8 +131,8 @@ class PaymentDetailSection extends ConsumerWidget {
             children: [
               Image.asset(
                 'assets/images/process/pretzley_qr.png',
-                width: 240,
-                height: 240,
+                width: 220,
+                height: 220,
               ),
               SizedBox(height: 10),
               GestureDetector(
@@ -146,11 +146,11 @@ class PaymentDetailSection extends ConsumerWidget {
                   child: Card(
                     color: AppColors.secondary,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(6),
                     ),
                     elevation: 0,
                     child: Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(12.0),
                       child: Center(
                         child: Text(
                           "New Order",

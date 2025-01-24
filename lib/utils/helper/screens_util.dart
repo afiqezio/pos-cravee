@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
 
+// Constants for layout calculations
+const double smallScreenWidth = 420.0;
+const double mediumScreenWidth = 570.0;
+const double largeScreenWidth = 720.0;
+const double baseColumnWidth = 240.0;
+
 int getCrossAxisCount(double screenWidth) {
-  if (screenWidth <= 420) {
+  if (screenWidth <= smallScreenWidth) {
     return 1; // For smaller screens
-  } else if (screenWidth <= 570) {
+  } else if (screenWidth <= mediumScreenWidth) {
     return 2; // For small screens
-  } else if (screenWidth <= 720) {
+  } else if (screenWidth <= largeScreenWidth) {
     return 3; // For medium screens
   } else {
-    return 4; // For large screens
+    return (screenWidth / baseColumnWidth)
+        .floor(); // For large screens, calculate based on base width
   }
 }
 
 double getChildAspectRatio(double screenWidth) {
-  if (screenWidth <= 420) {
-    return 1.2; // For smaller screens
-    // } else if (screenWidth <= 570) {
-    //   return 1.2; // For small screens
-    // } else if (screenWidth <= 720) {
-    //   return 0.8; // For medium screens
+  if (screenWidth <= smallScreenWidth) {
+    return 1.2;
   } else {
-    return 0.8; // For large screens
+    return 0.8;
   }
 }
 

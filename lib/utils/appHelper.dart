@@ -19,6 +19,7 @@ class AppColors {
   // Custom Colors
   static const Color green = Color(0xFF16B364);
   static const Color red = Color(0xFFF04438);
+  static const Color grey = Color(0xFFDFDFDF);
   static const Color greyDark = Color(0xFF717680);
   static const Color orangeDark100 = Color(0xFFFFE6D5);
   static const Color orangeDark50 = Color(0xFFFFF4ED);

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:possystem/app/app.dart';
+import 'package:possystem/models/widget/dropdown.dart';
 import 'package:possystem/providers/loginProvider.dart';
 import 'package:possystem/utils/appHelper.dart';
+import 'package:possystem/utils/widget/customDropdown.dart';
 
 class PasskeySection extends ConsumerWidget {
   const PasskeySection({super.key});
@@ -29,40 +31,27 @@ class PasskeySection extends ConsumerWidget {
           Text("Choose your account to start your shift",
               style: AppTexts.regular(size: 18, color: Colors.white)),
           SizedBox(height: 15),
-          Container(
-            width: MediaQuery.of(context).size.width * 0.36,
-            color: AppColors.orangeDark50,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CircleAvatar(
-                        radius: 25,
-                        backgroundImage: AssetImage('assets/images/person.png'),
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Izzat Hidir",
-                            style:
-                                AppTexts.medium(size: 18, color: Colors.black)),
-                        Text("12:00 PM - 10:00 PM",
-                            style: AppTexts.medium(
-                                size: 18, color: AppColors.secondary)),
-                      ],
-                    ),
-                  ],
-                ),
-                Icon(Icons.arrow_drop_down_outlined,
-                    size: 32, color: Colors.black),
-              ],
-            ),
+          CustomLoginDropdown(
+            title: "Izzat Hidir",
+            subtitle: "12:00 PM - 10:00 PM",
+            imagePath: 'assets/images/person.png',
+            items: [
+              DropdownModel(
+                title: "Izzat Hadir",
+                description: "12:00 PM - 11:00 PM",
+              ),
+              DropdownModel(
+                title: "Izzat Hudir",
+                description: "12:00 PM - 10:00 PM",
+              ),
+              DropdownModel(
+                title: "Izzat Hedir",
+                description: "12:00 PM - 10:00 PM",
+              ),
+            ],
+            onItemSelected: (value) {
+              debugPrint("Dropdown tapped");
+            },
           ),
           SizedBox(height: 20),
           // PIN display circles
@@ -151,8 +140,11 @@ class PasskeySection extends ConsumerWidget {
                           ref.read(loginErrorProvider.notifier).state = "";
                         },
                         child: Text("X",
-                            style:
-                                TextStyle(fontSize: 36, color: Colors.white)),
+                            style: TextStyle(
+                                fontSize: 36,
+                                color: ref.watch(pinProvider) == ''
+                                    ? AppColors.greyText
+                                    : Colors.white)),
                       ),
                     ),
                   ),
@@ -180,12 +172,12 @@ class PasskeySection extends ConsumerWidget {
                           }
                           ref.read(loginErrorProvider.notifier).state = "";
                         },
-                        child: Center(
-                          child: Icon(
-                            Icons.backspace,
-                            size: 28,
-                            color: Colors.white,
-                          ),
+                        child: Icon(
+                          Icons.backspace_outlined,
+                          size: 28,
+                          color: ref.watch(pinProvider) == ''
+                              ? AppColors.greyText
+                              : Colors.white,
                         ),
                       ),
                     ),
@@ -208,6 +200,9 @@ class PasskeySection extends ConsumerWidget {
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.secondary,
               minimumSize: Size(350, 50),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(6),
+              ),
             ),
             onPressed: () {
               //Validation

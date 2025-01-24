@@ -1,29 +1,34 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SidebarState extends StateNotifier<Map<String, int>> {
-  SidebarState()
-      : super({
-          'headerIndex': 0,
-          'footerIndex': -1
-        }); // Default to -1 (no selection)
+class SidebarState extends StateNotifier<SidebarSelection> {
+  SidebarState() : super(SidebarSelection()); // Initialize with default values
 
   void selectHeaderIndex(int index) {
-    state = {
-      'headerIndex': index,
-      'footerIndex': state['footerIndex']!
-    }; // Update the selected header index
+    state =
+        SidebarSelection(headerIndex: index, footerIndex: state.footerIndex);
   }
 
   void selectFooterIndex(int index) {
-    state = {
-      'headerIndex': state['headerIndex']!,
-      'footerIndex': index
-    }; // Update the selected footer index
+    state =
+        SidebarSelection(headerIndex: state.headerIndex, footerIndex: index);
   }
+
+  void resetSelection() {
+    state = SidebarSelection(); // Reset to default values
+  }
+}
+
+// Create a class to hold the sidebar selection state
+class SidebarSelection {
+  final int headerIndex;
+  final int footerIndex;
+
+  SidebarSelection(
+      {this.headerIndex = 1, this.footerIndex = -1}); // Default values
 }
 
 // Create a provider for the SidebarState
 final sidebarProvider =
-    StateNotifierProvider<SidebarState, Map<String, int>>((ref) {
+    StateNotifierProvider<SidebarState, SidebarSelection>((ref) {
   return SidebarState();
 });

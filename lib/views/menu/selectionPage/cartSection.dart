@@ -5,6 +5,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:possystem/utils/appHelper.dart';
+import 'package:possystem/utils/widget/customButton.dart';
 import 'package:possystem/utils/widget/customSlider.dart';
 import 'package:possystem/views/menu/selectionPage/showCartDetails.dart';
 import 'package:possystem/views/menu/selectionPage/showPaymentMethod.dart';
@@ -109,6 +110,7 @@ class _CartSectionState extends ConsumerState<CartSection>
                   ],
                 )),
             const Divider(thickness: 0.9, height: 0.5),
+            // Product List
             Expanded(
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
@@ -213,31 +215,56 @@ class _CartSectionState extends ConsumerState<CartSection>
                 Expanded(
                   flex: 5,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 8.0),
-                    child: ElevatedButton(
-                      onPressed: () => clearCart(ref),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      ),
-                      child: Text(
-                        'Clear Basket',
-                        style: AppTexts.regular(size: 18),
-                      ),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                    child: CustomActionButton(
+                      label: 'Clear Basket',
+                      onTap: () => clearCart(ref),
+                      backgroundColor: Colors.white,
+                      borderColor: AppColors.grey,
+                      textStyle:
+                          AppTexts.regular(size: 18, color: Colors.black),
+                      borderRadius: 8,
+                      padding: EdgeInsets.symmetric(vertical: 12.0),
                     ),
                   ),
                 ),
+                // Expanded(
+                //   flex: 5,
+                //   child: Padding(
+                //     padding: const EdgeInsets.symmetric(
+                //         horizontal: 8.0, vertical: 8.0),
+                //     child: ElevatedButton(
+                //       onPressed: () => clearCart(ref),
+                //       style: ElevatedButton.styleFrom(
+                //         backgroundColor: Colors.white,
+                //         shape: RoundedRectangleBorder(
+                //           borderRadius: BorderRadius.circular(8),
+                //         ),
+                //         padding: const EdgeInsets.symmetric(vertical: 12.0),
+                //       ),
+                //       child: Text(
+                //         'Clear Basket',
+                //         style: AppTexts.regular(size: 18),
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 Expanded(
                   flex: 4,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 8.0),
-                    child: ElevatedButton(
-                      onPressed: cart.isEmpty
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                    child: CustomActionButton(
+                      label: 'Pay',
+                      backgroundColor: cart.isEmpty
+                          ? AppColors.inactive
+                          : AppColors.secondary,
+                      textStyle:
+                          AppTexts.regular(size: 18, color: Colors.white),
+                      borderRadius: 8,
+                      padding: EdgeInsets.symmetric(vertical: 12.0),
+                      onTap: cart.isEmpty
                           ? null
                           : () {
                               if (!_isConfirmation) {
@@ -246,22 +273,40 @@ class _CartSectionState extends ConsumerState<CartSection>
                                 showPaymentMethod(context, ref);
                               }
                             },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: cart.isEmpty
-                            ? Color(0xFFB8C1CC)
-                            : AppColors.secondary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      ),
-                      child: Text(
-                        'Pay',
-                        style: AppTexts.regular(size: 18, color: Colors.white),
-                      ),
                     ),
                   ),
                 ),
+                // Expanded(
+                //   flex: 4,
+                //   child: Padding(
+                //     padding: const EdgeInsets.symmetric(
+                //         horizontal: 8.0, vertical: 8.0),
+                //     child: ElevatedButton(
+                //       onPressed: cart.isEmpty
+                //           ? null
+                //           : () {
+                //               if (!_isConfirmation) {
+                //                 context.go('/menu/productpicker/process');
+                //               } else {
+                //                 showPaymentMethod(context, ref);
+                //               }
+                //             },
+                //       style: ElevatedButton.styleFrom(
+                //         backgroundColor: cart.isEmpty
+                //             ? Color(0xFFB8C1CC)
+                //             : AppColors.secondary,
+                //         shape: RoundedRectangleBorder(
+                //           borderRadius: BorderRadius.circular(8),
+                //         ),
+                //         padding: const EdgeInsets.symmetric(vertical: 12.0),
+                //       ),
+                //       child: Text(
+                //         'Pay',
+                //         style: AppTexts.regular(size: 18, color: Colors.white),
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ],
@@ -274,7 +319,6 @@ class _CartSectionState extends ConsumerState<CartSection>
 // Widget build
 
 Widget _cartUtilities(BuildContext context, WidgetRef ref) {
-  // final cart = ref.watch(cartProvider);
   return Column(
     children: [
       Container(
@@ -465,8 +509,8 @@ Widget _buildCartItem(BuildContext context, WidgetRef ref) {
                               ),
                               // Quantity Display
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0),
                                 child: FittedBox(
                                   fit: BoxFit.contain,
                                   child: Text(

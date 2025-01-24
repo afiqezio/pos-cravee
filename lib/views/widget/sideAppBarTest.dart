@@ -17,44 +17,49 @@ class ScaffoldWithNavBar extends ConsumerStatefulWidget {
 
 class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
   bool _isCollapsed = true;
-  // int _selectedHeaderIndex = 0;
-  // int _selectedFooterIndex = -1;
   Map<int, bool> _sublistExpanded = {};
 
   final List<Map<String, dynamic>> _sidebarItems = [
     {
+      'index': 1,
       'icon': 'assets/svg/sidebar/dashboard.svg',
       'text': 'Dashboard',
       'route': '/dashboard',
     },
     {
+      'index': 2,
       'icon': 'assets/svg/sidebar/menu.svg',
       'text': 'Menu',
       'route': '/menu',
     },
     {
+      'index': 3,
       'icon': 'assets/svg/sidebar/transactions.svg',
       'text': 'Transactions',
       'route': '/transactions',
     },
-    // {
-    //   'icon': 'assets/svg/sidebar/product.svg',
-    //   'text': 'Product',
-    //   'route': '/product',
-    //   'subItems': [
-    //     {
-    //       'icon': 'assets/svg/sidebar/product.svg',
-    //       'text': 'Category',
-    //       'route': '/product/category',
-    //     },
-    //     {
-    //       'icon': 'assets/svg/sidebar/product.svg',
-    //       'text': 'Remove Menu',
-    //       'route': '/product/category',
-    //     },
-    //   ],
-    // },
     {
+      'index': 4,
+      'icon': 'assets/svg/sidebar/product.svg',
+      'text': 'Product',
+      'route': '/product',
+      'subItems': [
+        {
+          'index': 1,
+          'icon': 'assets/svg/sidebar/product.svg',
+          'text': 'Category',
+          'route': '/product/category',
+        },
+        {
+          'index': 2,
+          'icon': 'assets/svg/sidebar/product.svg',
+          'text': 'Remove Menu',
+          'route': '/product/category',
+        },
+      ],
+    },
+    {
+      'index': 5,
       'icon': 'assets/svg/sidebar/report.svg',
       'text': 'Report',
       'route': '/report',
@@ -63,11 +68,13 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
 
   final List<Map<String, dynamic>> _sidebarFooterItems = [
     {
+      'index': 1,
       'icon': 'assets/svg/sidebar/settings.svg',
       'text': 'Settings',
       'route': '/settings',
     },
     {
+      'index': 2,
       'icon': 'assets/svg/sidebar/logout.svg',
       'text': 'Logout',
       'route': '/logout',
@@ -93,108 +100,102 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    // final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Row(
         children: [
           // Sidebar
-          AnimatedContainer(
-            duration: Duration(milliseconds: 300),
-            // width: _isCollapsed ? screenWidth * 0.07 : screenWidth * 0.19,
-            width: _isCollapsed ? 80 : 230,
-            decoration: BoxDecoration(
-              color: AppColors.primary,
-            ),
-            child: Column(
-              children: [
-                SizedBox(height: 16),
-                // Logo at the top of the sidebar
-                GestureDetector(
-                  onTap: toggleSidebar,
-                  child: Padding(
-                    padding: _isCollapsed
-                        ? EdgeInsets.fromLTRB(6.0, 6, 6.0, 30)
-                        : EdgeInsets.fromLTRB(2.0, 8, 2.0, 30),
-                    child: Center(
-                      child: AnimatedSwitcher(
-                          duration: Duration(milliseconds: 250),
-                          transitionBuilder:
-                              (Widget child, Animation<double> animation) {
-                            return FadeTransition(
-                              opacity: animation,
-                              child: ScaleTransition(
-                                scale: animation,
-                                child: child,
-                              ),
-                            );
-                          },
-                          child: SvgPicture.asset(
-                            'assets/svg/pretzley_logo.svg',
-                            height: 70,
-                            key: ValueKey('collapsed_logo'),
-                          )
-                          // ? SvgPicture.asset(
-                          //     'assets/svg/pretzley_logo.svg',
-                          //     height: 70,
-                          //     key: ValueKey('collapsed_logo'),
-                          //   )
-                          // : SvgPicture.asset(
-                          //     'assets/svg/pretzley_text.svg',
-                          //     height: 100,
-                          //     key: ValueKey('expanded_logo'),
-                          //   ),
-                          ),
+          GestureDetector(
+            onHorizontalDragUpdate: (details) {
+              setState(() {
+                // Adjust the width based on drag distance
+                if (details.delta.dx > 0) {
+                  // Dragging right
+                  _isCollapsed = false; // Expand
+                } else if (details.delta.dx < 0) {
+                  // Dragging left
+                  _isCollapsed = true; // Collapse
+                }
+              });
+            },
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 300),
+              width: _isCollapsed ? 80 : 240,
+              decoration: BoxDecoration(
+                color: AppColors.primary,
+              ),
+              child: Column(
+                children: [
+                  SizedBox(height: 16),
+                  // Logo at the top of the sidebar
+                  GestureDetector(
+                    onTap: toggleSidebar,
+                    child: Padding(
+                      padding: _isCollapsed
+                          ? EdgeInsets.fromLTRB(6.0, 6, 6.0, 30)
+                          : EdgeInsets.fromLTRB(2.0, 8, 2.0, 30),
+                      child: Center(
+                        child: AnimatedSwitcher(
+                            duration: Duration(milliseconds: 250),
+                            transitionBuilder:
+                                (Widget child, Animation<double> animation) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: ScaleTransition(
+                                  scale: animation,
+                                  child: child,
+                                ),
+                              );
+                            },
+                            child: SvgPicture.asset(
+                              'assets/svg/pretzley_logo.svg',
+                              height: 70,
+                              key: ValueKey('collapsed_logo'),
+                            )),
+                      ),
                     ),
                   ),
-                ),
-                // Header
-                ..._sidebarItems.map((item) {
-                  final index = _sidebarItems.indexOf(item);
-                  return _buildSidebarItem(
-                    icon: item['icon'],
-                    text: item['text'],
-                    route:
-                        item['subItems'] != null && item['subItems'].isNotEmpty
-                            ? item['subItems'][0]['route']
-                            : item['route'],
-                    index: index,
-                    isFooterItem: false,
-                    subItems:
-                        item['subItems']?.asMap().entries.map<Widget>((entry) {
-                      int subIndex = entry.key;
-                      var subItem = entry.value;
-                      return _buildSidebarItem(
-                        icon: subItem['icon'],
-                        text: subItem['text'],
-                        route: subItem['route'],
-                        index: index * 100 + subIndex,
-                        isFooterItem: false,
-                      );
-                    }).toList(),
-                  );
-                }).toList(),
-                Spacer(),
-                // Footer
-                ..._sidebarFooterItems.map((item) {
-                  final index = _sidebarFooterItems.indexOf(item);
-                  return _buildSidebarItem(
-                    icon: item['icon'],
-                    text: item['text'],
-                    route: item['route'],
-                    index: index,
-                    isFooterItem: true,
-                  );
-                }).toList(),
-                // Divider(color: Colors.white.withOpacity(0.5)),
-                // IconButton(
-                //     icon: Icon(
-                //       _isCollapsed
-                //           ? Icons.arrow_right_outlined
-                //           : Icons.arrow_left_outlined,
-                //       color: Colors.white,
-                //     ),
-                //     onPressed: toggleSidebar),
-              ],
+                  // Header
+                  ..._sidebarItems.map((item) {
+                    // final index = _sidebarItems.indexOf(item);
+                    return _buildSidebarItem(
+                      icon: item['icon'],
+                      text: item['text'],
+                      route: item['subItems'] != null &&
+                              item['subItems'].isNotEmpty
+                          ? item['subItems'][0]['route']
+                          : item['route'],
+                      index: item['index'],
+                      isFooterItem: false,
+                      subItems: item['subItems']
+                          ?.asMap()
+                          .entries
+                          .map<Widget>((entry) {
+                        int subIndex = entry.key;
+                        var subItem = entry.value;
+                        return _buildSidebarItem(
+                          icon: subItem['icon'],
+                          text: subItem['text'],
+                          route: subItem['route'],
+                          index: item['index'] * 100 + subIndex,
+                          isFooterItem: false,
+                        );
+                      }).toList(),
+                    );
+                  }).toList(),
+                  Spacer(),
+                  // Footer
+                  ..._sidebarFooterItems.map((item) {
+                    // final index = _sidebarFooterItems.indexOf(item);
+                    return _buildSidebarItem(
+                      icon: item['icon'],
+                      text: item['text'],
+                      route: item['route'],
+                      index: item['index'],
+                      isFooterItem: true,
+                    );
+                  }).toList(),
+                ],
+              ),
             ),
           ),
           // Main content
@@ -221,8 +222,20 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
     List<Widget>? subItems,
   }) {
     final selectedIndices = ref.watch(sidebarProvider);
-    final selectedHeaderIndex = selectedIndices['headerIndex'];
-    final selectedFooterIndex = selectedIndices['footerIndex'];
+    final selectedHeaderIndex = selectedIndices.headerIndex;
+    final selectedFooterIndex = selectedIndices.footerIndex;
+
+    bool isSelected = isFooterItem
+        ? selectedFooterIndex == index
+        : selectedHeaderIndex == index
+            ? true
+            : _isCollapsed
+                ? (selectedHeaderIndex >= index * 100 &&
+                    selectedHeaderIndex < (index + 1) * 100)
+                : false;
+
+    Color backgroundColor =
+        isSelected ? AppColors.secondary : Colors.transparent;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
@@ -230,6 +243,8 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
         children: [
           GestureDetector(
             onTap: () {
+              print(index.toString());
+              print('Selected Header Index: ${selectedHeaderIndex.toString()}');
               if (subItems != null && subItems.isNotEmpty) {
                 setState(() {
                   // Collapse all other parent items
@@ -264,16 +279,7 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
             },
             child: Container(
               decoration: BoxDecoration(
-                color: (isFooterItem
-                        ? selectedFooterIndex == index
-                        // : _isCollapsed
-                        //     ? (selectedHeaderIndex == index ||
-                        //         (selectedHeaderIndex != null &&
-                        //             selectedHeaderIndex >= index * 100 &&
-                        //             selectedHeaderIndex <= index * 150))
-                        : selectedHeaderIndex == index)
-                    ? AppColors.secondary
-                    : Colors.transparent,
+                color: backgroundColor,
                 borderRadius: BorderRadius.circular(8.0),
               ),
               child: Padding(
@@ -282,7 +288,6 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
                   mainAxisAlignment: _isCollapsed
                       ? MainAxisAlignment.center
                       : MainAxisAlignment.start,
-                  // mainAxisSize: MainAxisSize.min,
                   children: [
                     SvgPicture.asset(icon, width: 22, color: Colors.white),
                     AnimatedContainer(
@@ -307,12 +312,14 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
                                 ),
                               ),
                               if (subItems != null && subItems.isNotEmpty)
-                                Icon(
-                                  (_sublistExpanded[index] ?? false)
-                                      ? Icons.arrow_downward_outlined
-                                      : Icons.arrow_forward_ios_outlined,
-                                  color: Colors.white,
-                                  size: 12,
+                                Flexible(
+                                  child: Icon(
+                                    (_sublistExpanded[index] ?? false)
+                                        ? Icons.keyboard_arrow_down_outlined
+                                        : Icons.keyboard_arrow_right_outlined,
+                                    color: Colors.white,
+                                    size: 18,
+                                  ),
                                 ),
                             ],
                           ),
@@ -337,7 +344,7 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: subItems.map<Widget>((subItem) {
-                    return subItem; // Directly return the subItem
+                    return subItem;
                   }).toList(),
                 ),
               ),

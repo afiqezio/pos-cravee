@@ -1,118 +1,93 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:possystem/providers/cartProvider.dart';
 import 'package:possystem/utils/appHelper.dart';
-import 'package:possystem/utils/helper/screens_util.dart';
-import '../../../models/category.dart';
-import '../../../providers/menuChoose.dart';
 
-class EntryPageMain extends ConsumerWidget {
-  const EntryPageMain({super.key});
+class CustomDropdown extends StatefulWidget {
+  final String title;
+  final String? subtitle;
+  final String? imagePath;
+  final List<String> items;
+  final ValueChanged<String>? onItemSelected;
+
+  const CustomDropdown({
+    Key? key,
+    required this.title,
+    this.subtitle,
+    this.imagePath,
+    required this.items,
+    this.onItemSelected,
+  }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // Adding an "All" category
-    final allCategory = Category(
-      id: "0",
-      name: "All",
-      imageUrl: "assets/images/data/all_menu.png",
-      // imageUrl: "assets/images/data/pretzel.png",
-      description: 'All Menu',
-    );
+  _CustomDropdownState createState() => _CustomDropdownState();
+}
 
-    // Prepend "All" to the categories list
-    final displayCategories = [allCategory, ...categories];
+class _CustomDropdownState extends State<CustomDropdown> {
+  String? selectedValue;
 
-    return Padding(
-      padding: const EdgeInsets.all(48.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.36,
+      decoration: BoxDecoration(
+        color: AppColors.orangeDark50,
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                final gridChildAspectRatio =
-                    getChildAspectRatio(constraints.maxWidth);
-                final crossAxisCount = getCrossAxisCount(constraints.maxWidth);
-
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 60.0, vertical: 30.0),
-                  child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: crossAxisCount,
-                      childAspectRatio: gridChildAspectRatio,
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 16,
-                    ),
-                    itemCount: displayCategories.length,
-                    itemBuilder: (context, index) {
-                      final category = displayCategories[index];
-                      return GestureDetector(
-                        onTap: () {
-                          ref
-                              .read(categorySelectionProvider.notifier)
-                              .toggleCategory(category.id.toString());
-
-                          ref.read(categoryTitleProvider.notifier).state =
-                              category.description;
-                          context.go('/menu/productpicker');
-                        },
-                        child: Card(
-                          elevation: 1,
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(14.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      category.name,
-                                      style: AppTexts.semiBold(size: 16),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 4.0),
-                                      child: Text(
-                                        '${ref.watch(categoryProductCountProvider(category.id))} Item',
-                                        style: AppTexts.regular(
-                                            size: 16,
-                                            color: AppColors.greyDark),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  margin: const EdgeInsets.all(10.0),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.primary,
-                                    borderRadius: BorderRadius.circular(8),
-                                    image: DecorationImage(
-                                      image: AssetImage(category.imageUrl),
-                                      alignment: Alignment.topCenter,
-                                      fit: BoxFit.fitWidth,
-                                    ),
-                                  ),
-                                  clipBehavior: Clip.antiAlias,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              widget.imagePath != null && widget.imagePath!.isNotEmpty
+                  ? Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CircleAvatar(
+                        radius: 25,
+                        backgroundImage: AssetImage(widget.imagePath!),
+                      ),
+                    )
+                  : SizedBox.shrink(),
+              SizedBox(width: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    selectedValue ?? widget.title,
+                    style: AppTexts.medium(size: 18, color: Colors.black),
                   ),
-                );
-              },
+                  widget.subtitle != null && widget.subtitle!.isNotEmpty
+                      ? Text(
+                          widget.subtitle!,
+                          style: AppTexts.medium(
+                              size: 18, color: AppColors.secondary),
+                        )
+                      : SizedBox.shrink(),
+                ],
+              ),
+            ],
+          ),
+          PopupMenuButton<String>(
+            icon: Icon(
+              Icons.arrow_drop_down_outlined,
+              size: 32,
+              color: Colors.black,
             ),
+            onSelected: (value) {
+              setState(() {
+                selectedValue = value;
+              });
+              if (widget.onItemSelected != null) {
+                widget.onItemSelected!(value);
+              }
+            },
+            itemBuilder: (context) {
+              return widget.items
+                  .map((item) => PopupMenuItem<String>(
+                        value: item,
+                        child: Text(item),
+                      ))
+                  .toList();
+            },
           ),
         ],
       ),
