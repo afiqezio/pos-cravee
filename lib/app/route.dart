@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:possystem/views/dashboard/dashboardPageMain.dart';
-import 'package:possystem/views/logout/logout.dart';
-import 'package:possystem/views/menu/entryPage/entryPageMain.dart';
-import 'package:possystem/views/menu/membershipPage/membershipPageMain.dart';
-import 'package:possystem/views/menu/processPage/processPageMain.dart';
-import 'package:possystem/views/menu/receiptPage/receiptPageMain.dart';
-import 'package:possystem/views/menu/selectionPage/selectionPageMain.dart';
-import 'package:possystem/views/plain.dart';
-import 'package:possystem/views/product/category/categoryPageMain.dart';
-import 'package:possystem/views/setting/settingPageMain.dart';
-import 'package:possystem/views/sideAppBar.dart';
+import 'package:possystem/features/dashboard/views/dashboardPageMain.dart';
+import 'package:possystem/features/logout/views/logout.dart';
+import 'package:possystem/features/menu/entryPage/views/entryPageMain.dart';
+import 'package:possystem/features/menu/membershipPage/views/membershipPageMain.dart';
+import 'package:possystem/features/menu/processPage/views/processPageMain.dart';
+import 'package:possystem/features/menu/receiptPage/views/receiptPageMain.dart';
+import 'package:possystem/features/menu/selectionPage/views/selectionPageMain.dart';
+import 'package:possystem/features/plain.dart';
+import 'package:possystem/features/product/category/views/categoryPageMain.dart';
+import 'package:possystem/features/setting/settingPageMain.dart';
+import 'package:possystem/features/sidebar/views/sideAppBar.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/dashboard',
