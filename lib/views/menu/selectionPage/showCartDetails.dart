@@ -5,7 +5,7 @@ import 'package:possystem/models/cart.dart';
 import 'package:possystem/providers/cartProvider.dart';
 import 'package:possystem/models/addOn.dart';
 import 'package:possystem/utils/appHelper.dart';
-import 'package:possystem/utils/widget/customCircle.dart';
+import 'package:possystem/widgets/customCircle.dart';
 import '../../../models/product.dart';
 
 void showCartDetails(

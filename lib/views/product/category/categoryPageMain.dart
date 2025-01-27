@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:possystem/utils/widget/customScaffold.dart';
+import 'package:possystem/widgets/customScaffold.dart';
 
 class CategoryPageMain extends StatelessWidget {
   const CategoryPageMain({super.key});

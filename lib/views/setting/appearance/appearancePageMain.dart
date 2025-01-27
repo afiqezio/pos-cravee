@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:possystem/utils/widget/customSubContainer.dart';
+import 'package:possystem/widgets/customSubContainer.dart';
 import 'package:possystem/views/setting/appearance/size.dart';
 import 'package:possystem/views/setting/appearance/theme.dart';
 

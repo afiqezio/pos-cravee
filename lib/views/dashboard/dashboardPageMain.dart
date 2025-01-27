@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:possystem/utils/appHelper.dart';
-import 'package:possystem/utils/widget/customButton.dart';
-import 'package:possystem/utils/widget/customScaffold.dart';
+import 'package:possystem/widgets/customButton.dart';
+import 'package:possystem/widgets/customScaffold.dart';
 import 'package:possystem/views/dashboard/summarySection.dart';
 
 class DashboardPageMain extends StatelessWidget {

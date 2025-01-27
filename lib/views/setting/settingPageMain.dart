@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:possystem/utils/widget/customScaffold.dart';
+import 'package:possystem/widgets/customScaffold.dart';
 import 'package:possystem/views/setting/appearance/appearancePageMain.dart';
 import 'package:possystem/views/setting/notification/notificationPageMain.dart';
 import 'settingNav.dart';

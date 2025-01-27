@@ -126,16 +126,10 @@ final filteredProductsProvider = Provider<List<Product>>((ref) {
   }
 });
 
-final selectedAddOnProvider = StateProvider<List<AddOn>>((ref) => []);
-
 final allProductsProvider = Provider<List<Product>>((ref) {
   return products;
 });
 
-// Cart Price Details
-// final cartSubtotalProvider = StateProvider<double>((ref) => 0.0);
-// final cartSalesProvider =
-//     StateProvider<SalesDetails>((ref) => SalesDetails(totalSales: 0.0));
 final cartVoucherProvider = StateProvider<double>((ref) => 0.0);
 
 final cartSalesProvider = StateProvider<SalesDetails>((ref) {
@@ -158,37 +152,3 @@ final cartSalesProvider = StateProvider<SalesDetails>((ref) {
     subtotal: subtotal,
   );
 });
-
-bool isItemAddedInProvider(WidgetRef ref, AddOn addOnItem) {
-  final cart = ref.watch(cartProvider);
-
-  // Iterate through the cart to check if the add-on is already added
-  for (var entry in cart.entries) {
-    final productAddOns = entry.value.addOns;
-    if (productAddOns != null && productAddOns.contains(addOnItem)) {
-      return true;
-    }
-  }
-  return false;
-}
-
-void removeAddOnFromCart(WidgetRef ref, Product product, AddOn addOnItem) {
-  final cart = ref.read(cartProvider.notifier).state;
-
-  if (cart.containsKey(product)) {
-    final currentCartItem = cart[product]!;
-
-    // Remove the add-on if it exists
-    final updatedAddOns =
-        currentCartItem.addOns?.where((addOn) => addOn != addOnItem).toList();
-
-    cart[product] = CartItem(
-      quantity: currentCartItem.quantity,
-      addOns: updatedAddOns,
-      notes: currentCartItem.notes,
-    );
-
-    // Update the cart state
-    ref.read(cartProvider.notifier).state = {...cart};
-  }
-}

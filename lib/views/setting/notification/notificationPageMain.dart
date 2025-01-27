@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:possystem/utils/appHelper.dart';
-import 'package:possystem/utils/widget/customSubContainer.dart';
-import 'package:possystem/utils/widget/customSwitch.dart';
+import 'package:possystem/widgets/customSubContainer.dart';
+import 'package:possystem/widgets/customSwitch.dart';
 
 class NotificationPageMain extends StatelessWidget {
   const NotificationPageMain({super.key});

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:possystem/providers/cartProvider.dart';
 import 'package:possystem/providers/paymentProvider.dart';
 import 'package:possystem/utils/appHelper.dart';
-import 'package:possystem/utils/widget/customScaffold.dart';
+import 'package:possystem/widgets/customScaffold.dart';
 import 'package:possystem/views/auth/passkey/passkeyMain.dart';
 
 class LogoutPage extends ConsumerWidget {

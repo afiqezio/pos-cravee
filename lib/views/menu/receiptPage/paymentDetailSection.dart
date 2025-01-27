@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:possystem/providers/cartProvider.dart';
 import 'package:possystem/providers/paymentProvider.dart';
 import 'package:possystem/utils/appHelper.dart';
-import 'package:possystem/utils/widget/customCircle.dart';
+import 'package:possystem/widgets/customCircle.dart';
 
 class PaymentDetailSection extends ConsumerWidget {
   const PaymentDetailSection({super.key});
