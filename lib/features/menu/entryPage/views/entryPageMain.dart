@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:possystem/features/menu/selectionPage/providers/cartProvider.dart';
 import 'package:possystem/utils/appHelper.dart';
 import 'package:possystem/utils/helper/screens_util.dart';
-import '../../../../models/category.dart';
+import '../../../../data/models/category.dart';
 import '../providers/menuChoose.dart';
 
 class EntryPageMain extends ConsumerWidget {

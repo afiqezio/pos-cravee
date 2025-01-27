@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:possystem/app/app.dart';
-import 'package:possystem/models/widget/dropdown.dart';
+import 'package:possystem/features/auth/login/views/widgets/dropdown.dart';
 import 'package:possystem/features/auth/passkey/providers/passkeyProvider.dart';
 import 'package:possystem/utils/appHelper.dart';
 import 'package:possystem/widgets/customDropdown.dart';

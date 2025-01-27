@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:possystem/features/menu/selectionPage/providers/cartProvider.dart';
 import 'package:possystem/utils/appHelper.dart';
-import '../../../../models/category.dart';
+import '../../../../data/models/category.dart';
 import '../../entryPage/providers/menuChoose.dart';
 
 class CategorySection extends ConsumerStatefulWidget {

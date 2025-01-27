@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:possystem/models/addOn.dart';
-import 'package:possystem/models/cart.dart';
-import 'package:possystem/models/salesDetails.dart';
-import '../../../../models/product.dart';
+import 'package:possystem/data/models/addOn.dart';
+import 'package:possystem/data/models/cart.dart';
+import 'package:possystem/data/models/salesDetails.dart';
+import '../../../../data/models/product.dart';
 import '../../entryPage/providers/menuChoose.dart';
 
 // Define the cart provider

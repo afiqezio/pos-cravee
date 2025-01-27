@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:possystem/utils/appHelper.dart';
-import 'package:possystem/models/widget/dropdown.dart';
+import 'package:possystem/features/auth/login/views/widgets/dropdown.dart';
 
 class CustomLoginDropdown extends StatefulWidget {
   final String title;

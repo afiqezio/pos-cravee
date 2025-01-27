@@ -1,4 +1,4 @@
-import 'package:possystem/models/addOn.dart';
+import 'package:possystem/data/models/addOn.dart';
 
 class CartItem {
   final int quantity;
