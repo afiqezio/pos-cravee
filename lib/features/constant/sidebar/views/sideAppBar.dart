@@ -91,11 +91,16 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
   void initState() {
     super.initState();
     // Initialize all parent items to be collapsed by default
-    for (int i = 0; i < _sidebarItems.length; i++) {
-      if (_sidebarItems[i]['subItems'] != null) {
-        _sublistExpanded[i] = false;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(sidebarProvider.notifier).selectHeaderIndex(1);
+      ref.read(sidebarProvider.notifier).selectFooterIndex(-1);
+      context.go('/dashboard');
+      for (int i = 0; i < _sidebarItems.length; i++) {
+        if (_sidebarItems[i]['subItems'] != null) {
+          _sublistExpanded[i] = false;
+        }
       }
-    }
+    });
   }
 
   @override
