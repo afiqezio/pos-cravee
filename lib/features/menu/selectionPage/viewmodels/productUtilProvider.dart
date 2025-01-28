@@ -1,7 +1,7 @@
 // Provider for filtered products
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:possystem/data/models/product.dart';
-import 'package:possystem/features/menu/entryPage/providers/menuChoose.dart';
+import 'package:possystem/features/menu/entryPage/viewmodels/categoryProvider.dart';
 
 final filteredProductsProvider = Provider<List<Product>>((ref) {
   final allProducts = ref.watch(allProductsProvider);

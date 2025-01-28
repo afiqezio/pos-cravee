@@ -9,7 +9,7 @@ import 'package:possystem/widgets/customButton.dart';
 import 'package:possystem/widgets/customSlider.dart';
 import 'package:possystem/features/menu/selectionPage/views/showCartDetails.dart';
 import 'package:possystem/features/menu/selectionPage/views/showPaymentMethod.dart';
-import '../providers/cartProvider.dart';
+import '../viewmodels/cartProvider.dart';
 
 class CartSection extends ConsumerStatefulWidget {
   final bool isConfirmation;

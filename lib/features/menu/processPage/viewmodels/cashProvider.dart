@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../selectionPage/providers/cartProvider.dart';
+import '../../selectionPage/viewmodels/cartProvider.dart';
 
 // Widget flag
 final isPhoneFlagProvider = StateProvider<bool>((ref) => false);

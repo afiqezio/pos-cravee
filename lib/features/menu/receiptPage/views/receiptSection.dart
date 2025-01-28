@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
-import 'package:possystem/features/menu/selectionPage/providers/cartProvider.dart';
+import 'package:possystem/features/menu/selectionPage/viewmodels/cartProvider.dart';
 import 'package:possystem/utils/appHelper.dart';
 
 class ReceiptSection extends ConsumerWidget {

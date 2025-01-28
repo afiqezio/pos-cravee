@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:possystem/features/auth/login/views/login.dart';
 import 'package:possystem/utils/appHelper.dart';
 import 'package:possystem/features/auth/login/views/widgets/dropdown.dart';
 
@@ -42,7 +43,13 @@ class _CustomLoginDropdownState extends State<CustomLoginDropdown> {
               orElse: () => widget.items.first,
             );
           });
-          if (widget.onItemSelected != null) {
+          if (value == 'Add Account') {
+            // Navigate to the login page
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => LoginPage()),
+            );
+          } else if (widget.onItemSelected != null) {
             widget.onItemSelected!(value);
           }
         },
@@ -55,7 +62,6 @@ class _CustomLoginDropdownState extends State<CustomLoginDropdown> {
                     value: item.title,
                     child: Container(
                       width: double.infinity,
-                      // color: AppColors.orangeDark50,
                       padding: EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +84,23 @@ class _CustomLoginDropdownState extends State<CustomLoginDropdown> {
                       ),
                     ),
                   ))
-              .toList();
+              .toList()
+            ..add(PopupMenuItem<String>(
+              value: 'Add Account',
+              child: Row(
+                children: [
+                  Icon(Icons.add),
+                  SizedBox(width: 8),
+                  Text(
+                    'Add Account',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+            ));
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

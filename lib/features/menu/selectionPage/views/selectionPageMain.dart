@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:possystem/features/menu/selectionPage/providers/cartProvider.dart';
+import 'package:possystem/features/menu/selectionPage/viewmodels/cartProvider.dart';
 import 'package:possystem/utils/appHelper.dart';
-import '../../entryPage/providers/menuChoose.dart';
+import '../../entryPage/viewmodels/categoryProvider.dart';
 import 'cartSection.dart';
 import 'productListSection.dart';
 import 'categorySection.dart';

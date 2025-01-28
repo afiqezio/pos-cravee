@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:possystem/features/auth/passkey/providers/passkeyProvider.dart';
+import 'package:possystem/features/auth/passkey/viewmodels/passkeyViewmodel.dart';
 import 'package:possystem/utils/appHelper.dart';
 import 'imageSlideSection.dart';
 import 'passkeySection.dart';

@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:possystem/app/app.dart';
+import 'package:possystem/features/auth/login/viewmodels/authViewmodel.dart';
+import 'package:possystem/features/auth/login/views/widgets/snackbar.dart';
 import 'package:possystem/utils/appHelper.dart';
+import 'package:possystem/widgets/customButton.dart';
+import 'package:possystem/widgets/customLoading.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends ConsumerWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authState = ref.watch(authViewModelProvider);
     final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: AppColors.canvasPrimary,
       body: Center(
@@ -52,50 +59,60 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.26),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.secondary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                  ),
-                  onPressed: () {
-                    // Handle login logic here
-                    final email = _emailController.text;
-                    final password = _passwordController.text;
-
-                    // Check if email and password are filled
-                    if (email.isEmpty || password.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                              'Please fill in both email and password.',
-                              style: AppTexts.medium(
-                                  size: 16, color: AppColors.secondaryText)),
-                          backgroundColor: AppColors.red,
-                        ),
-                      );
-                      return;
-                    }
-
-                    debugPrint('Email: $email, Password: $password');
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => AppPage()),
-                    );
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Text(
-                      'Login',
-                      style: AppTexts.medium(
+              authState.when(
+                data: (user) {
+                  return Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: screenWidth * 0.26),
+                    child: CustomActionButton(
+                      label: 'Login',
+                      textStyle: AppTexts.medium(
                           size: 16, color: AppColors.secondaryText),
+                      onTap: () async {
+                        final email = _emailController.text.trim();
+                        final password = _passwordController.text.trim();
+
+                        if (email.isEmpty || password.isEmpty) {
+                          showSnackBar(context,
+                              'Please fill in both email and password.');
+                          return;
+                        }
+
+                        final success = await ref
+                            .read(authViewModelProvider.notifier)
+                            .login(email, password, ref);
+
+                        if (success) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => AppPage()),
+                          );
+                        } else {
+                          showSnackBar(
+                              context, 'Login failed. Please try again.');
+                        }
+                      },
                     ),
+                  );
+                },
+                error: (error, stackTrace) => Padding(
+                  padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.3),
+                  child: CustomActionButton(
+                    label: 'Retry',
+                    textStyle: AppTexts.medium(
+                        size: 16, color: AppColors.secondaryText),
+                    backgroundColor: AppColors.secondary,
+                    onTap: () {
+                      ref.read(authViewModelProvider.notifier).logout(ref);
+                    },
                   ),
                 ),
-              ),
+                loading: () => Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: screenWidth * 0.38, vertical: 12),
+                  child: CustomLoading(size: 16),
+                ),
+              )
             ],
           ),
         ),

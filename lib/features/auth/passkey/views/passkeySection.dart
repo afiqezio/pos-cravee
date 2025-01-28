@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:possystem/app/app.dart';
 import 'package:possystem/features/auth/login/views/widgets/dropdown.dart';
-import 'package:possystem/features/auth/passkey/providers/passkeyProvider.dart';
+import 'package:possystem/features/auth/passkey/viewmodels/passkeyViewmodel.dart';
 import 'package:possystem/utils/appHelper.dart';
 import 'package:possystem/widgets/customDropdown.dart';
 
@@ -86,7 +86,7 @@ class PasskeySection extends ConsumerWidget {
                 children: [1, 2, 3]
                     .map((digit) => Padding(
                           padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: _buildKeypadButton(
+                          child: buildKeypadButton(
                               digit.toString(), pinController, ref),
                         ))
                     .toList(),
@@ -99,7 +99,7 @@ class PasskeySection extends ConsumerWidget {
                 children: [4, 5, 6]
                     .map((digit) => Padding(
                           padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: _buildKeypadButton(
+                          child: buildKeypadButton(
                               digit.toString(), pinController, ref),
                         ))
                     .toList(),
@@ -112,7 +112,7 @@ class PasskeySection extends ConsumerWidget {
                 children: [7, 8, 9]
                     .map((digit) => Padding(
                           padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: _buildKeypadButton(
+                          child: buildKeypadButton(
                               digit.toString(), pinController, ref),
                         ))
                     .toList(),
@@ -150,7 +150,7 @@ class PasskeySection extends ConsumerWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: _buildKeypadButton('0', pinController, ref),
+                    child: buildKeypadButton('0', pinController, ref),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),
@@ -229,31 +229,4 @@ class PasskeySection extends ConsumerWidget {
       ),
     );
   }
-}
-
-Widget _buildKeypadButton(
-    String digit, TextEditingController pinController, WidgetRef ref) {
-  return SizedBox(
-    width: 70,
-    height: 70,
-    child: ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.loginKeypad,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(35),
-        ),
-      ),
-      onPressed: () {
-        final currentPin = ref.read(pinProvider);
-        if (currentPin.length < 6) {
-          ref.read(pinProvider.notifier).state = currentPin + digit;
-          ref.read(loginErrorProvider.notifier).state = "";
-        }
-      },
-      child: Text(
-        digit,
-        style: TextStyle(fontSize: 36, color: AppColors.secondaryText),
-      ),
-    ),
-  );
 }

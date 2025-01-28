@@ -3,7 +3,7 @@ import 'package:possystem/data/models/addOn.dart';
 import 'package:possystem/data/models/cart.dart';
 import 'package:possystem/data/models/salesDetails.dart';
 import '../../../../data/models/product.dart';
-import '../../entryPage/providers/menuChoose.dart';
+import '../../entryPage/viewmodels/categoryProvider.dart';
 
 // Define the cart provider
 final cartProvider = StateProvider<Map<Product, CartItem>>((ref) => {});

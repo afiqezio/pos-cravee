@@ -10,7 +10,7 @@ import 'package:possystem/features/menu/selectionPage/views/selectionPageMain.da
 import 'package:possystem/features/plain.dart';
 import 'package:possystem/features/product/category/views/categoryPageMain.dart';
 import 'package:possystem/features/setting/settingPageMain.dart';
-import 'package:possystem/features/sidebar/views/sideAppBar.dart';
+import 'package:possystem/features/constant/sidebar/views/sideAppBar.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/dashboard',

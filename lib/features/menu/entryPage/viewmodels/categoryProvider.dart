@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:possystem/features/menu/selectionPage/providers/cartProvider.dart';
+import 'package:possystem/features/menu/selectionPage/viewmodels/cartProvider.dart';
 
 final categorySelectionProvider =
     StateNotifierProvider<CategorySelectionNotifier, Set<String>>(

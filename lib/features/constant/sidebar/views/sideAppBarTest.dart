@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:possystem/features/sidebar/providers/sidebarProvider.dart';
+import 'package:possystem/features/constant/sidebar/viewmodels/sidebarProvider.dart';
 import 'package:possystem/utils/appHelper.dart';
-import 'package:possystem/features/sidebar/views/appbar.dart';
+import 'package:possystem/features/constant/sidebar/views/appbarMain.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ScaffoldWithNavBar extends ConsumerStatefulWidget {

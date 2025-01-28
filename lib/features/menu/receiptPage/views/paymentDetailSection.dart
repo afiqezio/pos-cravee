@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:possystem/features/menu/selectionPage/providers/cartProvider.dart';
-import 'package:possystem/features/menu/processPage/providers/paymentProvider.dart';
+import 'package:possystem/features/menu/selectionPage/viewmodels/cartProvider.dart';
+import 'package:possystem/features/menu/processPage/viewmodels/cashProvider.dart';
 import 'package:possystem/utils/appHelper.dart';
 import 'package:possystem/widgets/customCircle.dart';
 
@@ -11,6 +11,8 @@ class PaymentDetailSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Center(
       child: Column(
         children: [
@@ -22,11 +24,12 @@ class PaymentDetailSection extends ConsumerWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(4.0),
                     child: CustomCircle(
                       fillColor: AppColors.secondary,
                       borderColor: AppColors.secondary,
-                      size: 60,
+                      // size: 60,
+                      size: width * 0.046,
                       child: Icon(
                         Icons.check,
                         color: AppColors.canvasPrimary,
@@ -52,7 +55,7 @@ class PaymentDetailSection extends ConsumerWidget {
               ),
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: height * 0.012),
           Column(
             children: [
               SizedBox(
@@ -73,7 +76,7 @@ class PaymentDetailSection extends ConsumerWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: height * 0.012),
               SizedBox(
                 width: double.infinity,
                 child: Row(
@@ -127,15 +130,15 @@ class PaymentDetailSection extends ConsumerWidget {
               )
             ],
           ),
-          SizedBox(height: 15),
+          SizedBox(height: height * 0.015),
           Column(
             children: [
               Image.asset(
                 'assets/images/process/pretzley_qr.png',
-                width: 220,
-                height: 220,
+                width: width * 0.18,
+                height: width * 0.18,
               ),
-              SizedBox(height: 10),
+              SizedBox(height: height * 0.01),
               GestureDetector(
                 onTap: () => {
                   clearCart(ref),
@@ -143,7 +146,7 @@ class PaymentDetailSection extends ConsumerWidget {
                   context.go('/menu')
                 },
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.4,
+                  width: width * 0.4,
                   child: Card(
                     color: AppColors.secondary,
                     shape: RoundedRectangleBorder(

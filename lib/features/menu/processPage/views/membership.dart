@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:possystem/features/menu/processPage/providers/paymentProvider.dart';
+import 'package:possystem/features/menu/processPage/viewmodels/cashProvider.dart';
 import 'package:possystem/utils/appHelper.dart';
 
 class MembershipSection extends ConsumerWidget {

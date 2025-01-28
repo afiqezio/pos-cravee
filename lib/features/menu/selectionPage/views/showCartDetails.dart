@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:possystem/data/models/cart.dart';
-import 'package:possystem/features/menu/selectionPage/providers/cartProvider.dart';
+import 'package:possystem/features/menu/selectionPage/viewmodels/cartProvider.dart';
 import 'package:possystem/data/models/addOn.dart';
 import 'package:possystem/utils/appHelper.dart';
 import 'package:possystem/widgets/customCircle.dart';

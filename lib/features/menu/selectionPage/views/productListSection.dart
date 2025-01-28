@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:possystem/utils/appHelper.dart';
 import 'package:possystem/utils/helper/screens_util.dart';
 import 'package:possystem/features/menu/selectionPage/views/showProductDetails.dart';
-import '../providers/cartProvider.dart';
+import '../viewmodels/cartProvider.dart';
 import '../../../../data/models/category.dart';
 
 class ProductListSection extends ConsumerStatefulWidget {
