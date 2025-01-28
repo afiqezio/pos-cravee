@@ -42,34 +42,6 @@ class AppbarProfileSection extends ConsumerWidget {
                 ),
               ],
             ),
-            // userAsyncValue.when(
-            //   data: (userData) {
-            //     return Column(
-            //       crossAxisAlignment: CrossAxisAlignment.start,
-            //       children: [
-            //         Row(
-            //           children: [
-            //             Text(
-            //               userData['firstName'] ?? 'Guest',
-            //               style: AppTexts.medium(size: 16),
-            //             ),
-            //             const SizedBox(width: 4),
-            //             Text(
-            //               userData['lastName'] ?? '',
-            //               style: AppTexts.medium(size: 16),
-            //             ),
-            //           ],
-            //         ),
-            //         Text(
-            //           userData['gender'] ?? 'Gender',
-            //           style: AppTexts.regular(size: 16),
-            //         ),
-            //       ],
-            //     );
-            //   },
-            //   loading: () => const CircularProgressIndicator(),
-            //   error: (error, stack) => const Text('Error fetching user data'),
-            // ),
           ],
         ),
       ),

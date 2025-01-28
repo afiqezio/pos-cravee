@@ -2,18 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:possystem/app/app.dart';
+import 'package:possystem/features/auth/login/viewmodels/authViewmodel.dart';
 import 'package:possystem/features/auth/login/views/widgets/dropdown.dart';
 import 'package:possystem/features/auth/passkey/viewmodels/passkeyViewmodel.dart';
 import 'package:possystem/utils/appHelper.dart';
 import 'package:possystem/widgets/customDropdown.dart';
 
-class PasskeySection extends ConsumerWidget {
-  const PasskeySection({super.key});
+class PasskeySection extends ConsumerStatefulWidget {
+  const PasskeySection({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final pinController = TextEditingController();
+  _PasskeySectionState createState() => _PasskeySectionState();
+}
+
+class _PasskeySectionState extends ConsumerState<PasskeySection> {
+  final pinController = TextEditingController();
+  List<Map<String, String>> userList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    ref.read(userProvider.notifier).getUserList().then((value) {
+      setState(() {
+        userList = value;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final errorMessage = ref.watch(loginErrorProvider);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32.0),
       child: Column(
@@ -26,31 +45,29 @@ class PasskeySection extends ConsumerWidget {
           ),
           SizedBox(height: 10),
           Text("Employee Login",
-              style: AppTexts.medium(size: 20, color: AppColors.secondary)),
+              style: AppTexts.medium(size: 20, color: AppColors.secondary),
+              textAlign: TextAlign.center),
           SizedBox(height: 15),
           Text("Choose your account to start your shift",
-              style: AppTexts.regular(size: 18, color: AppColors.primaryText)),
+              style: AppTexts.medium(size: 18, color: AppColors.secondaryText),
+              textAlign: TextAlign.center),
           SizedBox(height: 15),
           CustomLoginDropdown(
-            title: "Izzat Hidir",
-            subtitle: "12:00 PM - 10:00 PM",
+            // title: "Izzat Hidir",
+            // subtitle: "12:00 PM - 10:00 PM",
             imagePath: 'assets/images/person.png',
-            items: [
-              DropdownModel(
-                title: "Izzat Hadir",
-                description: "12:00 PM - 11:00 PM",
-              ),
-              DropdownModel(
-                title: "Izzat Hudir",
-                description: "12:00 PM - 10:00 PM",
-              ),
-              DropdownModel(
-                title: "Izzat Hedir",
-                description: "12:00 PM - 10:00 PM",
-              ),
-            ],
+            items: userList.isNotEmpty
+                ? userList
+                    .map((user) => DropdownModel(
+                          title:
+                              '${user['firstName'] ?? ''} ${user['lastName'] ?? ''}',
+                          // description: user['gender'].toString(),
+                          description: '12:00 PM - 06:00 PM',
+                        ))
+                    .toList()
+                : [],
             onItemSelected: (value) {
-              debugPrint("Dropdown tapped");
+              debugPrint("value: $value");
             },
           ),
           SizedBox(height: 20),
@@ -205,7 +222,7 @@ class PasskeySection extends ConsumerWidget {
               ),
             ),
             onPressed: () {
-              //Validation
+              // Validation
               final pin = ref.read(pinProvider);
               if (pin.length == 6) {
                 if (pin == "000000") {

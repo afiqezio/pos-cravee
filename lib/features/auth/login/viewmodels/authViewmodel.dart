@@ -1,8 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:possystem/data/repo/authRepo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../data/models/user.dart';
+import 'dart:convert';
 
+// Viewmodel Provider
 final authViewModelProvider =
     StateNotifierProvider<AuthViewModel, AsyncValue<User?>>((ref) {
   final repository = ref.watch(authRepositoryProvider);
@@ -20,12 +23,12 @@ class AuthViewModel extends StateNotifier<AsyncValue<User?>> {
       final user = await repository.login(username, password);
 
       state = AsyncData(user);
-      // Store user details locally
       await ref.read(userProvider.notifier).saveUserData(user);
-      return true; // Login success
+
+      return true;
     } catch (error) {
       state = AsyncError(error, StackTrace.current);
-      return false; // Login failed
+      return false;
     }
   }
 
@@ -36,6 +39,8 @@ class AuthViewModel extends StateNotifier<AsyncValue<User?>> {
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// State Provider
 final authStateProvider = StateNotifierProvider<AuthStateNotifier, bool>(
     (ref) => AuthStateNotifier());
 
@@ -50,30 +55,68 @@ class AuthStateNotifier extends StateNotifier<bool> {
   }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// User Provider
 final userProvider =
     StateNotifierProvider<UserNotifier, User?>((ref) => UserNotifier());
 
 class UserNotifier extends StateNotifier<User?> {
   UserNotifier() : super(null);
 
-  // Future<void> loadUserData() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   final userMap = {
-  //     'firstName': prefs.getString('firstName') ?? '',
-  //     'lastName': prefs.getString('lastName') ?? '',
-  //     'gender': prefs.getString('gender') ?? '',
-  //     'image': prefs.getString('image') ?? '',
-  //     'accessToken': prefs.getString('accessToken') ?? '',
-  //   };
-  //   state = User.fromJson(userMap);
-  // }
-
   Future<void> saveUserData(User user) async {
-    final prefs = await SharedPreferences.getInstance();
-    for (var entry in user.toJson().entries) {
-      await prefs.setString(entry.key, entry.value.toString());
-    }
     state = user;
+    final prefs = await SharedPreferences.getInstance();
+    final String? userListString = prefs.getString('userList');
+    List<Map<String, String>> userList = [];
+
+    if (userListString != null) {
+      try {
+        // Decode the JSON string back to a list of maps
+        List<dynamic> decodedList = jsonDecode(userListString);
+        userList = decodedList.map((item) {
+          return Map<String, String>.from(item as Map<dynamic, dynamic>);
+        }).toList();
+      } catch (e) {
+        debugPrint('Error decoding user list: $e');
+        userList = [];
+      }
+    }
+
+    // Check if the user already exists in the list
+    if (!userList
+        .any((existingUser) => existingUser['id'] == user.id.toString())) {
+      // Create a map for the current user
+      final userDetails = {
+        'id': user.id.toString(),
+        'firstName': user.firstName,
+        'lastName': user.lastName,
+        'gender': user.gender,
+        'image': user.image,
+      };
+
+      // Add the current user's details to the list
+      userList.add(userDetails);
+    }
+
+    // Save the access token (change with secure storage)
+    await prefs.setString('accessToken', user.accessToken);
+
+    // Save the updated list of user details in SharedPreferences as a JSON string
+    await prefs.setString('userList', jsonEncode(userList));
+  }
+
+  Future<List<Map<String, String>>> getUserList() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? userListString = prefs.getString('userList');
+
+    if (userListString != null) {
+      // Decode the JSON string back to a list of maps
+      List<dynamic> userListJson = jsonDecode(userListString);
+      return userListJson
+          .map((user) => Map<String, String>.from(user))
+          .toList();
+    }
+    return [];
   }
 
   Future<void> clearUserData() async {

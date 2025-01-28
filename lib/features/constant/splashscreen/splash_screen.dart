@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:possystem/app/app.dart';
 import 'package:possystem/features/auth/login/viewmodels/authViewmodel.dart';
 import 'package:possystem/features/auth/login/views/login.dart';
+import 'package:possystem/features/auth/passkey/views/passkeyMain.dart';
 import 'package:possystem/utils/appHelper.dart';
 
 class SplashScreen extends ConsumerWidget {
@@ -16,7 +16,7 @@ class SplashScreen extends ConsumerWidget {
         if (isLoggedIn) {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => AppPage()),
+            MaterialPageRoute(builder: (context) => PasskeyPage()),
           );
         } else {
           Navigator.pushReplacement(
