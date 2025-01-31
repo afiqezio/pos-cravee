@@ -1,9 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:possystem/example/data/repo/authRepo.dart';
+import 'package:possystem/example/data/repo/user_repo.dart';
+import 'package:possystem/features/auth/login/viewmodels/authViewmodel.dart';
+import 'package:possystem/features/auth/login/views/widgets/dropdownModel.dart';
 import 'package:possystem/utils/appHelper.dart';
 
 final loginErrorProvider = StateProvider<String>((ref) => "");
 final pinProvider = StateProvider<String>((ref) => '');
+// StateProvider to hold the selected value
+final selectedDropdownValueProvider =
+    StateProvider<DropdownModel?>((ref) => null);
+
+Future<bool> loginByKey(String pin, WidgetRef ref) async {
+  final repository = ref.watch(authRepositoryProvider);
+  final userRepository = ref.watch(UserRepositoryProvider);
+  final username = ref.watch(selectedDropdownValueProvider);
+
+  // Check if username is null before accessing its title
+  if (username == null) {
+    return false;
+  }
+
+  final success = await repository.loginByKey(username.title, pin);
+
+  if (success) {
+    // Ensure that we are reading the selectedDropdownValueProvider correctly
+    final selectedUser = ref.watch(selectedDropdownValueProvider);
+
+    // Convert DropdownModel to User (assuming you have a User class)
+    if (selectedUser != null) {
+      print('loginByPasskey id: ${int.parse(selectedUser.id)}');
+
+      final user =
+          await userRepository.fetchUsersbyId(int.parse(selectedUser.id));
+      print('lepas fetchUsersbyId');
+
+      // Assign the selected user to the userProvider
+      ref.read(userProvider.notifier).setUser(user);
+    }
+  }
+
+  return success;
+}
 
 Widget buildKeypadButton(
     String digit, TextEditingController pinController, WidgetRef ref) {

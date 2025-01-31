@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:possystem/features/auth/login/views/login.dart';
-import 'package:possystem/features/auth/login/views/widgets/dropdown.dart';
+import 'package:possystem/features/auth/login/views/widgets/dropdownModel.dart';
+import 'package:possystem/features/auth/passkey/viewmodels/passkeyViewmodel.dart';
 import 'package:possystem/utils/appHelper.dart';
 
-class CustomLoginDropdown extends StatefulWidget {
+class LoginDropdown extends ConsumerWidget {
   final String? imagePath;
   final List<DropdownModel> items;
   final ValueChanged<String>? onItemSelected;
 
-  const CustomLoginDropdown({
+  const LoginDropdown({
     Key? key,
     this.imagePath,
     required this.items,
@@ -16,14 +18,9 @@ class CustomLoginDropdown extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CustomLoginDropdownState createState() => _CustomLoginDropdownState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedValue = ref.watch(selectedDropdownValueProvider);
 
-class _CustomLoginDropdownState extends State<CustomLoginDropdown> {
-  DropdownModel? selectedValue;
-
-  @override
-  Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.36,
       decoration: BoxDecoration(
@@ -39,14 +36,19 @@ class _CustomLoginDropdownState extends State<CustomLoginDropdown> {
               context,
               MaterialPageRoute(builder: (context) => LoginPage()),
             );
-          } else if (widget.onItemSelected != null) {
-            setState(() {
-              selectedValue = widget.items.firstWhere(
-                (item) => item.title == value,
-                orElse: () => widget.items.first,
-              );
-              widget.onItemSelected!(value);
-            });
+          } else {
+            final selectedItem = items.firstWhere(
+              (item) => item.title == value,
+              orElse: () => items.first,
+            );
+
+            // Update the selected value in the provider
+            ref.read(selectedDropdownValueProvider.notifier).state =
+                selectedItem;
+
+            if (onItemSelected != null) {
+              onItemSelected!(value);
+            }
           }
         },
         constraints: BoxConstraints.tightFor(
@@ -54,9 +56,8 @@ class _CustomLoginDropdownState extends State<CustomLoginDropdown> {
         ),
         itemBuilder: (context) {
           return [
-            // Wrap your dropdown items in a scrollable container
             PopupMenuItem<String>(
-              enabled: false, // Disable the container itself as a menu item
+              enabled: true,
               child: ConstrainedBox(
                 constraints: BoxConstraints(
                   maxHeight: 200,
@@ -64,7 +65,7 @@ class _CustomLoginDropdownState extends State<CustomLoginDropdown> {
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: widget.items
+                    children: items
                         .map((item) => ListTile(
                               contentPadding: EdgeInsets.zero,
                               title: Text(
@@ -84,12 +85,13 @@ class _CustomLoginDropdownState extends State<CustomLoginDropdown> {
                                     )
                                   : null,
                               onTap: () {
-                                Navigator.pop(context);
-                                setState(() {
-                                  selectedValue = item;
-                                });
-                                if (widget.onItemSelected != null) {
-                                  widget.onItemSelected!(item.title);
+                                Navigator.pop(context, item.title);
+                                ref
+                                    .read(
+                                        selectedDropdownValueProvider.notifier)
+                                    .state = item;
+                                if (onItemSelected != null) {
+                                  onItemSelected!(item.title);
                                 }
                               },
                             ))
@@ -98,7 +100,6 @@ class _CustomLoginDropdownState extends State<CustomLoginDropdown> {
                 ),
               ),
             ),
-            // Add the 'Add Account' item
             PopupMenuItem<String>(
               value: 'Add Account',
               child: Row(
@@ -123,34 +124,33 @@ class _CustomLoginDropdownState extends State<CustomLoginDropdown> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                widget.imagePath != null && widget.imagePath!.isNotEmpty
+                imagePath != null && imagePath!.isNotEmpty
                     ? Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: CircleAvatar(
                           radius: 25,
-                          backgroundImage: AssetImage(widget.imagePath!),
+                          backgroundImage: AssetImage(imagePath!),
                         ),
                       )
                     : SizedBox(),
                 SizedBox(width: 10),
-                // Selected value
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       selectedValue?.title ??
-                          (widget.items.isNotEmpty
-                              ? widget.items.first.title
+                          (items.isNotEmpty
+                              ? items.first.title
                               : 'Add Account'),
                       style: AppTexts.medium(size: 16, color: Colors.black),
                     ),
-                    widget.items.isNotEmpty &&
-                            widget.items.first.description != null &&
-                            widget.items.first.description!.isNotEmpty
+                    items.isNotEmpty &&
+                            items.first.description != null &&
+                            items.first.description!.isNotEmpty
                         ? Text(
                             selectedValue?.description ??
-                                (widget.items.isNotEmpty
-                                    ? widget.items.first.description!
+                                (items.isNotEmpty
+                                    ? items.first.description!
                                     : ''),
                             style: AppTexts.medium(
                                 size: 16, color: AppColors.secondary),

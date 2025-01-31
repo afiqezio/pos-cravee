@@ -3,10 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:possystem/app/app.dart';
 import 'package:possystem/features/auth/login/viewmodels/authViewmodel.dart';
-import 'package:possystem/features/auth/login/views/widgets/dropdown.dart';
+import 'package:possystem/features/auth/login/views/widgets/dropdownModel.dart';
 import 'package:possystem/features/auth/passkey/viewmodels/passkeyViewmodel.dart';
 import 'package:possystem/utils/appHelper.dart';
-import 'package:possystem/widgets/customDropdown.dart';
+import 'package:possystem/features/auth/login/views/widgets/loginDropdown.dart';
+import 'package:possystem/widgets/customLoading.dart';
+// as loginDropdown;
 
 class PasskeySection extends ConsumerStatefulWidget {
   const PasskeySection({Key? key}) : super(key: key);
@@ -18,6 +20,7 @@ class PasskeySection extends ConsumerStatefulWidget {
 class _PasskeySectionState extends ConsumerState<PasskeySection> {
   final pinController = TextEditingController();
   List<Map<String, String>> userList = [];
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -25,6 +28,16 @@ class _PasskeySectionState extends ConsumerState<PasskeySection> {
     ref.read(userProvider.notifier).getUserList().then((value) {
       setState(() {
         userList = value;
+        // Assign the first item to the selectedDropdownValueProvider if userList is not empty
+        if (userList.isNotEmpty) {
+          ref.read(selectedDropdownValueProvider.notifier).state =
+              DropdownModel(
+            id: userList.first['id'] ?? '4',
+            title:
+                '${userList.first['firstName'] ?? ''} ${userList.first['lastName'] ?? ''}',
+            description: '12:00 PM - 06:00 PM',
+          );
+        }
       });
     });
   }
@@ -52,13 +65,15 @@ class _PasskeySectionState extends ConsumerState<PasskeySection> {
               style: AppTexts.medium(size: 18, color: AppColors.secondaryText),
               textAlign: TextAlign.center),
           SizedBox(height: 15),
-          CustomLoginDropdown(
+          LoginDropdown(
             // title: "Izzat Hidir",
             // subtitle: "12:00 PM - 10:00 PM",
             imagePath: 'assets/images/person.png',
             items: userList.isNotEmpty
                 ? userList
                     .map((user) => DropdownModel(
+                          id: user['id'] ?? '4',
+                          // id: 1,
                           title:
                               '${user['firstName'] ?? ''} ${user['lastName'] ?? ''}',
                           // description: user['gender'].toString(),
@@ -67,7 +82,7 @@ class _PasskeySectionState extends ConsumerState<PasskeySection> {
                     .toList()
                 : [],
             onItemSelected: (value) {
-              debugPrint("value: $value");
+              // debugPrint("value: $value");
             },
           ),
           SizedBox(height: 20),
@@ -221,29 +236,57 @@ class _PasskeySectionState extends ConsumerState<PasskeySection> {
                 borderRadius: BorderRadius.circular(6),
               ),
             ),
-            onPressed: () {
+            onPressed: () async {
+              setState(() {
+                isLoading = true;
+              });
+
               // Validation
               final pin = ref.read(pinProvider);
-              if (pin.length == 6) {
-                if (pin == "000000") {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => AppPage()),
-                  );
-                } else {
+              const requiredPinLength = 6;
+              if (validatePin(pin, requiredPinLength)) {
+                try {
+                  if (await loginByKey(pin, ref)) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => AppPage()),
+                    );
+                  } else {
+                    ref.read(loginErrorProvider.notifier).state =
+                        "Invalid PIN. Try again";
+                  }
+                } catch (e) {
                   ref.read(loginErrorProvider.notifier).state =
-                      "Invalid PIN. Try again";
+                      "An error occurred. Please try again.";
+                } finally {
+                  setState(() {
+                    isLoading = false;
+                  });
                 }
               } else {
                 ref.read(loginErrorProvider.notifier).state =
-                    "PIN must be 6 digits";
+                    "PIN must be $requiredPinLength digits";
+                setState(() {
+                  isLoading = false;
+                });
               }
             },
-            child: Text("Sign In",
-                style: AppTexts.medium(size: 18, color: Colors.white)),
+            child: isLoading
+                ? CustomLoading(
+                    color: AppColors.secondaryText,
+                    size: 26,
+                    strokeWidth: 5,
+                  )
+                : Text("Sign In",
+                    style: AppTexts.medium(
+                        size: 18, color: AppColors.secondaryText)),
           ),
         ],
       ),
     );
+  }
+
+  bool validatePin(String pin, int requiredLength) {
+    return pin.length == requiredLength;
   }
 }

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
-
 import 'package:possystem/utils/appHelper.dart';
 
 class CustomLoading extends StatefulWidget {
   final double strokeWidth;
   final double size;
+  final Color? color;
 
   const CustomLoading({
     super.key,
     this.strokeWidth = 7.0,
     this.size = 50.0,
+    this.color,
   });
 
   @override
@@ -48,6 +49,7 @@ class _CustomLoadingState extends State<CustomLoading>
             painter: _GradientCircularProgressPainter(
               strokeWidth: widget.strokeWidth,
               rotationValue: _controller.value,
+              color: widget.color,
             ),
           ),
         );
@@ -61,10 +63,11 @@ class _GradientCircularProgressPainter extends CustomPainter {
   final double rotationValue;
   final Paint _paint;
   final Paint _backgroundPaint;
-
+  final Color? color;
   _GradientCircularProgressPainter({
     required this.strokeWidth,
     required this.rotationValue,
+    this.color,
   })  : _paint = Paint()
           ..style = PaintingStyle.stroke
           ..strokeWidth = strokeWidth
@@ -81,17 +84,17 @@ class _GradientCircularProgressPainter extends CustomPainter {
     // Create gradient for background
     final backgroundGradient = SweepGradient(
       colors: [
-        AppColors.secondary.withOpacity(0.3),
-        AppColors.secondary.withOpacity(0.3),
+        color?.withOpacity(0.3) ?? AppColors.secondary.withOpacity(0.3),
+        color?.withOpacity(0.3) ?? AppColors.secondary.withOpacity(0.3),
       ],
       stops: const [0.0, 1.0],
     );
 
     // Create gradient for progress
     final progressGradient = SweepGradient(
-      colors: const [
-        AppColors.secondary,
-        AppColors.secondary,
+      colors: [
+        color ?? AppColors.secondary,
+        color ?? AppColors.secondary,
       ],
       stops: const [0.0, 1.0],
     );

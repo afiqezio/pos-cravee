@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:possystem/data/repo/authRepo.dart';
+import 'package:possystem/example/data/repo/authRepo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../data/models/user.dart';
 import 'dart:convert';
@@ -23,7 +23,7 @@ class AuthViewModel extends StateNotifier<AsyncValue<User?>> {
       final user = await repository.login(username, password);
 
       state = AsyncData(user);
-      await ref.read(userProvider.notifier).saveUserData(user);
+      await ref.read(userProvider.notifier).savePreferencesUserData(user);
 
       return true;
     } catch (error) {
@@ -63,7 +63,15 @@ final userProvider =
 class UserNotifier extends StateNotifier<User?> {
   UserNotifier() : super(null);
 
-  Future<void> saveUserData(User user) async {
+  void setUser(User user) {
+    state = user;
+  }
+
+  void clearUser() {
+    state = null;
+  }
+
+  Future<void> savePreferencesUserData(User user) async {
     state = user;
     final prefs = await SharedPreferences.getInstance();
     final String? userListString = prefs.getString('userList');
@@ -93,13 +101,12 @@ class UserNotifier extends StateNotifier<User?> {
         'gender': user.gender,
         'image': user.image,
       };
-
       // Add the current user's details to the list
       userList.add(userDetails);
     }
 
     // Save the access token (change with secure storage)
-    await prefs.setString('accessToken', user.accessToken);
+    await prefs.setString('accessToken', user.accessToken ?? '');
 
     // Save the updated list of user details in SharedPreferences as a JSON string
     await prefs.setString('userList', jsonEncode(userList));
