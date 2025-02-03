@@ -1,89 +1,113 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart' as http;
+import 'package:possystem/core/api/api_service.dart';
+import 'package:possystem/core/exceptions/api_exception.dart';
 import 'package:possystem/example/data/models/productTest.dart';
-import 'dart:convert';
 
 class ProductRepository {
-  final String _baseUrl = 'https://dummyjson.com/products';
+  static const String _endpoint = '/products';
+
+  final ApiService _apiService;
+
+  ProductRepository(this._apiService);
 
   // Fetch all products
   Future<ProductResponse> fetchProducts() async {
-    final response = await http.get(Uri.parse(_baseUrl));
-
-    if (response.statusCode == 200) {
-      return ProductResponse.fromJson(response.body);
-    } else {
-      throw Exception('Failed to fetch products');
+    try {
+      final data = await _apiService.get(_endpoint);
+      return ProductResponse.fromJson(data);
+    } on ApiException catch (e) {
+      throw Exception('Failed to fetch products: ${e.message}');
     }
   }
 
-  // Fetch all products
-  Future<ProductResponse> fetchProductsbyId(int id) async {
-    final response = await http.get(Uri.parse('$_baseUrl/$id'));
-
-    if (response.statusCode == 200) {
-      return ProductResponse.fromJson(response.body);
-    } else {
-      throw Exception('Failed to fetch products');
+  // Fetch product by id
+  Future<ProductResponse> fetchProductById(int id) async {
+    try {
+      final data = await _apiService.get('$_endpoint/$id');
+      return ProductResponse.fromJson(data);
+    } on ApiException catch (e) {
+      throw Exception('Failed to fetch product: ${e.message}');
     }
   }
 
   // Create a new product
   Future<Products> createProduct(Products product) async {
-    final response = await http.post(
-      Uri.parse(_baseUrl),
-      headers: {"Content-Type": "application/json"},
-      body: jsonEncode({
-        'title': product.title,
-        'description': product.description,
-        'category': product.category,
-        'price': product.price,
-        'discountPercentage': product.discountPercentage,
-        'rating': product.rating,
-        'stock': product.stock,
-      }),
-    );
-
-    if (response.statusCode == 201) {
-      return Products.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to create product');
+    try {
+      final data = await _apiService.post(
+        _endpoint,
+        {
+          'title': product.title,
+          'description': product.description,
+          'category': product.category,
+          'price': product.price,
+          'discountPercentage': product.discountPercentage,
+          'rating': product.rating,
+          'stock': product.stock,
+        },
+      );
+      return Products.fromJson(data);
+    } on ApiException catch (e) {
+      throw Exception('Failed to create product: ${e.message}');
     }
   }
 
   // Update an existing product
   Future<Products> updateProduct(int id, Products product) async {
-    final response = await http.put(
-      Uri.parse('$_baseUrl/$id'),
-      headers: {"Content-Type": "application/json"},
-      body: jsonEncode({
-        'title': product.title,
-        'description': product.description,
-        'category': product.category,
-        'price': product.price,
-        'discountPercentage': product.discountPercentage,
-        'rating': product.rating,
-        'stock': product.stock,
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      return Products.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to update product');
+    try {
+      final data = await _apiService.put(
+        '$_endpoint/$id',
+        {
+          'title': product.title,
+          'description': product.description,
+          'category': product.category,
+          'price': product.price,
+          'discountPercentage': product.discountPercentage,
+          'rating': product.rating,
+          'stock': product.stock,
+        },
+      );
+      return Products.fromJson(data);
+    } on ApiException catch (e) {
+      throw Exception('Failed to update product: ${e.message}');
     }
   }
 
   // Delete a product
   Future<void> deleteProduct(int id) async {
-    final response = await http.delete(Uri.parse('$_baseUrl/$id'));
-
-    if (response.statusCode != 200) {
-      throw Exception('Failed to delete product');
+    try {
+      await _apiService.delete('$_endpoint/$id');
+    } on ApiException catch (e) {
+      throw Exception('Failed to delete product: ${e.message}');
     }
   }
+
+  // // Search products
+  // Future<ProductResponse> searchProducts(String query) async {
+  //   try {
+  //     final data = await _apiService.get(
+  //       '$_endpoint/search',
+  //       queryParameters: {'q': query},
+  //     );
+  //     return ProductResponse.fromJson(data);
+  //   } on ApiException catch (e) {
+  //     throw Exception('Failed to search products: ${e.message}');
+  //   }
+  // }
+
+  // // Get products by category
+  // Future<ProductResponse> getProductsByCategory(String category) async {
+  //   try {
+  //     final data = await _apiService.get(
+  //       '$_endpoint/category/$category',
+  //     );
+  //     return ProductResponse.fromJson(data);
+  //   } on ApiException catch (e) {
+  //     throw Exception('Failed to fetch products by category: ${e.message}');
+  //   }
+  // }
 }
 
 final productRepositoryProvider = Provider<ProductRepository>((ref) {
-  return ProductRepository();
+  final apiService = ref.watch(apiServiceProvider);
+  return ProductRepository(apiService);
 });

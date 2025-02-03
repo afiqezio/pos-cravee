@@ -1,91 +1,125 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart' as http;
+import 'package:possystem/core/api/api_service.dart';
+import 'package:possystem/core/exceptions/api_exception.dart';
 import 'package:possystem/data/models/user.dart';
-import 'dart:convert';
 
 class UserRepository {
-  final String _baseUrl = 'https://dummyjson.com/users';
+  static const String _endpoint = '/users';
 
-  // Fetch all products
+  final ApiService _apiService;
+
+  UserRepository(this._apiService);
+
+  // Fetch all users
   Future<UserResponse> fetchUsers() async {
-    final response = await http.get(Uri.parse(_baseUrl));
-
-    if (response.statusCode == 200) {
-      return UserResponse.fromJson(response.body);
-    } else {
-      throw Exception('Failed to fetch users');
+    try {
+      final data = await _apiService.get(_endpoint);
+      return UserResponse.fromJson(data);
+    } on ApiException catch (e) {
+      throw Exception('Failed to fetch users: ${e.message}');
     }
   }
 
-  // Fetch products by Id
-  Future<User> fetchUsersbyId(String id) async {
-    final response = await http.get(Uri.parse('$_baseUrl/$id'));
-
-    if (response.statusCode == 200) {
-      return User.fromJson(jsonDecode(response.body));
-    } else {
-      if (response.statusCode == 404) {
+  // Fetch user by id
+  Future<User> fetchUserById(String id) async {
+    try {
+      final data = await _apiService.get('$_endpoint/$id');
+      return User.fromJson(data);
+    } on ApiException catch (e) {
+      if (e.statusCode == 404) {
         throw Exception('User not found');
-      } else {
-        throw Exception('Failed to fetch user: ${response.statusCode}');
       }
+      throw Exception('Failed to fetch user: ${e.message}');
     }
   }
 
-  // Create a new product
+  // Create a new user
   Future<User> createUser(User user) async {
-    final response = await http.post(
-      Uri.parse(_baseUrl),
-      headers: {"Content-Type": "application/json"},
-      body: jsonEncode({
-        'username': user.username,
-        'email': user.email,
-        'firstName': user.firstName,
-        'lastName': user.lastName,
-        'gender': user.gender,
-        'image': user.image,
-      }),
-    );
-
-    if (response.statusCode == 201) {
-      return User.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to create product');
+    try {
+      final data = await _apiService.post(
+        _endpoint,
+        {
+          'username': user.username,
+          'email': user.email,
+          'firstName': user.firstName,
+          'lastName': user.lastName,
+          'gender': user.gender,
+          'image': user.image,
+        },
+      );
+      return User.fromJson(data);
+    } on ApiException catch (e) {
+      throw Exception('Failed to create user: ${e.message}');
     }
   }
 
-  // Update an existing product
+  // Update an existing user
   Future<User> updateUser(int id, User user) async {
-    final response = await http.put(
-      Uri.parse('$_baseUrl/$id'),
-      headers: {"Content-Type": "application/json"},
-      body: jsonEncode({
-        'username': user.username,
-        'email': user.email,
-        'firstName': user.firstName,
-        'lastName': user.lastName,
-        'gender': user.gender,
-        'image': user.image,
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      return User.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to update product');
+    try {
+      final data = await _apiService.put(
+        '$_endpoint/$id',
+        {
+          'username': user.username,
+          'email': user.email,
+          'firstName': user.firstName,
+          'lastName': user.lastName,
+          'gender': user.gender,
+          'image': user.image,
+        },
+      );
+      return User.fromJson(data);
+    } on ApiException catch (e) {
+      throw Exception('Failed to update user: ${e.message}');
     }
   }
 
-  // Delete a product
+  // Delete a user
   Future<void> deleteUser(int id) async {
-    final response = await http.delete(Uri.parse('$_baseUrl/$id'));
+    try {
+      await _apiService.delete('$_endpoint/$id');
+    } on ApiException catch (e) {
+      throw Exception('Failed to delete user: ${e.message}');
+    }
+  }
 
-    if (response.statusCode != 200) {
-      throw Exception('Failed to delete user');
+  // Search users
+  Future<UserResponse> searchUsers(String query) async {
+    try {
+      final data = await _apiService.get(
+        '$_endpoint/search',
+        queryParameters: {'q': query},
+      );
+      return UserResponse.fromJson(data);
+    } on ApiException catch (e) {
+      throw Exception('Failed to search users: ${e.message}');
+    }
+  }
+
+  // Filter users
+  Future<UserResponse> filterUsers({
+    String? gender,
+    int? limit,
+    int? skip,
+  }) async {
+    try {
+      final queryParams = <String, dynamic>{
+        if (gender != null) 'gender': gender,
+        if (limit != null) 'limit': limit,
+        if (skip != null) 'skip': skip,
+      };
+
+      final data = await _apiService.get(
+        _endpoint,
+        queryParameters: queryParams,
+      );
+      return UserResponse.fromJson(data);
+    } on ApiException catch (e) {
+      throw Exception('Failed to filter users: ${e.message}');
     }
   }
 }
 
-final UserRepositoryProvider = Provider<UserRepository>((ref) {
-  return UserRepository();
+final userRepositoryProvider = Provider<UserRepository>((ref) {
+  final apiService = ref.watch(apiServiceProvider);
+  return UserRepository(apiService);
 });

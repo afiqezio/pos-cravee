@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class Products {
   final int id;
   final String title;
@@ -48,11 +46,10 @@ class ProductResponse {
     required this.limit,
   });
 
-  factory ProductResponse.fromJson(String source) {
-    final json = jsonDecode(source);
+  factory ProductResponse.fromJson(Map<String, dynamic> json) {
     return ProductResponse(
-      products: (json['products'] as List<dynamic>)
-          .map((e) => Products.fromJson(e as Map<String, dynamic>))
+      products: (json['products'] as List)
+          .map((product) => Products.fromJson(product))
           .toList(),
       total: json['total'],
       skip: json['skip'],

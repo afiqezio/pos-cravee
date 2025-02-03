@@ -18,10 +18,10 @@ class ProductViewModel extends StateNotifier<AsyncValue<List<Products>>> {
     }
   }
 
-  Future<void> fetchProductsbyId(int id) async {
+  Future<void> fetchProductsyId(int id) async {
     try {
       state = const AsyncLoading();
-      final response = await repository.fetchProductsbyId(id);
+      final response = await repository.fetchProductById(id);
       state = AsyncData(response.products);
     } catch (error) {
       state = AsyncError(error, StackTrace.current);

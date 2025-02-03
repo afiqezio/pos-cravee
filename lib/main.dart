@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-// import 'package:possystem/example/features/productTest/views/productPageMain.dart';
-// import 'package:possystem/features/productTest/views/elokV.dart';
 import 'package:possystem/features/constant/splashscreen/splash_screen.dart';
 
 void main() {
@@ -18,11 +16,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(textTheme: GoogleFonts.poppinsTextTheme()),
     );
 
-    // // Example
+    // Example
     // return MaterialApp(
     //   title: 'Example',
-    //   home: LoginPage(),
-    //   // home: ProductsPage(),
+    //   home: ProductsPage(),
     // );
   }
 }
