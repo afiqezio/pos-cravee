@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:possystem/app/app.dart';
 import 'package:possystem/features/auth/login/viewmodels/authViewmodel.dart';
 import 'package:possystem/features/auth/login/views/widgets/snackbar.dart';
-import 'package:possystem/utils/appHelper.dart';
+import 'package:possystem/core/utils/appHelper.dart';
 import 'package:possystem/widgets/customButton.dart';
 import 'package:possystem/widgets/customLoading.dart';
 

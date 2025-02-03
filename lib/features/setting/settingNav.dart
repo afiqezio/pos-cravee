@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:possystem/utils/appHelper.dart';
+import 'package:possystem/core/utils/appHelper.dart';
 
 class SettingNav extends StatefulWidget {
   final Function(int) onPageChange;

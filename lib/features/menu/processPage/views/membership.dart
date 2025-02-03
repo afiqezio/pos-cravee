@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:possystem/features/menu/processPage/viewmodels/cashProvider.dart';
-import 'package:possystem/utils/appHelper.dart';
+import 'package:possystem/core/utils/appHelper.dart';
 
 class MembershipSection extends ConsumerWidget {
   const MembershipSection({Key? key}) : super(key: key);

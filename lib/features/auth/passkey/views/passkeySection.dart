@@ -3,9 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:possystem/app/app.dart';
 import 'package:possystem/features/auth/login/viewmodels/authViewmodel.dart';
-import 'package:possystem/features/auth/login/views/widgets/dropdownModel.dart';
 import 'package:possystem/features/auth/passkey/viewmodels/passkeyViewmodel.dart';
-import 'package:possystem/utils/appHelper.dart';
+import 'package:possystem/core/utils/appHelper.dart';
 import 'package:possystem/features/auth/login/views/widgets/loginDropdown.dart';
 import 'package:possystem/widgets/customLoading.dart';
 // as loginDropdown;
@@ -25,7 +24,7 @@ class _PasskeySectionState extends ConsumerState<PasskeySection> {
   @override
   void initState() {
     super.initState();
-    ref.read(userProvider.notifier).getUserList().then((value) {
+    ref.read(userProvider.notifier).getPreferencesUserList().then((value) {
       setState(() {
         userList = value;
         // Assign the first item to the selectedDropdownValueProvider if userList is not empty

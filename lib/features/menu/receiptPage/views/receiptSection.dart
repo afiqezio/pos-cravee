@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:possystem/features/menu/selectionPage/viewmodels/cartProvider.dart';
-import 'package:possystem/utils/appHelper.dart';
+import 'package:possystem/core/utils/appHelper.dart';
 
 class ReceiptSection extends ConsumerWidget {
   final String orderDate =

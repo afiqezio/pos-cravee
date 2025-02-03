@@ -18,7 +18,7 @@ class UserRepository {
   }
 
   // Fetch products by Id
-  Future<User> fetchUsersbyId(int id) async {
+  Future<User> fetchUsersbyId(String id) async {
     final response = await http.get(Uri.parse('$_baseUrl/$id'));
 
     if (response.statusCode == 200) {

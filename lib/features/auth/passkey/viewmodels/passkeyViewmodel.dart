@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:possystem/example/data/repo/authRepo.dart';
 import 'package:possystem/example/data/repo/user_repo.dart';
 import 'package:possystem/features/auth/login/viewmodels/authViewmodel.dart';
-import 'package:possystem/features/auth/login/views/widgets/dropdownModel.dart';
-import 'package:possystem/utils/appHelper.dart';
+import 'package:possystem/features/auth/login/views/widgets/loginDropdown.dart';
+import 'package:possystem/core/utils/appHelper.dart';
 
 final loginErrorProvider = StateProvider<String>((ref) => "");
 final pinProvider = StateProvider<String>((ref) => '');
@@ -30,11 +30,7 @@ Future<bool> loginByKey(String pin, WidgetRef ref) async {
 
     // Convert DropdownModel to User (assuming you have a User class)
     if (selectedUser != null) {
-      print('loginByPasskey id: ${int.parse(selectedUser.id)}');
-
-      final user =
-          await userRepository.fetchUsersbyId(int.parse(selectedUser.id));
-      print('lepas fetchUsersbyId');
+      final user = await userRepository.fetchUsersbyId(selectedUser.id);
 
       // Assign the selected user to the userProvider
       ref.read(userProvider.notifier).setUser(user);

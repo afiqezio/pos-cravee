@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:possystem/data/models/user.dart';
 import 'package:possystem/example/data/repo/authRepo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../../data/models/user.dart';
 import 'dart:convert';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 // Viewmodel Provider
 final authViewModelProvider =
@@ -20,8 +21,8 @@ class AuthViewModel extends StateNotifier<AsyncValue<User?>> {
   Future<bool> login(String username, String password, WidgetRef ref) async {
     try {
       state = const AsyncLoading();
+      debugPrint('login: $username, $password');
       final user = await repository.login(username, password);
-
       state = AsyncData(user);
       await ref.read(userProvider.notifier).savePreferencesUserData(user);
 
@@ -39,8 +40,8 @@ class AuthViewModel extends StateNotifier<AsyncValue<User?>> {
   }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// State Provider
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// State Provider for Login Status
 final authStateProvider = StateNotifierProvider<AuthStateNotifier, bool>(
     (ref) => AuthStateNotifier());
 
@@ -51,11 +52,18 @@ class AuthStateNotifier extends StateNotifier<bool> {
 
   Future<void> checkLoginStatus() async {
     final prefs = await SharedPreferences.getInstance();
-    state = prefs.containsKey('accessToken');
+    final String? userListString = prefs.getString('userList');
+    if (userListString != null) {
+      state = true;
+    } else {
+      state = false;
+    }
+    // final prefs = await SharedPreferences.getInstance();
+    // state = prefs.containsKey('accessToken');
   }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // User Provider
 final userProvider =
     StateNotifierProvider<UserNotifier, User?>((ref) => UserNotifier());
@@ -106,13 +114,14 @@ class UserNotifier extends StateNotifier<User?> {
     }
 
     // Save the access token (change with secure storage)
-    await prefs.setString('accessToken', user.accessToken ?? '');
+    final storage = FlutterSecureStorage();
+    await storage.write(key: 'access_token', value: user.accessToken);
 
     // Save the updated list of user details in SharedPreferences as a JSON string
     await prefs.setString('userList', jsonEncode(userList));
   }
 
-  Future<List<Map<String, String>>> getUserList() async {
+  Future<List<Map<String, String>>> getPreferencesUserList() async {
     final prefs = await SharedPreferences.getInstance();
     final String? userListString = prefs.getString('userList');
 

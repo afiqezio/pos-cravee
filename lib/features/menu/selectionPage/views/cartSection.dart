@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:possystem/utils/appHelper.dart';
+import 'package:possystem/core/utils/appHelper.dart';
 import 'package:possystem/widgets/customButton.dart';
 import 'package:possystem/widgets/customSlider.dart';
 import 'package:possystem/features/menu/selectionPage/views/showCartDetails.dart';

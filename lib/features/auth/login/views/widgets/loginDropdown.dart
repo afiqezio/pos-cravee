@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:possystem/features/auth/login/views/login.dart';
-import 'package:possystem/features/auth/login/views/widgets/dropdownModel.dart';
+import 'package:possystem/features/auth/login/views/loginPageMain.dart';
 import 'package:possystem/features/auth/passkey/viewmodels/passkeyViewmodel.dart';
-import 'package:possystem/utils/appHelper.dart';
+import 'package:possystem/core/utils/appHelper.dart';
+
+class DropdownModel {
+  final String id;
+  final String title;
+  final String? description;
+
+  DropdownModel({
+    required this.id,
+    required this.title,
+    this.description,
+  });
+}
 
 class LoginDropdown extends ConsumerWidget {
   final String? imagePath;

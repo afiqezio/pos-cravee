@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:possystem/features/menu/selectionPage/viewmodels/cartProvider.dart';
 import 'package:possystem/features/menu/processPage/viewmodels/cashProvider.dart';
-import 'package:possystem/utils/appHelper.dart';
+import 'package:possystem/core/utils/appHelper.dart';
 import 'package:possystem/widgets/customCircle.dart';
 
 class PaymentDetailSection extends ConsumerWidget {

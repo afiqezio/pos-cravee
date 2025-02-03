@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:possystem/features/auth/login/viewmodels/authViewmodel.dart';
-import 'package:possystem/features/auth/login/views/login.dart';
+import 'package:possystem/features/auth/login/views/loginPageMain.dart';
 import 'package:possystem/features/auth/passkey/views/passkeyMain.dart';
-import 'package:possystem/utils/appHelper.dart';
+import 'package:possystem/core/utils/appHelper.dart';
 
 class SplashScreen extends ConsumerWidget {
   @override
