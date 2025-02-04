@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:possystem/core/api/api_service.dart';
 import 'package:possystem/core/exceptions/api_exception.dart';
-import 'package:possystem/example/data/models/productTest.dart';
+import 'package:possystem/example/product/data/models/productTest.dart';
 
 class ProductRepository {
   static const String _endpoint = '/products';
@@ -81,30 +81,30 @@ class ProductRepository {
     }
   }
 
-  // // Search products
-  // Future<ProductResponse> searchProducts(String query) async {
-  //   try {
-  //     final data = await _apiService.get(
-  //       '$_endpoint/search',
-  //       queryParameters: {'q': query},
-  //     );
-  //     return ProductResponse.fromJson(data);
-  //   } on ApiException catch (e) {
-  //     throw Exception('Failed to search products: ${e.message}');
-  //   }
-  // }
+  // Search products
+  Future<ProductResponse> searchProducts(String query) async {
+    try {
+      final data = await _apiService.get(
+        '$_endpoint/search',
+        queryParameters: {'q': query},
+      );
+      return ProductResponse.fromJson(data);
+    } on ApiException catch (e) {
+      throw Exception('Failed to search products: ${e.message}');
+    }
+  }
 
-  // // Get products by category
-  // Future<ProductResponse> getProductsByCategory(String category) async {
-  //   try {
-  //     final data = await _apiService.get(
-  //       '$_endpoint/category/$category',
-  //     );
-  //     return ProductResponse.fromJson(data);
-  //   } on ApiException catch (e) {
-  //     throw Exception('Failed to fetch products by category: ${e.message}');
-  //   }
-  // }
+  // Get products by category
+  Future<ProductResponse> getProductsByCategory(String category) async {
+    try {
+      final data = await _apiService.get(
+        '$_endpoint/category/$category',
+      );
+      return ProductResponse.fromJson(data);
+    } on ApiException catch (e) {
+      throw Exception('Failed to fetch products by category: ${e.message}');
+    }
+  }
 }
 
 final productRepositoryProvider = Provider<ProductRepository>((ref) {

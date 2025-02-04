@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:possystem/features/constant/sidebar/viewmodels/sidebarProvider.dart';
+import 'package:possystem/features/constant/sidebar/viewmodels/sidebarViewmodel.dart';
 import 'package:possystem/core/utils/appHelper.dart';
 import 'package:possystem/features/constant/sidebar/views/appbarMain.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -82,6 +82,7 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
   ];
 
   void toggleSidebar() {
+    if (!mounted) return;
     setState(() {
       _isCollapsed = !_isCollapsed;
     });
@@ -111,14 +112,15 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
           // Sidebar
           GestureDetector(
             onHorizontalDragUpdate: (details) {
+              if (!mounted) return;
               setState(() {
                 // Adjust the width based on drag distance
-                if (details.delta.dx > 0) {
+                if (details.delta.dx > 10) {
                   // Dragging right
-                  _isCollapsed = false; // Expand
-                } else if (details.delta.dx < 0) {
+                  _isCollapsed = false;
+                } else if (details.delta.dx < -10) {
                   // Dragging left
-                  _isCollapsed = true; // Collapse
+                  _isCollapsed = true;
                 }
               });
             },
@@ -139,23 +141,11 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
                           ? EdgeInsets.fromLTRB(6.0, 6, 6.0, 30)
                           : EdgeInsets.fromLTRB(2.0, 8, 2.0, 30),
                       child: Center(
-                        child: AnimatedSwitcher(
-                            duration: Duration(milliseconds: 250),
-                            transitionBuilder:
-                                (Widget child, Animation<double> animation) {
-                              return FadeTransition(
-                                opacity: animation,
-                                child: ScaleTransition(
-                                  scale: animation,
-                                  child: child,
-                                ),
-                              );
-                            },
-                            child: SvgPicture.asset(
-                              'assets/svg/pretzley_logo.svg',
-                              height: 70,
-                              key: ValueKey('collapsed_logo'),
-                            )),
+                        child: SvgPicture.asset(
+                          'assets/svg/pretzley_logo.svg',
+                          height: 70,
+                          key: ValueKey('collapsed_logo'),
+                        ),
                       ),
                     ),
                   ),
@@ -248,15 +238,16 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
     Color backgroundColor =
         isSelected ? AppColors.secondary : AppColors.transparent;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-      child: Column(
-        children: [
-          GestureDetector(
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+          child: GestureDetector(
             onTap: () {
               // print(index.toString());
               // print('Selected Header Index: ${selectedHeaderIndex.toString()}');
               if (subItems != null && subItems.isNotEmpty) {
+                if (!mounted) return;
                 setState(() {
                   // Collapse all other parent items
                   _sublistExpanded.forEach((key, value) {
@@ -308,33 +299,29 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
                     ),
                     if (!_isCollapsed)
                       Expanded(
-                        child: AnimatedOpacity(
-                          duration: Duration(milliseconds: 200),
-                          opacity: _isCollapsed ? 0 : 1,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  text,
-                                  style: AppTexts.regular(
-                                      size: 16, color: AppColors.secondaryText),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                text,
+                                style: AppTexts.regular(
+                                    size: 16, color: AppColors.secondaryText),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
+                            ),
+                            if (subItems != null && subItems.isNotEmpty)
+                              Flexible(
+                                child: Icon(
+                                  (_sublistExpanded[index] ?? false)
+                                      ? Icons.keyboard_arrow_down_outlined
+                                      : Icons.keyboard_arrow_right_outlined,
+                                  color: AppColors.canvasPrimary,
+                                  size: 18,
                                 ),
                               ),
-                              if (subItems != null && subItems.isNotEmpty)
-                                Flexible(
-                                  child: Icon(
-                                    (_sublistExpanded[index] ?? false)
-                                        ? Icons.keyboard_arrow_down_outlined
-                                        : Icons.keyboard_arrow_right_outlined,
-                                    color: AppColors.canvasPrimary,
-                                    size: 18,
-                                  ),
-                                ),
-                            ],
-                          ),
+                          ],
                         ),
                       ),
                   ],
@@ -342,30 +329,31 @@ class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
               ),
             ),
           ),
-          // Render subitems if the parent is expanded
-          if ((_sublistExpanded[index] ?? false) &&
-              subItems != null &&
-              subItems.isNotEmpty &&
-              !_isCollapsed) ...[
-            AnimatedSize(
-              duration: Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
-              child: AnimatedOpacity(
-                duration: Duration(milliseconds: 200),
-                opacity: (_sublistExpanded[index] ?? false) ? 1.0 : 0.0,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: subItems.map<Widget>((subItem) {
-                    return subItem;
-                  }).toList(),
-                ),
-              ),
+        ),
+        // Render subitems if the parent is expanded
+        if ((_sublistExpanded[index] ?? false) &&
+            subItems != null &&
+            subItems.isNotEmpty &&
+            !_isCollapsed) ...[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 3),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: subItems.map<Widget>((subItem) {
+                return subItem;
+              }).toList(),
             ),
-          ] else ...[
-            SizedBox.shrink(),
-          ],
+          ),
+        ] else ...[
+          SizedBox.shrink(),
         ],
-      ),
+      ],
     );
+  }
+
+  @override
+  void dispose() {
+    // Cancel any controllers, timers, etc. here
+    super.dispose();
   }
 }

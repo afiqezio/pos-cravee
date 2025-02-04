@@ -82,41 +82,41 @@ class UserRepository {
     }
   }
 
-  // Search users
-  Future<UserResponse> searchUsers(String query) async {
-    try {
-      final data = await _apiService.get(
-        '$_endpoint/search',
-        queryParameters: {'q': query},
-      );
-      return UserResponse.fromJson(data);
-    } on ApiException catch (e) {
-      throw Exception('Failed to search users: ${e.message}');
-    }
-  }
+  // // Search users
+  // Future<UserResponse> searchUsers(String query) async {
+  //   try {
+  //     final data = await _apiService.get(
+  //       '$_endpoint/search',
+  //       queryParameters: {'q': query},
+  //     );
+  //     return UserResponse.fromJson(data);
+  //   } on ApiException catch (e) {
+  //     throw Exception('Failed to search users: ${e.message}');
+  //   }
+  // }
 
-  // Filter users
-  Future<UserResponse> filterUsers({
-    String? gender,
-    int? limit,
-    int? skip,
-  }) async {
-    try {
-      final queryParams = <String, dynamic>{
-        if (gender != null) 'gender': gender,
-        if (limit != null) 'limit': limit,
-        if (skip != null) 'skip': skip,
-      };
+  // // Filter users
+  // Future<UserResponse> filterUsers({
+  //   String? gender,
+  //   int? limit,
+  //   int? skip,
+  // }) async {
+  //   try {
+  //     final queryParams = <String, dynamic>{
+  //       if (gender != null) 'gender': gender,
+  //       if (limit != null) 'limit': limit,
+  //       if (skip != null) 'skip': skip,
+  //     };
 
-      final data = await _apiService.get(
-        _endpoint,
-        queryParameters: queryParams,
-      );
-      return UserResponse.fromJson(data);
-    } on ApiException catch (e) {
-      throw Exception('Failed to filter users: ${e.message}');
-    }
-  }
+  //     final data = await _apiService.get(
+  //       _endpoint,
+  //       queryParameters: queryParams,
+  //     );
+  //     return UserResponse.fromJson(data);
+  //   } on ApiException catch (e) {
+  //     throw Exception('Failed to filter users: ${e.message}');
+  //   }
+  // }
 }
 
 final userRepositoryProvider = Provider<UserRepository>((ref) {

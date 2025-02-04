@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:possystem/core/api/api_service.dart';
 import 'package:possystem/core/exceptions/api_exception.dart';
-import 'package:possystem/data/models/auth.dart';
+import 'package:possystem/data/models/authModel.dart';
 
 class AuthRepository {
   static const String _loginEndpoint = '/auth/login';
@@ -19,9 +19,12 @@ class AuthRepository {
 
       return LoginResponse.fromJson(data);
     } on ApiException catch (e) {
-      throw Exception(e.message);
-    } catch (e) {
-      throw Exception('Login error: $e');
+      if (e.statusCode == 401) {
+        throw ApiException(
+            message: 'Incorrect username or password',
+            statusCode: e.statusCode);
+      }
+      throw e.message;
     }
   }
 

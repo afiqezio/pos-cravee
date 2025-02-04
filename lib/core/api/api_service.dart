@@ -45,7 +45,7 @@ class ApiService {
     } on http.ClientException {
       throw const ApiException(message: 'Network error occurred');
     } catch (e) {
-      throw ApiException(message: 'Unexpected error: ${e.toString()}');
+      throw ApiException(message: e.toString());
     }
   }
 
@@ -79,7 +79,7 @@ class ApiService {
     } on http.ClientException {
       throw const ApiException(message: 'Network error occurred');
     } catch (e) {
-      throw ApiException(message: 'Unexpected error: ${e.toString()}');
+      throw ApiException(message: e.toString());
     }
   }
 
@@ -113,7 +113,7 @@ class ApiService {
     } on http.ClientException {
       throw const ApiException(message: 'Network error occurred');
     } catch (e) {
-      throw ApiException(message: 'Unexpected error: ${e.toString()}');
+      throw ApiException(message: e.toString());
     }
   }
 
@@ -152,7 +152,7 @@ class ApiService {
     } on http.ClientException {
       throw const ApiException(message: 'Network error occurred');
     } catch (e) {
-      throw ApiException(message: 'Unexpected error: ${e.toString()}');
+      throw ApiException(message: e.toString());
     }
   }
 

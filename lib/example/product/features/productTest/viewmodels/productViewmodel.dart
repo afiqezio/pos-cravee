@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:possystem/example/data/models/productTest.dart';
-import 'package:possystem/example/data/repo/product_repo.dart';
+import 'package:possystem/example/product/data/models/productTest.dart';
+import 'package:possystem/example/product/data/repo/product_repo.dart';
 
 class ProductViewModel extends StateNotifier<AsyncValue<List<Products>>> {
   final ProductRepository repository;

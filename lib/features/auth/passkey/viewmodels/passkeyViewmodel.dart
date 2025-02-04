@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:possystem/data/repo/auth_repo.dart';
-import 'package:possystem/example/data/repo/user_repo.dart';
+import 'package:possystem/data/repo/user_repo.dart';
 import 'package:possystem/features/auth/login/viewmodels/userViewmodel.dart';
-import 'package:possystem/features/auth/login/views/widgets/loginDropdown.dart';
+import 'package:possystem/features/auth/passkey/views/widgets/loginDropdown.dart';
 import 'package:possystem/core/utils/appHelper.dart';
 
 final loginErrorProvider = StateProvider<String>((ref) => "");
@@ -17,7 +17,6 @@ Future<bool> loginByKey(String pin, WidgetRef ref) async {
   final userRepository = ref.watch(userRepositoryProvider);
   final username = ref.watch(selectedDropdownValueProvider);
 
-  // Check if username is null before accessing its title
   if (username == null) {
     return false;
   }
@@ -25,7 +24,6 @@ Future<bool> loginByKey(String pin, WidgetRef ref) async {
   final success = await repository.loginByKey(username.title, pin);
 
   if (success) {
-    // Ensure that we are reading the selectedDropdownValueProvider correctly
     final selectedUser = ref.watch(selectedDropdownValueProvider);
 
     // Convert DropdownModel to User (assuming you have a User class)

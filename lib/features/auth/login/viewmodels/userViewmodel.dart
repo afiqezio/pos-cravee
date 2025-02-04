@@ -52,22 +52,7 @@ class UserNotifier extends StateNotifier<User?> {
       userList.add(userDetails);
     }
 
-    // Save the updated list of user details in SharedPreferences as a JSON string
     await prefs.setString('userList', jsonEncode(userList));
-  }
-
-  Future<List<Map<String, String>>> getPreferencesUserList() async {
-    final prefs = await SharedPreferences.getInstance();
-    final String? userListString = prefs.getString('userList');
-
-    if (userListString != null) {
-      // Decode the JSON string back to a list of maps
-      List<dynamic> userListJson = jsonDecode(userListString);
-      return userListJson
-          .map((user) => Map<String, String>.from(user))
-          .toList();
-    }
-    return [];
   }
 
   Future<void> clearUserData() async {

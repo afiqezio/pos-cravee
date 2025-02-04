@@ -14,7 +14,7 @@ class SidebarState extends StateNotifier<SidebarSelection> {
   }
 
   void resetSelection() {
-    state = SidebarSelection(); // Reset to default values
+    state = SidebarSelection();
   }
 }
 
@@ -23,8 +23,7 @@ class SidebarSelection {
   final int headerIndex;
   final int footerIndex;
 
-  SidebarSelection(
-      {this.headerIndex = 1, this.footerIndex = -1}); // Default values
+  SidebarSelection({this.headerIndex = 1, this.footerIndex = -1});
 }
 
 // Create a provider for the SidebarState

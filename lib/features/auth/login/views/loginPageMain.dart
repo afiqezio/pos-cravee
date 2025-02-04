@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:possystem/app/app.dart';
 import 'package:possystem/features/auth/login/viewmodels/authViewmodel.dart';
-import 'package:possystem/features/auth/login/views/widgets/snackbar.dart';
 import 'package:possystem/core/utils/appHelper.dart';
 import 'package:possystem/widgets/customButton.dart';
 import 'package:possystem/widgets/customLoading.dart';
+import 'widgets/snackbar.dart';
 
 class LoginPage extends ConsumerWidget {
   final TextEditingController _emailController = TextEditingController();
@@ -61,52 +60,30 @@ class LoginPage extends ConsumerWidget {
               const SizedBox(height: 24),
               authState.when(
                 data: (user) {
-                  return Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: screenWidth * 0.26),
-                    child: CustomActionButton(
-                      label: 'Login',
-                      textStyle: AppTexts.medium(
-                          size: 16, color: AppColors.secondaryText),
-                      onTap: () async {
-                        final email = _emailController.text.trim();
-                        final password = _passwordController.text.trim();
-
-                        if (email.isEmpty || password.isEmpty) {
-                          showSnackBar(context,
-                              'Please fill in both email and password.');
-                          return;
-                        }
-
-                        final success = await ref
-                            .read(authViewModelProvider.notifier)
-                            .login(email, password, ref);
-
-                        if (success) {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => AppPage()),
-                          );
-                        } else {
-                          showSnackBar(
-                              context, 'Login failed. Please try again.');
-                        }
-                      },
+                  return _LoginButton(
+                    screenWidth: screenWidth,
+                    onPressed: () => loginValidation(
+                      _emailController.text.trim(),
+                      _passwordController.text.trim(),
+                      context,
+                      ref,
                     ),
                   );
                 },
-                error: (error, stackTrace) => Padding(
-                  padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.3),
-                  child: CustomActionButton(
-                    label: 'Retry',
-                    textStyle: AppTexts.medium(
-                        size: 16, color: AppColors.secondaryText),
-                    backgroundColor: AppColors.secondary,
-                    onTap: () {
-                      ref.read(authViewModelProvider.notifier).logout(ref);
-                    },
-                  ),
-                ),
+                error: (error, stackTrace) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    showSnackBar(context, error.toString());
+                  });
+                  return _LoginButton(
+                    screenWidth: screenWidth,
+                    onPressed: () => loginValidation(
+                      _emailController.text.trim(),
+                      _passwordController.text.trim(),
+                      context,
+                      ref,
+                    ),
+                  );
+                },
                 loading: () => Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: screenWidth * 0.38, vertical: 12),
@@ -116,6 +93,28 @@ class LoginPage extends ConsumerWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _LoginButton extends StatelessWidget {
+  final double screenWidth;
+  final VoidCallback onPressed;
+
+  const _LoginButton({
+    required this.screenWidth,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.26),
+      child: CustomActionButton(
+        label: 'Login',
+        textStyle: AppTexts.medium(size: 16, color: AppColors.secondaryText),
+        onTap: onPressed,
       ),
     );
   }

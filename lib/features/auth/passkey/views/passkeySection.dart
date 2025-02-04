@@ -1,13 +1,13 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:possystem/app/app.dart';
-import 'package:possystem/features/auth/login/viewmodels/userViewmodel.dart';
 import 'package:possystem/features/auth/passkey/viewmodels/passkeyViewmodel.dart';
 import 'package:possystem/core/utils/appHelper.dart';
-import 'package:possystem/features/auth/login/views/widgets/loginDropdown.dart';
+import 'package:possystem/features/auth/passkey/views/widgets/loginDropdown.dart';
 import 'package:possystem/widgets/customLoading.dart';
-// as loginDropdown;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PasskeySection extends ConsumerStatefulWidget {
   const PasskeySection({Key? key}) : super(key: key);
@@ -21,17 +21,31 @@ class _PasskeySectionState extends ConsumerState<PasskeySection> {
   List<Map<String, String>> userList = [];
   bool isLoading = false;
 
+  Future<List<Map<String, String>>> getPreferencesUserList() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? userListString = prefs.getString('userList');
+
+    if (userListString != null) {
+      // Decode the JSON string back to a list of maps
+      List<dynamic> userListJson = jsonDecode(userListString);
+      return userListJson
+          .map((user) => Map<String, String>.from(user))
+          .toList();
+    }
+    return [];
+  }
+
   @override
   void initState() {
     super.initState();
-    ref.read(userProvider.notifier).getPreferencesUserList().then((value) {
+    getPreferencesUserList().then((value) {
       setState(() {
         userList = value;
         // Assign the first item to the selectedDropdownValueProvider if userList is not empty
         if (userList.isNotEmpty) {
           ref.read(selectedDropdownValueProvider.notifier).state =
               DropdownModel(
-            id: userList.first['id'] ?? '4',
+            id: userList.first['id'] ?? '0',
             title:
                 '${userList.first['firstName'] ?? ''} ${userList.first['lastName'] ?? ''}',
             description: '12:00 PM - 06:00 PM',
@@ -65,13 +79,11 @@ class _PasskeySectionState extends ConsumerState<PasskeySection> {
               textAlign: TextAlign.center),
           SizedBox(height: 15),
           LoginDropdown(
-            // title: "Izzat Hidir",
-            // subtitle: "12:00 PM - 10:00 PM",
             imagePath: 'assets/images/person.png',
             items: userList.isNotEmpty
                 ? userList
                     .map((user) => DropdownModel(
-                          id: user['id'] ?? '4',
+                          id: user['id'] ?? '0',
                           // id: 1,
                           title:
                               '${user['firstName'] ?? ''} ${user['lastName'] ?? ''}',

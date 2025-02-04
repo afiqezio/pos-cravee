@@ -11,6 +11,7 @@ class CustomActionButton extends StatelessWidget {
   final TextStyle? textStyle;
   final double? borderRadius;
   final EdgeInsets? padding;
+  final bool isLoading;
 
   CustomActionButton({
     Key? key,
@@ -23,12 +24,13 @@ class CustomActionButton extends StatelessWidget {
     this.textStyle,
     this.borderRadius = 6,
     this.padding = const EdgeInsets.all(12),
+    this.isLoading = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: isLoading ? null : onTap,
       child: Container(
         decoration: BoxDecoration(
           color: backgroundColor,
@@ -40,11 +42,13 @@ class CustomActionButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                label,
-                style: textStyle ??
-                    AppTexts.regular(size: 16, color: Colors.white),
-              ),
+              isLoading
+                  ? const CircularProgressIndicator()
+                  : Text(
+                      label,
+                      style: textStyle ??
+                          AppTexts.regular(size: 16, color: Colors.white),
+                    ),
               SizedBox(width: 6),
               icon != null
                   ? Icon(icon, color: iconColor ?? Colors.white, size: 20)

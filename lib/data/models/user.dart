@@ -32,18 +32,18 @@ class User {
     );
   }
 
-  // Map<String, dynamic> toJson() {
-  //   return {
-  //     'id': id,
-  //     'username': username,
-  //     'email': email,
-  //     'firstName': firstName,
-  //     'lastName': lastName,
-  //     'gender': gender,
-  //     'image': image,
-  //     'accessToken': accessToken,
-  //   };
-  // }
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'username': username,
+      'email': email,
+      'firstName': firstName,
+      'lastName': lastName,
+      'gender': gender,
+      'image': image,
+      // 'accessToken': accessToken,
+    };
+  }
 }
 
 class UserResponse {
