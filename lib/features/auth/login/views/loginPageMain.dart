@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:possystem/features/auth/login/viewmodels/authViewmodel.dart';
 import 'package:possystem/core/utils/appHelper.dart';
-import 'package:possystem/widgets/customButton.dart';
-import 'package:possystem/widgets/customLoading.dart';
+import 'package:possystem/widgets/custom/customButton.dart';
+import 'package:possystem/widgets/custom/customLoading.dart';
 import 'widgets/snackbar.dart';
 
 class LoginPage extends ConsumerWidget {

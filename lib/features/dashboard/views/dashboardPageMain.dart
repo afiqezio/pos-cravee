@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:possystem/core/utils/appHelper.dart';
-import 'package:possystem/widgets/customButton.dart';
-import 'package:possystem/widgets/customScaffold.dart';
+import 'package:possystem/widgets/custom/customButton.dart';
+import 'package:possystem/widgets/custom/customScaffold.dart';
 import 'package:possystem/features/dashboard/views/summarySection.dart';
 
 class DashboardPageMain extends StatelessWidget {
@@ -32,8 +32,11 @@ class DashboardPageMain extends StatelessWidget {
             },
           ),
         ],
-        child: Row(children: [
-          SummarySection(),
-        ]));
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12.0),
+          child: Column(children: [
+            SummarySection(),
+          ]),
+        ));
   }
 }

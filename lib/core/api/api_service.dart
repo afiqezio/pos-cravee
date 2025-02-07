@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:possystem/core/exceptions/api_exception.dart';
 
 class ApiService {
-  static const String _baseUrl = 'https://dummyjson.com';
+  static const String _baseUrl = 'http://127.0.0.1:4000/api';
 
   final http.Client _client;
 

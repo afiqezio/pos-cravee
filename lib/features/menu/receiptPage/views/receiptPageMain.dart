@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:possystem/widgets/customMainContainer.dart';
+import 'package:possystem/widgets/custom/customMainContainer.dart';
 import 'package:possystem/features/menu/receiptPage/views/receiptSection.dart';
 import 'paymentDetailSection.dart';
 

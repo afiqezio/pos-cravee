@@ -250,10 +250,6 @@ class _CashSectionState extends ConsumerState<CashSection> {
 
         // Update the cashProvider with the new value
         ref.read(cashProvider.notifier).state = convertRM;
-
-        // Update the paymentChangeProvider
-        // ref.read(paymentChangeProvider.notifier).state =
-        //     ref.watch(cashProvider) - ref.watch(cartTotalProvider);
       }
     }
   }
@@ -272,10 +268,6 @@ class _CashSectionState extends ConsumerState<CashSection> {
         // Format the value to ensure it has 2 decimal places
         ref.read(cashProvider.notifier).state =
             double.parse(newValue.toStringAsFixed(2));
-
-        // Update Changes
-        // ref.read(paymentChangeProvider.notifier).state =
-        //     ref.watch(cashProvider) - ref.watch(cartTotalProvider);
       } else {
         // Integer Function
         double currentValue = ref.watch(cashProvider);
@@ -298,17 +290,11 @@ class _CashSectionState extends ConsumerState<CashSection> {
         // Format the value to ensure it has 2 decimal places
         ref.read(cashProvider.notifier).state =
             double.parse(newValue.toStringAsFixed(2));
-
-        // Update Changes
-        // ref.read(paymentChangeProvider.notifier).state =
-        //     ref.watch(cashProvider) - ref.watch(cartTotalProvider);
       }
     }
   }
 
-  Widget _buildKeypadButtonInt(
-      // String digit, TextEditingController pinController, WidgetRef ref) {
-      int digit) {
+  Widget _buildKeypadButtonInt(int digit) {
     return SizedBox(
       width: 140,
       height: 60,
@@ -320,11 +306,6 @@ class _CashSectionState extends ConsumerState<CashSection> {
           ),
         ),
         onPressed: () {
-          // final currentPin = ref.read(pinProvider);
-          // if (currentPin.length < 6) {
-          //   ref.read(pinProvider.notifier).state = currentPin + digit;
-          //   ref.read(loginErrorProvider.notifier).state = "";
-          // }
           _onButtonPressed(false, digit);
         },
         child: Text(
@@ -335,9 +316,7 @@ class _CashSectionState extends ConsumerState<CashSection> {
     );
   }
 
-  Widget _buildKeypadButtonPlus(
-      // String digit, TextEditingController pinController, WidgetRef ref) {
-      int number) {
+  Widget _buildKeypadButtonPlus(int number) {
     return SizedBox(
       width: 140,
       height: 60,
@@ -349,11 +328,6 @@ class _CashSectionState extends ConsumerState<CashSection> {
           ),
         ),
         onPressed: () {
-          // final currentPin = ref.read(pinProvider);
-          // if (currentPin.length < 6) {
-          //   ref.read(pinProvider.notifier).state = currentPin + digit;
-          //   ref.read(loginErrorProvider.notifier).state = "";
-          // }
           _onButtonPressed(true, number);
         },
         child: Text(

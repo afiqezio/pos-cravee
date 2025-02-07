@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CustomSubContainer extends StatelessWidget {
+class SettingsContainer extends StatelessWidget {
   final Widget child;
   final Color? backgroundColor;
 
-  const CustomSubContainer(
+  const SettingsContainer(
       {required this.child, this.backgroundColor = Colors.white, super.key});
 
   @override

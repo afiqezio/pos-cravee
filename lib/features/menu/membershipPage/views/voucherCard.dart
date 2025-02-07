@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:possystem/data/models/voucher.dart';
 import 'package:possystem/features/menu/selectionPage/viewmodels/cartProvider.dart';
 import 'package:possystem/core/utils/appHelper.dart';
-import 'package:possystem/widgets/customCircle.dart';
+import 'package:possystem/widgets/custom/customCircle.dart';
 
 class VoucherCard extends ConsumerWidget {
   final Voucher voucher;

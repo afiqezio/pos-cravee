@@ -1,194 +1,384 @@
+// import 'package:flutter/material.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:go_router/go_router.dart';
+// import 'package:possystem/features/constant/sidebar/viewmodels/sidebarViewmodel.dart';
+// import 'package:possystem/core/utils/appHelper.dart';
+// import 'package:possystem/features/constant/sidebar/views/appbarMain.dart';
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:possystem/models/addOn.dart';
-// import 'package:possystem/models/cart.dart';
-// import 'package:possystem/models/salesDetails.dart';
-// import 'package:possystem/features/menu/entryPage/providers/menuChoose.dart';
-// import '../models/product.dart';
 
-// // Define the cart provider
-// final cartProvider = StateProvider<Map<Product, CartItem>>((ref) => {});
+// class ScaffoldWithNavBar extends ConsumerStatefulWidget {
+//   final Widget child;
 
-// // Define the category title provider
-// final categoryTitleProvider = StateProvider<String>((ref) => '');
+//   const ScaffoldWithNavBar({Key? key, required this.child}) : super(key: key);
 
-// // Add product function
-// void addProduct(
-//   WidgetRef ref,
-//   Product product,
-//   int quantity,
-//   List<AddOn>? addOns,
-//   String? notes,
-// ) {
-//   if (quantity != 0) {
-//     final cart = ref.read(cartProvider.notifier).state;
-
-//     if (cart.containsKey(product)) {
-//       // Update quantity and ensure add-ons are unique
-//       final currentCartItem = cart[product]!;
-//       final updatedAddOns = <AddOn>{
-//         ...?currentCartItem.addOns, // Existing add-ons (null-safe)
-//         ...?addOns, // New add-ons (null-safe)
-//       }.toList(); // Convert back to a list
-
-//       cart[product] = CartItem(
-//         quantity: currentCartItem.quantity + quantity,
-//         addOns: updatedAddOns,
-//         notes: notes ??
-//             currentCartItem
-//                 .notes, // Preserve existing notes if no new notes are provided
-//       );
-//     } else {
-//       // Add new product with initial details
-//       cart[product] = CartItem(
-//         quantity: quantity,
-//         addOns: addOns ?? [], // Default to an empty list if addOns is null
-//         notes: notes ?? '', // Default to an empty string if notes is null
-//       );
-//     }
-
-//     // Update the cart state
-//     ref.read(cartProvider.notifier).state = {...cart};
-//   }
+//   @override
+//   _ScaffoldWithNavBarState createState() => _ScaffoldWithNavBarState();
 // }
 
-// // Remove product function
-// void removeProduct(WidgetRef ref, Product product, int quantity) {
-//   final cart = ref.read(cartProvider.notifier).state;
+// class _ScaffoldWithNavBarState extends ConsumerState<ScaffoldWithNavBar> {
+//   bool _isCollapsed = true;
+//   Map<int, bool> _sublistExpanded = {};
 
-//   if (cart.containsKey(product)) {
-//     final currentCartItem = cart[product]!;
-//     if (currentCartItem.quantity > quantity) {
-//       // Reduce the quantity
-//       cart[product] = CartItem(
-//         quantity: currentCartItem.quantity - quantity,
-//         addOns: currentCartItem.addOns,
-//         notes: currentCartItem.notes,
-//       );
-//     } else {
-//       // Remove the product completely
-//       cart.remove(product);
+//   final List<Map<String, dynamic>> _sidebarItems = [
+//     {
+//       'index': 1,
+//       'icon': 'assets/svg/sidebar/dashboard.svg',
+//       'text': 'Dashboard',
+//       'route': '/dashboard',
+//     },
+//     {
+//       'index': 2,
+//       'icon': 'assets/svg/sidebar/menu.svg',
+//       'text': 'Menu',
+//       'route': '/menu',
+//     },
+//     {
+//       'index': 3,
+//       'icon': 'assets/svg/sidebar/transactions.svg',
+//       'text': 'Transactions',
+//       'route': '/transactions',
+//     },
+//     {
+//       'index': 4,
+//       'icon': 'assets/svg/sidebar/product.svg',
+//       'text': 'Product',
+//       'route': '/product',
+//       'subItems': [
+//         {
+//           'index': 1,
+//           'icon': 'assets/svg/sidebar/product.svg',
+//           'text': 'Category',
+//           'route': '/product/category',
+//         },
+//         {
+//           'index': 2,
+//           'icon': 'assets/svg/sidebar/product.svg',
+//           'text': 'Remove Menu',
+//           'route': '/product/category',
+//         },
+//         {
+//           'index': 3,
+//           'icon': 'assets/svg/sidebar/product.svg',
+//           'text': 'Remove Menu',
+//           'route': '/product/category',
+//         },
+//         {
+//           'index': 4,
+//           'icon': 'assets/svg/sidebar/product.svg',
+//           'text': 'Remove Menu',
+//           'route': '/product/category',
+//         },
+//       ],
+//     },
+//     {
+//       'index': 5,
+//       'icon': 'assets/svg/sidebar/report.svg',
+//       'text': 'Report',
+//       'route': '/report',
 //     }
+//   ];
+
+//   final List<Map<String, dynamic>> _sidebarFooterItems = [
+//     {
+//       'index': 1,
+//       'icon': 'assets/svg/sidebar/settings.svg',
+//       'text': 'Settings',
+//       'route': '/settings',
+//     },
+//     {
+//       'index': 2,
+//       'icon': 'assets/svg/sidebar/logout.svg',
+//       'text': 'Logout',
+//       'route': '/logout',
+//     },
+//   ];
+
+//   void toggleSidebar() {
+//     if (!mounted) return;
+//     setState(() {
+//       _isCollapsed = !_isCollapsed;
+//     });
 //   }
 
-//   // Update the cart state
-//   ref.read(cartProvider.notifier).state = {...cart};
-// }
+//   @override
+//   void initState() {
+//     super.initState();
+//     // Initialize all parent items to be collapsed by default
+//     WidgetsBinding.instance.addPostFrameCallback((_) {
+//       ref.read(sidebarProvider.notifier).selectHeaderIndex(1);
+//       ref.read(sidebarProvider.notifier).selectFooterIndex(-1);
+//       context.go('/dashboard');
+//       for (int i = 0; i < _sidebarItems.length; i++) {
+//         if (_sidebarItems[i]['subItems'] != null) {
+//           _sublistExpanded[i] = false;
+//         }
+//       }
+//     });
+//   }
 
-// // Update product function
-// void updateProduct(WidgetRef ref, Product product, int quantity,
-//     List<AddOn>? addOns, String? notes) {
-//   if (quantity != 0) {
-//     final cart = ref.read(cartProvider.notifier).state;
-
-//     // Update or add the product with new details
-//     cart[product] = CartItem(
-//       quantity: quantity,
-//       addOns: addOns!,
-//       notes: notes!,
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Row(
+//         children: [
+//           // Sidebar
+//           GestureDetector(
+//             onHorizontalDragUpdate: (details) {
+//               if (!mounted) return;
+//               setState(() {
+//                 // Adjust the width based on drag distance
+//                 if (details.delta.dx > 10) {
+//                   // Dragging right
+//                   _isCollapsed = false;
+//                 } else if (details.delta.dx < -10) {
+//                   // Dragging left
+//                   _isCollapsed = true;
+//                 }
+//               });
+//             },
+//             child: AnimatedContainer(
+//               duration: Duration(milliseconds: 300),
+//               width: _isCollapsed ? 80 : 240,
+//               decoration: BoxDecoration(
+//                 color: AppColors.primary,
+//               ),
+//               child: Column(
+//                 children: [
+//                   SizedBox(height: 16),
+//                   // Logo at the top of the sidebar
+//                   GestureDetector(
+//                     onTap: toggleSidebar,
+//                     child: Padding(
+//                       padding: _isCollapsed
+//                           ? EdgeInsets.fromLTRB(6.0, 6, 6.0, 30)
+//                           : EdgeInsets.fromLTRB(2.0, 8, 2.0, 30),
+//                       child: Center(
+//                         child: SvgPicture.asset(
+//                           'assets/svg/pretzley_logo.svg',
+//                           height: 70,
+//                           key: ValueKey('collapsed_logo'),
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                   // Header
+//                   Expanded(
+//                     flex: 7,
+//                     child: SingleChildScrollView(
+//                       child: Column(
+//                         children: [
+//                           ..._sidebarItems.map((item) {
+//                             // final index = _sidebarItems.indexOf(item);
+//                             return _buildSidebarItem(
+//                               icon: item['icon'],
+//                               text: item['text'],
+//                               route: item['subItems'] != null &&
+//                                       item['subItems'].isNotEmpty
+//                                   ? item['subItems'][0]['route']
+//                                   : item['route'],
+//                               index: item['index'],
+//                               isFooterItem: false,
+//                               subItems: item['subItems']
+//                                   ?.asMap()
+//                                   .entries
+//                                   .map<Widget>((entry) {
+//                                 int subIndex = entry.key;
+//                                 var subItem = entry.value;
+//                                 return _buildSidebarItem(
+//                                   icon: subItem['icon'],
+//                                   text: subItem['text'],
+//                                   route: subItem['route'],
+//                                   index: item['index'] * 100 + subIndex,
+//                                   isFooterItem: false,
+//                                 );
+//                               }).toList(),
+//                             );
+//                           }).toList(),
+//                         ],
+//                       ),
+//                     ),
+//                   ),
+//                   // Footer
+//                   Expanded(
+//                       flex: 2,
+//                       child: Column(
+//                           mainAxisSize: MainAxisSize.min,
+//                           mainAxisAlignment: MainAxisAlignment.start,
+//                           children: [
+//                             ..._sidebarFooterItems.map((item) {
+//                               // final index = _sidebarFooterItems.indexOf(item);
+//                               return _buildSidebarItem(
+//                                 icon: item['icon'],
+//                                 text: item['text'],
+//                                 route: item['route'],
+//                                 index: item['index'],
+//                                 isFooterItem: true,
+//                               );
+//                             }).toList(),
+//                           ])),
+//                 ],
+//               ),
+//             ),
+//           ),
+//           // Main content
+//           Expanded(
+//               child: Scaffold(
+//             body: Scaffold(
+//               backgroundColor: AppColors.background,
+//               body: widget.child,
+//             ),
+//             appBar: CustomAppBar(),
+//           )),
+//         ],
+//       ),
 //     );
-
-//     // Update the cart state
-//     ref.read(cartProvider.notifier).state = {...cart};
-//   }
-// }
-
-// // Clear product function
-// void clearProduct(WidgetRef ref, Product product) {
-//   final cart = ref.read(cartProvider.notifier).state;
-
-//   if (cart.containsKey(product)) {
-//     cart.remove(product);
 //   }
 
-//   // Update the cart state with the modified cart
-//   ref.read(cartProvider.notifier).state = {...cart};
-// }
+//   // Helper method to build ListTile with icon and text
+//   Widget _buildSidebarItem({
+//     required String icon,
+//     required String text,
+//     required String route,
+//     required int index,
+//     bool isFooterItem = false,
+//     List<Widget>? subItems,
+//   }) {
+//     final selectedIndices = ref.watch(sidebarProvider);
+//     final selectedHeaderIndex = selectedIndices.headerIndex;
+//     final selectedFooterIndex = selectedIndices.footerIndex;
 
-// // Clear cart function
-// void clearCart(WidgetRef ref) {
-//   ref.read(cartProvider.notifier).state = {};
-// }
+//     bool isSelected = isFooterItem
+//         ? selectedFooterIndex == index
+//         : selectedHeaderIndex == index
+//             ? true
+//             : _isCollapsed
+//                 ? (selectedHeaderIndex >= index * 100 &&
+//                     selectedHeaderIndex < (index + 1) * 100)
+//                 : _sublistExpanded[index] != null &&
+//                         _sublistExpanded[index] == false
+//                     ? (selectedHeaderIndex >= index * 100 &&
+//                             selectedHeaderIndex < (index + 1) * 100)
+//                         ? true
+//                         : false
+//                     : false;
 
-// // Provider for filtered products
-// final filteredProductsProvider = Provider<List<Product>>((ref) {
-//   final allProducts = ref.watch(allProductsProvider);
-//   final selectedCategories = ref.watch(categorySelectionProvider);
+//     Color backgroundColor =
+//         isSelected ? AppColors.secondary : AppColors.transparent;
 
-//   // '0' ID representing All Products
-//   if (selectedCategories.contains("0")) {
-//     return allProducts;
-//   } else {
-//     // Filter products by matching category IDs
-//     return allProducts
-//         .where((product) =>
-//             selectedCategories.contains(product.categoryId.toString()))
-//         .toList();
-//   }
-// });
+//     return Column(
+//       children: [
+//         Padding(
+//           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+//           child: GestureDetector(
+//             onTap: () {
+//               if (subItems != null && subItems.isNotEmpty) {
+//                 if (!mounted) return;
+//                 setState(() {
+//                   // Collapse all other parent items
+//                   _sublistExpanded.forEach((key, value) {
+//                     if (key != index) {
+//                       _sublistExpanded[key] = false;
+//                     }
+//                   });
+//                   _sublistExpanded[index] = !(_sublistExpanded[index] ?? false);
 
-// final selectedAddOnProvider = StateProvider<List<AddOn>>((ref) => []);
-
-// final allProductsProvider = Provider<List<Product>>((ref) {
-//   return products;
-// });
-
-// // Cart Price Details
-// // final cartSubtotalProvider = StateProvider<double>((ref) => 0.0);
-// // final cartSalesProvider =
-// //     StateProvider<SalesDetails>((ref) => SalesDetails(totalSales: 0.0));
-// final cartVoucherProvider = StateProvider<double>((ref) => 0.0);
-
-// final cartSalesProvider = StateProvider<SalesDetails>((ref) {
-//   final cart = ref.watch(cartProvider);
-
-//   final double voucher = ref.watch(cartVoucherProvider);
-
-//   // Calculate totalSales, tax, and subtotal
-//   final totalSales = cart.entries.fold(
-//       0.0, (total, entry) => total + (entry.key.price * entry.value.quantity));
-
-//   final tax = totalSales * 0.07;
-//   final subtotal = totalSales + tax - voucher;
-
-//   // Return updated SalesDetails with discount and voucher applied
-//   return SalesDetails(
-//     totalSales: totalSales,
-//     voucher: voucher,
-//     tax: tax,
-//     subtotal: subtotal,
-//   );
-// });
-
-// bool isItemAddedInProvider(WidgetRef ref, AddOn addOnItem) {
-//   final cart = ref.watch(cartProvider);
-
-//   // Iterate through the cart to check if the add-on is already added
-//   for (var entry in cart.entries) {
-//     final productAddOns = entry.value.addOns;
-//     if (productAddOns != null && productAddOns.contains(addOnItem)) {
-//       return true;
-//     }
-//   }
-//   return false;
-// }
-
-// void removeAddOnFromCart(WidgetRef ref, Product product, AddOn addOnItem) {
-//   final cart = ref.read(cartProvider.notifier).state;
-
-//   if (cart.containsKey(product)) {
-//     final currentCartItem = cart[product]!;
-
-//     // Remove the add-on if it exists
-//     final updatedAddOns =
-//         currentCartItem.addOns?.where((addOn) => addOn != addOnItem).toList();
-
-//     cart[product] = CartItem(
-//       quantity: currentCartItem.quantity,
-//       addOns: updatedAddOns,
-//       notes: currentCartItem.notes,
+//                   if (_isCollapsed) {
+//                     _isCollapsed = false;
+//                     _sublistExpanded[index] = true;
+//                   }
+//                 });
+//               } else {
+//                 if (isFooterItem) {
+//                   ref.read(sidebarProvider.notifier).selectFooterIndex(
+//                       index); // Set the selected index for the footer item
+//                   ref
+//                       .read(sidebarProvider.notifier)
+//                       .selectHeaderIndex(-1); // Deselect any header item
+//                 } else {
+//                   ref.read(sidebarProvider.notifier).selectHeaderIndex(
+//                       index); // Set the selected index for the header item
+//                   ref
+//                       .read(sidebarProvider.notifier)
+//                       .selectFooterIndex(-1); // Deselect any footer item
+//                 }
+//                 context.go(route);
+//               }
+//             },
+//             child: Container(
+//               decoration: BoxDecoration(
+//                 color: backgroundColor,
+//                 borderRadius: BorderRadius.circular(8.0),
+//               ),
+//               child: Padding(
+//                 padding: const EdgeInsets.all(12),
+//                 child: Row(
+//                   mainAxisAlignment: _isCollapsed
+//                       ? MainAxisAlignment.center
+//                       : MainAxisAlignment.start,
+//                   children: [
+//                     SvgPicture.asset(icon,
+//                         width: 22, color: AppColors.canvasPrimary),
+//                     AnimatedContainer(
+//                       duration: Duration(milliseconds: 300),
+//                       width: _isCollapsed ? 0 : 12,
+//                     ),
+//                     if (!_isCollapsed)
+//                       Expanded(
+//                         child: Row(
+//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                           children: [
+//                             Expanded(
+//                               child: Text(
+//                                 text,
+//                                 style: AppTexts.regular(
+//                                     size: 16, color: AppColors.secondaryText),
+//                                 overflow: TextOverflow.ellipsis,
+//                                 maxLines: 1,
+//                               ),
+//                             ),
+//                             if (subItems != null && subItems.isNotEmpty)
+//                               Flexible(
+//                                 child: Icon(
+//                                   (_sublistExpanded[index] ?? false)
+//                                       ? Icons.keyboard_arrow_down_outlined
+//                                       : Icons.keyboard_arrow_right_outlined,
+//                                   color: AppColors.canvasPrimary,
+//                                   size: 18,
+//                                 ),
+//                               ),
+//                           ],
+//                         ),
+//                       ),
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           ),
+//         ),
+//         // Render subitems if the parent is expanded
+//         if ((_sublistExpanded[index] ?? false) &&
+//             subItems != null &&
+//             subItems.isNotEmpty &&
+//             !_isCollapsed) ...[
+//           Padding(
+//             padding: const EdgeInsets.symmetric(horizontal: 3),
+//             child: Column(
+//               mainAxisSize: MainAxisSize.min,
+//               children: subItems.map<Widget>((subItem) {
+//                 return subItem;
+//               }).toList(),
+//             ),
+//           ),
+//         ] else ...[
+//           SizedBox.shrink(),
+//         ],
+//       ],
 //     );
+//   }
 
-//     // Update the cart state
-//     ref.read(cartProvider.notifier).state = {...cart};
+//   @override
+//   void dispose() {
+//     // Cancel any controllers, timers, etc. here
+//     super.dispose();
 //   }
 // }

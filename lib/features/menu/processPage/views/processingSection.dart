@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:possystem/core/utils/appHelper.dart';
-import 'package:possystem/widgets/customLoading.dart';
+import 'package:possystem/widgets/custom/customLoading.dart';
 import 'dart:async';
 
 class ProcessingSection extends ConsumerStatefulWidget {

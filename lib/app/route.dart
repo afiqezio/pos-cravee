@@ -12,6 +12,12 @@ import 'package:possystem/features/product/category/views/categoryPageMain.dart'
 import 'package:possystem/features/setting/settingPageMain.dart';
 import 'package:possystem/features/constant/sidebar/views/sideAppBar.dart';
 
+GoRouter? globalGoRouter;
+
+GoRouter getGoRouter() {
+  return globalGoRouter ??= appRouter;
+}
+
 final GoRouter appRouter = GoRouter(
   initialLocation: '/dashboard',
   routes: [

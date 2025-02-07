@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:possystem/features/constant/sidebar/views/appbarProfileSection.dart';
+import 'package:possystem/features/constant/sidebar/views/appbar/appbarProfileSection.dart';
 import 'package:possystem/core/utils/appHelper.dart';
 
 class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {

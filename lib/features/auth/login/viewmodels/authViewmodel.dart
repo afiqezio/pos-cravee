@@ -26,13 +26,13 @@ class AuthViewModel extends StateNotifier<AsyncValue<LoginResponse?>> {
     debugPrint('login: $username, $password');
     try {
       final loginResponse = await repository.login(
-        LoginRequest(username: username, password: password),
+        LoginRequest(email: username, password: password),
       );
       state = AsyncData(loginResponse);
 
-      await ref
-          .read(userProvider.notifier)
-          .savePreferencesUserData(loginResponse.user);
+      // await ref
+      //     .read(userProvider.notifier)
+      //     .savePreferencesUserData(loginResponse.user);
 
       final storage = FlutterSecureStorage();
       const kAccessTokenKey = 'access_token';

@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:possystem/data/models/voucher.dart';
 import 'package:possystem/core/utils/appHelper.dart';
-import 'package:possystem/widgets/customBackButton.dart';
-import 'package:possystem/widgets/customMainContainer.dart';
+import 'package:possystem/widgets/custom/customBackButton.dart';
+import 'package:possystem/widgets/custom/customMainContainer.dart';
 import 'package:possystem/features/menu/membershipPage/views/voucherCard.dart';
 import 'membershipProfile.dart';
 

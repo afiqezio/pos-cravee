@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:possystem/features/constant/sidebar/viewmodels/sidebarViewmodel.dart';
 import 'package:possystem/features/menu/selectionPage/viewmodels/cartProvider.dart';
 import 'package:possystem/features/menu/processPage/viewmodels/cashProvider.dart';
 import 'package:possystem/core/utils/appHelper.dart';
-import 'package:possystem/widgets/customScaffold.dart';
+import 'package:possystem/widgets/custom/customScaffold.dart';
 import 'package:possystem/features/auth/passkey/views/passkeyMain.dart';
 
 class LogoutPage extends ConsumerWidget {
@@ -19,7 +20,7 @@ class LogoutPage extends ConsumerWidget {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close dialog
+                Navigator.of(context).pop();
               },
               child: const Text(
                 'Cancel',
@@ -28,7 +29,7 @@ class LogoutPage extends ConsumerWidget {
             ),
             TextButton(
               onPressed: () {
-                // ref.read(sidebarProvider.notifier).resetSelection();
+                ref.read(sidebarProvider.notifier).resetSelection();
                 clearCart(ref);
                 clearCashProvider(ref);
                 Navigator.of(context).pop();

@@ -4,7 +4,7 @@ import 'package:possystem/core/exceptions/api_exception.dart';
 import 'package:possystem/data/models/authModel.dart';
 
 class AuthRepository {
-  static const String _loginEndpoint = '/auth/login';
+  static const String _loginEndpoint = '/auth/admin-login';
 
   final ApiService _apiService;
 

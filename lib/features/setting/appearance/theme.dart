@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:possystem/core/utils/appHelper.dart';
-import 'package:possystem/widgets/customSwitch.dart';
+import 'package:possystem/widgets/custom/customSwitch.dart';
 
 class ThemeSection extends StatelessWidget {
   const ThemeSection({super.key});

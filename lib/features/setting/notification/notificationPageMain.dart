@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:possystem/core/utils/appHelper.dart';
-import 'package:possystem/widgets/customSubContainer.dart';
-import 'package:possystem/widgets/customSwitch.dart';
+import 'package:possystem/widgets/constant/settingsContainer.dart';
+import 'package:possystem/widgets/custom/customSwitch.dart';
 
 class NotificationPageMain extends StatelessWidget {
   const NotificationPageMain({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return CustomSubContainer(
+    return SettingsContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

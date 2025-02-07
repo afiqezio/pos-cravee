@@ -6,7 +6,7 @@ import 'package:possystem/app/app.dart';
 import 'package:possystem/features/auth/passkey/viewmodels/passkeyViewmodel.dart';
 import 'package:possystem/core/utils/appHelper.dart';
 import 'package:possystem/features/auth/passkey/views/widgets/loginDropdown.dart';
-import 'package:possystem/widgets/customLoading.dart';
+import 'package:possystem/widgets/custom/customLoading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PasskeySection extends ConsumerStatefulWidget {

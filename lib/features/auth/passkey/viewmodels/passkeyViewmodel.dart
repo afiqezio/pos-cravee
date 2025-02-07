@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:possystem/data/repo/auth_repo.dart';
-import 'package:possystem/data/repo/user_repo.dart';
-import 'package:possystem/features/auth/login/viewmodels/userViewmodel.dart';
+// import 'package:possystem/data/repo/user_repo.dart';
+// import 'package:possystem/features/auth/login/viewmodels/userViewmodel.dart';
 import 'package:possystem/features/auth/passkey/views/widgets/loginDropdown.dart';
 import 'package:possystem/core/utils/appHelper.dart';
 
@@ -14,7 +14,7 @@ final selectedDropdownValueProvider =
 
 Future<bool> loginByKey(String pin, WidgetRef ref) async {
   final repository = ref.watch(authRepositoryProvider);
-  final userRepository = ref.watch(userRepositoryProvider);
+  // final userRepository = ref.watch(userRepositoryProvider);
   final username = ref.watch(selectedDropdownValueProvider);
 
   if (username == null) {
@@ -23,17 +23,17 @@ Future<bool> loginByKey(String pin, WidgetRef ref) async {
 
   final success = await repository.loginByKey(username.title, pin);
 
-  if (success) {
-    final selectedUser = ref.watch(selectedDropdownValueProvider);
+  // if (success) {
+  //   final selectedUser = ref.watch(selectedDropdownValueProvider);
 
-    // Convert DropdownModel to User (assuming you have a User class)
-    if (selectedUser != null) {
-      final user = await userRepository.fetchUserById(selectedUser.id);
+  //   // Convert DropdownModel to User (assuming you have a User class)
+  //   if (selectedUser != null) {
+  //     final user = await userRepository.fetchUserById(selectedUser.id);
 
-      // Assign the selected user to the userProvider
-      ref.read(userProvider.notifier).setUser(user);
-    }
-  }
+  //     // Assign the selected user to the userProvider
+  //     ref.read(userProvider.notifier).setUser(user);
+  //   }
+  // }
 
   return success;
 }
