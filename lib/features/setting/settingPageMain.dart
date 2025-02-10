@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:possystem/widgets/custom/customScaffold.dart';
+import 'package:possystem/widgets/constant/appScaffold.dart';
 import 'package:possystem/features/setting/appearance/appearancePageMain.dart';
 import 'package:possystem/features/setting/notification/notificationPageMain.dart';
 import 'settingNav.dart';
@@ -25,7 +25,7 @@ class _SettingPageMainState extends State<SettingPageMain> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
+    return AppScaffold(
       title: 'Setting',
       subtitle:
           'Adjust business preferences, and integrate with third-party tools.',

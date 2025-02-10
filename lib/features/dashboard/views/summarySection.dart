@@ -11,24 +11,16 @@ class SummarySection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final summaryItems = ref.watch(summaryProvider);
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final int count = summaryItems.length;
-        final double containerWidth = (constraints.maxWidth / count) - 24.0;
-
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: summaryItems.map((item) {
-            return DashboardContainer(
-              width: containerWidth,
-              child: SummaryItem(
-                value: item.value,
-                label: item.label,
-              ),
-            );
-          }).toList(),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: summaryItems.map((item) {
+        return DashboardContainer(
+          child: SummaryItem(
+            value: item.value,
+            label: item.label,
+          ),
         );
-      },
+      }).toList(),
     );
   }
 }
@@ -45,10 +37,6 @@ class SummaryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final double screenWidth = MediaQuery.of(context).size.width;
-    // print(screenWidth);
-    // final double valueFontSize = screenWidth * 0.0169;
-    // final double labelFontSize = screenWidth * 0.0136;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,

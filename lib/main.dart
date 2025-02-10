@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     // // Example
     // return MaterialApp(
     //   title: 'Example',
-    //   home: ProductsPage(),
+    //   home: PieChartSample2(),
     // );
   }
 }

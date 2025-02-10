@@ -4,7 +4,7 @@ import 'package:possystem/features/constant/sidebar/viewmodels/sidebarViewmodel.
 import 'package:possystem/features/menu/selectionPage/viewmodels/cartProvider.dart';
 import 'package:possystem/features/menu/processPage/viewmodels/cashProvider.dart';
 import 'package:possystem/core/utils/appHelper.dart';
-import 'package:possystem/widgets/custom/customScaffold.dart';
+import 'package:possystem/widgets/constant/appScaffold.dart';
 import 'package:possystem/features/auth/passkey/views/passkeyMain.dart';
 
 class LogoutPage extends ConsumerWidget {
@@ -56,7 +56,7 @@ class LogoutPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return CustomScaffold(
+    return AppScaffold(
       title: 'Log Out',
       subtitle:
           'Confirmation screen before logging you out to prevent accidental logouts.',
